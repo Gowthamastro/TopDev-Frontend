@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      - topdev-network
+    restart: unless-stopped
+
+networks:
+  topdev-network:
+    name: backend_topdev-network
+    external: true
