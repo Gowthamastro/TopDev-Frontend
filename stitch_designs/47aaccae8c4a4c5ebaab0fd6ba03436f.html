@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark"><head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#0d59f2",
+          "background-light": "#f5f6f8",
+          "background-dark": "#0a0a0c",
+          "surface-dark": "#131316",
+          "border-dark": "#232328",
+          "accent-cyan": "#00f0ff",
+          "accent-purple": "#bd00ff",
+        },
+        fontFamily: {
+          "display": ["Space Grotesk"]
+        },
+        borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #0a0a0c;
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(13, 89, 242, 0.08), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(189, 0, 255, 0.05), transparent 25%);
+    background-attachment: fixed;
+  }
+  .glass-panel {
+    background: rgba(19, 19, 22, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+  .glow-text {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+  }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 sm:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col w-full max-w-[1200px] flex-1">
+<header class="glass-panel rounded-2xl flex items-center justify-between whitespace-nowrap px-8 py-4 mb-8">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-accent-cyan flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">hub</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] glow-text">TopDev</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64 hidden md:flex">
+<div class="flex w-full flex-1 items-stretch rounded-full h-full bg-surface-dark border border-border-dark focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<div class="text-slate-400 flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-r-full text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-slate-500 px-2 text-sm font-medium leading-normal" placeholder="Search data..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="hidden lg:flex items-center gap-8">
+<a class="text-white text-sm font-bold leading-normal border-b-2 border-accent-cyan pb-1" href="#">Analytics</a>
+<a class="text-slate-400 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Candidates</a>
+<a class="text-slate-400 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Pipeline</a>
+<a class="text-slate-400 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Settings</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-primary/50" data-alt="User avatar profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-gMf-YyLioTFPShFPlVT7ux51q1_Zx_haV3H1YyQokDAgG--NIeGzbfJ_LxVntiroWuj-MVeJ_tPTC--lpqTUuRNmBYQEBL0jwWFhN3hAA7KAGruwhJ7eVCtCZsNwi9fRWGRK5cPHMuq00xKj0ibb7XoBL1BBUdXetZrSLi8XC3XbNys7UMVPtX2LWYSAdufoN-LvJKURHU3I2_EYKiATrx1qJr01TVMb4tpdjC5RL9we49YB6xv9GAPfHF8iMLtQg4ib38D1qCQ");'></div>
+</div>
+</header>
+<div class="flex flex-wrap justify-between items-end gap-4 px-2 mb-8">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-accent-cyan animate-pulse"></span>
+<span class="text-accent-cyan text-xs font-bold tracking-widest uppercase">Live System</span>
+</div>
+<p class="text-white text-4xl lg:text-5xl font-black leading-tight tracking-[-0.03em] glow-text">Recruitment Matrix</p>
+<p class="text-slate-400 text-lg font-medium leading-normal">Neural-net driven insights on your talent pipeline</p>
+</div>
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center gap-2 rounded-xl h-11 px-6 bg-primary hover:bg-primary/90 text-white text-sm font-bold leading-normal tracking-[0.015em] transition-all shadow-[0_0_15px_rgba(13,89,242,0.5)]">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span class="truncate">Extract Data</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<div class="glass-panel flex flex-col gap-3 rounded-2xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-primary/20"></div>
+<div class="flex justify-between items-start z-10">
+<div class="flex items-center gap-2 text-slate-300">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<p class="text-sm font-medium leading-normal">Total Candidates</p>
+</div>
+<span class="material-symbols-outlined text-slate-600">more_horiz</span>
+</div>
+<div class="z-10 mt-2">
+<p class="text-white tracking-tight text-3xl font-black leading-tight">1,248</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">trending_up</span>
+<p class="text-accent-cyan text-sm font-bold leading-normal">+12.4% vs last cycle</p>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent"></div>
+</div>
+<div class="glass-panel flex flex-col gap-3 rounded-2xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-accent-purple/10 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-accent-purple/20"></div>
+<div class="flex justify-between items-start z-10">
+<div class="flex items-center gap-2 text-slate-300">
+<span class="material-symbols-outlined text-[20px]">record_voice_over</span>
+<p class="text-sm font-medium leading-normal">Active Interviews</p>
+</div>
+</div>
+<div class="z-10 mt-2">
+<p class="text-white tracking-tight text-3xl font-black leading-tight">342</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">trending_up</span>
+<p class="text-accent-cyan text-sm font-bold leading-normal">+5.2% vs last cycle</p>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-purple to-transparent"></div>
+</div>
+<div class="glass-panel flex flex-col gap-3 rounded-2xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-red-500/20"></div>
+<div class="flex justify-between items-start z-10">
+<div class="flex items-center gap-2 text-slate-300">
+<span class="material-symbols-outlined text-[20px]">local_activity</span>
+<p class="text-sm font-medium leading-normal">Offers Extended</p>
+</div>
+</div>
+<div class="z-10 mt-2">
+<p class="text-white tracking-tight text-3xl font-black leading-tight">84</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px] text-red-400">trending_down</span>
+<p class="text-red-400 text-sm font-bold leading-normal">-2.1% vs last cycle</p>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-transparent"></div>
+</div>
+<div class="glass-panel flex flex-col gap-3 rounded-2xl p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-accent-cyan/10 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-accent-cyan/20"></div>
+<div class="flex justify-between items-start z-10">
+<div class="flex items-center gap-2 text-slate-300">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+<p class="text-sm font-medium leading-normal">Acceptance Rate</p>
+</div>
+</div>
+<div class="z-10 mt-2">
+<p class="text-white tracking-tight text-3xl font-black leading-tight">76%</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px] text-accent-cyan">trending_up</span>
+<p class="text-accent-cyan text-sm font-bold leading-normal">+8.5% vs last cycle</p>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-cyan to-transparent"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<div class="lg:col-span-2 glass-panel flex flex-col gap-4 rounded-2xl p-6 relative">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h3 class="text-white text-lg font-bold leading-normal flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">monitoring</span>
+Growth Velocity
+</h3>
+<p class="text-slate-400 text-sm font-medium mt-1">Monthly talent acquisition rate</p>
+</div>
+<div class="flex bg-surface-dark rounded-lg p-1 border border-border-dark">
+<button class="px-3 py-1 rounded-md bg-border-dark text-white text-xs font-bold">1M</button>
+<button class="px-3 py-1 rounded-md text-slate-400 hover:text-white text-xs font-bold transition-colors">3M</button>
+<button class="px-3 py-1 rounded-md text-slate-400 hover:text-white text-xs font-bold transition-colors">1Y</button>
+</div>
+</div>
+<div class="flex items-end gap-3 mb-6">
+<p class="text-white tracking-tight text-4xl font-black leading-tight truncate glow-text">$1.2M</p>
+<div class="flex items-center gap-1 mb-1 px-2 py-1 rounded-md bg-accent-cyan/10 border border-accent-cyan/20">
+<span class="material-symbols-outlined text-[14px] text-accent-cyan">arrow_upward</span>
+<p class="text-accent-cyan text-xs font-bold leading-normal">18.2%</p>
+</div>
+</div>
+<div class="flex flex-col flex-1 min-h-[240px] relative mt-4">
+<!-- Simulated Line Chart -->
+<div class="absolute inset-0 flex items-end justify-between px-4 pb-8">
+<div class="w-full h-[1px] bg-border-dark absolute bottom-8 left-0"></div>
+<div class="w-full h-[1px] bg-border-dark absolute bottom-[calc(33%+2rem)] left-0 border-dashed border-border-dark"></div>
+<div class="w-full h-[1px] bg-border-dark absolute bottom-[calc(66%+2rem)] left-0 border-dashed border-border-dark"></div>
+<div class="w-full h-[1px] bg-border-dark absolute top-0 left-0 border-dashed border-border-dark"></div>
+</div>
+<div class="relative w-full h-[200px] z-10">
+<svg class="overflow-visible" fill="none" height="100%" preserveaspectratio="none" viewbox="0 0 500 200" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="neonGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#00f0ff"></stop>
+<stop offset="50%" stop-color="#0d59f2"></stop>
+<stop offset="100%" stop-color="#bd00ff"></stop>
+</lineargradient>
+<lineargradient id="fillGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#0d59f2" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#0d59f2" stop-opacity="0"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="4"></fegaussianblur>
+<femerge>
+<femergenode in="blur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<path d="M0,180 C50,180 80,140 120,150 C160,160 180,100 220,110 C260,120 280,60 320,80 C360,100 400,30 440,40 C470,45 490,20 500,20 L500,200 L0,200 Z" fill="url(#fillGradient)"></path>
+<path d="M0,180 C50,180 80,140 120,150 C160,160 180,100 220,110 C260,120 280,60 320,80 C360,100 400,30 440,40 C470,45 490,20 500,20" fill="none" filter="url(#glow)" stroke="url(#neonGradient)" stroke-linecap="round" stroke-width="4"></path>
+<!-- Data Points -->
+<circle cx="120" cy="150" fill="#00f0ff" r="4"></circle>
+<circle cx="220" cy="110" fill="#0d59f2" r="4"></circle>
+<circle cx="320" cy="80" fill="#0d59f2" r="4"></circle>
+<circle cx="440" cy="40" fill="#bd00ff" r="4"></circle>
+</svg>
+</div>
+<div class="flex justify-between px-2 mt-2 absolute bottom-0 w-full z-10">
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Jan</p>
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Feb</p>
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Mar</p>
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Apr</p>
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">May</p>
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Jun</p>
+<p class="text-slate-500 text-[11px] font-bold uppercase tracking-wider">Jul</p>
+</div>
+</div>
+</div>
+<div class="glass-panel flex flex-col gap-4 rounded-2xl p-6 relative">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-white text-lg font-bold leading-normal flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-purple text-[20px]">filter_alt</span>
+Funnel Conversion
+</h3>
+<span class="material-symbols-outlined text-slate-600">tune</span>
+</div>
+<div class="flex items-end gap-3 mb-6">
+<p class="text-white tracking-tight text-4xl font-black leading-tight truncate">1,248</p>
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-[14px] text-accent-cyan">arrow_upward</span>
+<p class="text-slate-400 text-xs font-bold leading-normal">Total Sourced</p>
+</div>
+</div>
+<div class="flex flex-col gap-4 flex-1 justify-center mt-2">
+<div class="flex items-center gap-4 group">
+<div class="w-16 text-right text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Sourced</div>
+<div class="flex-1 h-3 bg-surface-dark rounded-full overflow-hidden border border-border-dark">
+<div class="h-full bg-primary w-full rounded-full shadow-[0_0_10px_rgba(13,89,242,0.8)]"></div>
+</div>
+<div class="w-10 text-xs font-bold text-white">100%</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 text-right text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Applied</div>
+<div class="flex-1 h-3 bg-surface-dark rounded-full overflow-hidden border border-border-dark relative">
+<div class="absolute right-0 top-0 bottom-0 w-full bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.1)_50%,transparent_100%)]"></div>
+<div class="h-full bg-gradient-to-r from-primary to-accent-cyan w-[70%] rounded-full shadow-[0_0_10px_rgba(0,240,255,0.5)]"></div>
+</div>
+<div class="w-10 text-xs font-bold text-white">70%</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 text-right text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Screened</div>
+<div class="flex-1 h-3 bg-surface-dark rounded-full overflow-hidden border border-border-dark">
+<div class="h-full bg-accent-cyan w-[45%] rounded-full shadow-[0_0_10px_rgba(0,240,255,0.5)]"></div>
+</div>
+<div class="w-10 text-xs font-bold text-white">45%</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 text-right text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Interview</div>
+<div class="flex-1 h-3 bg-surface-dark rounded-full overflow-hidden border border-border-dark">
+<div class="h-full bg-gradient-to-r from-accent-cyan to-accent-purple w-[25%] rounded-full shadow-[0_0_10px_rgba(189,0,255,0.5)]"></div>
+</div>
+<div class="w-10 text-xs font-bold text-white">25%</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 text-right text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Offered</div>
+<div class="flex-1 h-3 bg-surface-dark rounded-full overflow-hidden border border-border-dark">
+<div class="h-full bg-accent-purple w-[10%] rounded-full shadow-[0_0_10px_rgba(189,0,255,0.5)]"></div>
+</div>
+<div class="w-10 text-xs font-bold text-white">10%</div>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="w-16 text-right text-xs font-bold text-slate-400 group-hover:text-white transition-colors">Hired</div>
+<div class="flex-1 h-3 bg-surface-dark rounded-full overflow-hidden border border-border-dark">
+<div class="h-full bg-green-400 w-[6%] rounded-full shadow-[0_0_10px_rgba(74,222,128,0.5)]"></div>
+</div>
+<div class="w-10 text-xs font-bold text-white">6%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

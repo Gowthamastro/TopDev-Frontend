@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Advanced Candidate Split View</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0B0F14", // Ultra-dark graphite base
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display h-screen flex overflow-hidden antialiased selection:bg-primary/30">
+<!-- Left Panel: Candidate List -->
+<aside class="w-[400px] flex-shrink-0 border-r border-slate-200 dark:border-white/10 flex flex-col bg-white/50 dark:bg-white/[0.01] backdrop-blur-xl relative z-10">
+<!-- Header & Search -->
+<div class="p-6 border-b border-slate-200 dark:border-white/10 space-y-4">
+<div class="flex items-center justify-between">
+<h1 class="text-xl font-semibold tracking-tight">Candidates</h1>
+<div class="flex items-center space-x-2">
+<span class="px-2.5 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full">124 Matches</span>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<svg class="h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-white/10 rounded-lg leading-5 bg-white dark:bg-black/20 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition-all" placeholder="Search by name, role, or skills..." type="text"/>
+<div class="absolute inset-y-0 right-0 pr-2 flex items-center">
+<button class="p-1 text-slate-400 hover:text-slate-200 transition-colors">
+<svg class="h-4 w-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex space-x-2 overflow-x-auto pb-1 scrollbar-hide">
+<button class="whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white border border-transparent">All</button>
+<button class="whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full bg-transparent dark:text-slate-400 hover:dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:dark:bg-white/5 transition-colors">Elite (90+)</button>
+<button class="whitespace-nowrap px-3 py-1.5 text-xs font-medium rounded-full bg-transparent dark:text-slate-400 hover:dark:text-slate-200 border border-slate-200 dark:border-white/10 hover:dark:bg-white/5 transition-colors">Strong (80-89)</button>
+</div>
+</div>
+<!-- Candidate List -->
+<div class="flex-1 overflow-y-auto p-3 space-y-2">
+<!-- Active Candidate -->
+<button class="w-full text-left p-4 rounded-xl bg-white dark:bg-white/10 border border-slate-200 dark:border-white/20 shadow-sm transition-all group relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-50"></div>
+<div class="relative flex items-center space-x-4">
+<div class="relative">
+<img alt="Candidate avatar" class="w-12 h-12 rounded-full object-cover ring-2 ring-primary/30" data-alt="Portrait of a young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSlNvj4CTfZyAHNuVk5jS4rx-T4UcPgQ_0mUHMi71FIsbmSD1_1ck9gmpGFDnIKMoBFcH-xNaOJ7c_Ea2q4-Ht0XMox6XF_LSaNbfWVJCSFYa1DzGi1iWgSSGusF_Ah-wx3haJ3enBXBh8u384ddcKK6Rfgk3wk5EESjUDKn6c-oii1Jpl1FsUILD3bo19rlX8UsZK1S7-vjB1kr1F7P_ADp0UkrtD4HYBxBbKgaJIQ32naUkb04oL0ilVS9WyZXgcWt3jOxJBKTc"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white dark:border-background-dark"></div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-semibold text-slate-900 dark:text-white truncate">Marcus Chen</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">Senior AI Engineer</p>
+<div class="mt-1 flex items-center space-x-2">
+<span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">98 AI Match</span>
+<span class="text-[10px] text-slate-500 dark:text-slate-400">Google • 8y exp</span>
+</div>
+</div>
+</div>
+</button>
+<!-- Candidate Item 2 -->
+<button class="w-full text-left p-4 rounded-xl bg-transparent hover:bg-white/50 dark:hover:bg-white/5 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all group">
+<div class="flex items-center space-x-4">
+<div class="relative">
+<img alt="Candidate avatar" class="w-12 h-12 rounded-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Portrait of a young woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI0q76lMfT9jXSRlnl2T3aEqTmsGdx2xm-RWXQtZiN4R5BYZFWOs6tbxrdsKrJglHgRz53AECPvrCAXAlTJP023xNZzb2PQnfi1RuZYK_00liKl8lFPf0PlroSAIW-lctxQFIHdT70TzkrDxt5K8JHxDBsDXsCzq_wH2rB-PI6lnYFTWrzQjK7tbyR8nrUmYPrfqveiFJPK_RYwvedUcSLnmBSx_1oHvfAUG-N7ik3WNY4I7BDUYmfaY4VYDIsCmqGwpy8wsfkwtE"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white truncate transition-colors">Sarah Jenkins</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">Machine Learning Lead</p>
+<div class="mt-1 flex items-center space-x-2">
+<span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-500 border border-blue-500/20">85 AI Match</span>
+<span class="text-[10px] text-slate-500 dark:text-slate-400">Meta • 6y exp</span>
+</div>
+</div>
+</div>
+</button>
+<!-- Candidate Item 3 -->
+<button class="w-full text-left p-4 rounded-xl bg-transparent hover:bg-white/50 dark:hover:bg-white/5 border border-transparent hover:border-slate-200 dark:hover:border-white/10 transition-all group">
+<div class="flex items-center space-x-4">
+<div class="relative">
+<img alt="Candidate avatar" class="w-12 h-12 rounded-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="Portrait of a man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtAT38rlWB_m32YHPO6LmGoH_dRmN5iZFlJdlirF3wFCnvmhNcFs0mb5xjOV_OBy002k6xc2WV-sg5talgwDhmDxoiwPj6umaI3oVaHtiz6aZLQ2hj-PgUBx4WACs1CJkVkndWGgnbCO4SgUiCFrqAjLJCDl9aosh3JV0MxUEzAKgt8rOO8hmNAZRUFQDKJ46Id6LVz9e-qD7IYobWgmMFwIwqb3lKLsazwiaRDW_3Pju0C7hlSHqK-MX2sK2LZo1qhV4Q0so0-kk"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white truncate transition-colors">David Rodriguez</p>
+<p class="text-xs text-slate-500 dark:text-slate-400 truncate">Data Scientist</p>
+<div class="mt-1 flex items-center space-x-2">
+<span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">76 AI Match</span>
+<span class="text-[10px] text-slate-500 dark:text-slate-400">Stripe • 4y exp</span>
+</div>
+</div>
+</div>
+</button>
+</div>
+</aside>
+<!-- Right Panel: Profile Preview -->
+<main class="flex-1 relative overflow-y-auto bg-slate-50 dark:bg-transparent">
+<!-- Subtle Background Glow -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
+<div class="max-w-5xl mx-auto p-8 lg:p-12 relative z-10">
+<!-- Top Actions -->
+<div class="flex justify-between items-center mb-8">
+<div class="flex space-x-3">
+<button class="p-2 rounded-lg border border-slate-200 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+<div class="flex space-x-3">
+<button class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">Reject</button>
+<button class="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-colors shadow-[0_0_20px_rgba(13,89,242,0.3)]">Advance to Interview</button>
+</div>
+</div>
+<!-- Profile Header Card -->
+<div class="bg-white dark:bg-[#121822]/80 backdrop-blur-2xl rounded-2xl border border-slate-200 dark:border-white/10 p-8 shadow-xl shadow-black/5">
+<div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+<!-- Avatar & Info -->
+<div class="flex items-center gap-6 flex-1">
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-primary rounded-full blur opacity-30 group-hover:opacity-50 transition duration-500"></div>
+<img alt="Marcus Chen Profile" class="relative w-28 h-28 rounded-full object-cover border-2 border-background-dark" data-alt="Close up portrait photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOeB3dXmAlHS1xMW80Sz1zrFr2tFdCndJxPaJPHtCAs7ecyYdiiHAymyGgm_mQVdR73oFiYQ9joWsKx9WPN-9yvkIh42dixjcqdIwjD1F6RWwr0GPtLzls6dmzJ_2lpzMC045XYywHVhzOFWKKz32Ja318dSwdbBe0jINnRO3xcX5LyARrEpszkPoUY2b_sgKlLnLZ6Ezoe96Sj8ryXPrcfAveWJgkD9HkNv3sgxT-CZXScbkKL6VxfVkLCJgVmsEhwfnxpNqkf34"/>
+</div>
+<div>
+<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-1">Marcus Chen</h2>
+<p class="text-lg text-slate-600 dark:text-slate-400 mb-3">Senior AI Engineer at Google</p>
+<div class="flex flex-wrap items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+<span class="flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> San Francisco, CA</span>
+<span class="flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg> 8 Years Exp.</span>
+<div class="h-4 w-px bg-slate-300 dark:bg-white/10"></div>
+<div class="flex gap-2">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg></a>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Score Ring -->
+<div class="flex-shrink-0 flex flex-col items-center">
+<div class="relative w-32 h-32">
+<!-- Background track -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="stroke-slate-200 dark:stroke-white/5" cx="50" cy="50" fill="none" r="45" stroke-width="6"></circle>
+<!-- Progress -->
+<circle class="stroke-emerald-500 drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" cx="50" cy="50" fill="none" r="45" stroke-dasharray="282.7" stroke-dashoffset="5.65" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-bold text-slate-900 dark:text-white leading-none">98</span>
+<span class="text-[10px] font-medium text-emerald-500 uppercase tracking-wider mt-1">Elite</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Content Tabs -->
+<div class="mt-8">
+<div class="border-b border-slate-200 dark:border-white/10 mb-6">
+<nav class="-mb-px flex space-x-8">
+<a class="border-primary text-primary whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">Overview</a>
+<a class="border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 dark:hover:text-slate-300 dark:hover:border-slate-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" href="#">Experience</a>
+<a class="border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 dark:hover:text-slate-300 dark:hover:border-slate-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors" href="#">AI Analysis</a>
+</nav>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Main Content Left -->
+<div class="lg:col-span-2 space-y-8">
+<!-- AI Summary -->
+<section>
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">AI Summary</h3>
+<div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<svg class="w-12 h-12 text-primary" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+</div>
+<p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed relative z-10">
+                                    Exceptional candidate with profound expertise in large language models and distributed systems. Demonstrated history of scaling AI infrastructure at Google. Strong match for the Lead AI Architect role based on technical requirements and cultural alignment parameters.
+                                </p>
+</div>
+</section>
+<!-- Key Skills -->
+<section>
+<h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Verified Skills</h3>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-200 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span> Python
+                                </span>
+<span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-200 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span> TensorFlow
+                                </span>
+<span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-200 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> PyTorch
+                                </span>
+<span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-200 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> Kubernetes
+                                </span>
+<span class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-slate-200 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-amber-500 mr-2"></span> C++
+                                </span>
+</div>
+</section>
+</div>
+<!-- Sidebar Right -->
+<div class="space-y-6">
+<!-- Radar Chart Placeholder -->
+<div class="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6">
+<h4 class="text-sm font-medium text-slate-900 dark:text-white mb-4">Competency Map</h4>
+<div class="aspect-square relative w-full flex items-center justify-center">
+<!-- Abstract Polygon representing radar chart -->
+<svg class="w-full h-full max-w-[200px] opacity-80" viewbox="0 0 100 100">
+<!-- Grid lines -->
+<polygon class="text-slate-300 dark:text-white/20" fill="none" points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" stroke="currentColor" stroke-width="0.5"></polygon>
+<polygon class="text-slate-300 dark:text-white/20" fill="none" points="50,20 80,35 80,65 50,80 20,65 20,35" stroke="currentColor" stroke-width="0.5"></polygon>
+<polygon class="text-slate-300 dark:text-white/20" fill="none" points="50,35 65,42.5 65,57.5 50,65 35,57.5 35,42.5" stroke="currentColor" stroke-width="0.5"></polygon>
+<!-- Data Polygon -->
+<polygon class="text-primary/30 dark:text-primary/40" fill="currentColor" points="50,15 85,30 70,68 50,85 25,60 15,35" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></polygon>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -17,6 +17,7 @@ import ClientCandidatesPage from './pages/client/CandidatesPage';
 import UploadJDPage from './pages/client/UploadJDPage';
 import BillingPage from './pages/client/BillingPage';
 import InviteCandidatePage from './pages/client/InviteCandidatePage';
+import AssessmentViewPage from './pages/client/AssessmentViewPage';
 
 // Admin pages
 import AdminDashboard from './pages/admin/Dashboard';
@@ -63,27 +64,34 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/test/:token" element={<TestPage />} />
 
-          {/* Client Dashboard */}
-          <Route path="/client" element={<ProtectedRoute roles={['client', 'admin']}><DashboardLayout role="client" /></ProtectedRoute>}>
-            <Route index element={<ClientDashboard />} />
-            <Route path="jobs" element={<ClientJobsPage />} />
-            <Route path="jobs/upload" element={<UploadJDPage />} />
-            <Route path="jobs/:jdId/candidates" element={<ClientCandidatesPage />} />
-            <Route path="jobs/:jdId/invite" element={<InviteCandidatePage />} />
-            <Route path="analytics" element={<AnalyticsPage />} />
-            <Route path="billing" element={<BillingPage />} />
+          {/* Client Routes */}
+          <Route path="/client">
+            {/* Standalone Stitch Client Pages */}
+            <Route index element={<ProtectedRoute roles={['client', 'admin']}><ClientDashboard /></ProtectedRoute>} />
+            <Route path="analytics" element={<ProtectedRoute roles={['client', 'admin']}><AnalyticsPage /></ProtectedRoute>} />
+            <Route path="jobs/:jdId/candidates" element={<ProtectedRoute roles={['client', 'admin']}><ClientCandidatesPage /></ProtectedRoute>} />
+
+            {/* Layout Wrapped pages */}
+            <Route element={<ProtectedRoute roles={['client', 'admin']}><DashboardLayout role="client" /></ProtectedRoute>}>
+              <Route path="jobs" element={<ClientJobsPage />} />
+              <Route path="jobs/upload" element={<UploadJDPage />} />
+              <Route path="jobs/:jdId/invite" element={<InviteCandidatePage />} />
+              <Route path="jobs/:jdId/assessment" element={<AssessmentViewPage />} />
+              <Route path="billing" element={<BillingPage />} />
+            </Route>
           </Route>
 
-          {/* Admin Dashboard */}
           <Route path="/admin" element={<ProtectedRoute roles={['admin']}><DashboardLayout role="admin" /></ProtectedRoute>}>
             <Route index element={<AdminDashboard />} />
             <Route path="settings" element={<AdminSettings />} />
             <Route path="email-templates" element={<AdminEmailTemplates />} />
             <Route path="feature-flags" element={<AdminFeatureFlags />} />
             <Route path="role-templates" element={<AdminRoleTemplates />} />
-            <Route path="scoring" element={<AdminScoringWeights />} />
             <Route path="audit-log" element={<AdminAuditLog />} />
           </Route>
+
+          {/* Standalone Stitch Admin Pages */}
+          <Route path="/admin/scoring" element={<ProtectedRoute roles={['admin']}><AdminScoringWeights /></ProtectedRoute>} />
 
           {/* Candidate Dashboard */}
           <Route path="/candidate" element={<ProtectedRoute roles={['candidate', 'admin']}><DashboardLayout role="candidate" /></ProtectedRoute>}>

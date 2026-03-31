@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TopDev Landing: The AI Engine Process</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0B0F14",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(13, 89, 242, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(13, 89, 242, 0.15), inset 0 0 20px rgba(13, 89, 242, 0.05);
+            transform: translateY(-5px);
+        }
+        .gradient-mesh {
+            background: radial-gradient(circle at 50% 50%, rgba(13, 89, 242, 0.1) 0%, transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(13, 89, 242, 0.05) 0%, transparent 40%);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .tech-grid {
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+        }
+        .glow-text {
+            text-shadow: 0 0 30px rgba(13, 89, 242, 0.4);
+        }
+        .matrix-code {
+            font-family: monospace;
+            color: rgba(13, 89, 242, 0.8);
+            text-shadow: 0 0 5px rgba(13, 89, 242, 0.5);
+            font-size: 0.65rem;
+            line-height: 1.2;
+        }
+        .drop-zone-glow {
+            box-shadow: inset 0 0 20px rgba(13, 89, 242, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen relative overflow-x-hidden selection:bg-primary/30 selection:text-white flex flex-col items-center justify-center">
+<div class="gradient-mesh"></div>
+<div class="tech-grid"></div>
+<main class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 py-24 @container flex flex-col items-center">
+<div class="text-center mb-20 max-w-3xl">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 mb-6">
+<span class="material-symbols-outlined text-primary text-sm">memory</span>
+<span class="text-primary text-xs font-semibold tracking-widest uppercase">The Process</span>
+</div>
+<h2 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-6 glow-text">
+            Meet the TopDev <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-blue-400 to-white">AI Screening Engine</span>
+</h2>
+<p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed">
+            From job description to top-tier talent in minutes. Our proprietary AI evaluates engineers so you don't have to.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full relative">
+<div class="hidden md:block absolute top-1/2 left-[16%] right-[16%] h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent -translate-y-1/2 z-0"></div>
+<div class="glass-card rounded-2xl p-8 flex flex-col relative z-10 h-[420px]">
+<div class="absolute -top-4 -left-4 size-10 rounded-full bg-background-dark border border-primary flex items-center justify-center text-primary font-bold z-20 shadow-[0_0_15px_rgba(13,89,242,0.5)]">1</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-white text-xl font-semibold mb-2">Upload Job Description</h3>
+<p class="text-slate-400 text-sm mb-6">Paste your requirements or upload a PDF. Our AI extracts core technical needs instantly.</p>
+<div class="flex-1 rounded-xl border-2 border-dashed border-primary/40 bg-primary/5 drop-zone-glow flex flex-col items-center justify-center p-6 text-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<span class="material-symbols-outlined text-4xl text-primary mb-3 group-hover:-translate-y-2 transition-transform duration-300">cloud_upload</span>
+<p class="text-slate-300 text-sm font-medium mb-1">Drag &amp; drop JD here</p>
+<p class="text-slate-500 text-xs">PDF, DOCX, or Text</p>
+<div class="absolute bottom-4 right-4 flex gap-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary/50"></span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary/30"></span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary/10"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 flex flex-col relative z-10 h-[420px]">
+<div class="absolute -top-4 -left-4 size-10 rounded-full bg-background-dark border border-primary flex items-center justify-center text-primary font-bold z-20 shadow-[0_0_15px_rgba(13,89,242,0.5)]">2</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-white text-xl font-semibold mb-2">AI Generates Assessment</h3>
+<p class="text-slate-400 text-sm mb-6">A unique, cheat-proof coding environment is spun up tailored to your stack.</p>
+<div class="flex-1 rounded-xl border border-white/10 bg-[#0B0F14] overflow-hidden relative p-4 flex flex-col">
+<div class="flex items-center gap-2 mb-3 border-b border-white/10 pb-2">
+<div class="flex gap-1.5">
+<div class="size-2.5 rounded-full bg-red-500/50"></div>
+<div class="size-2.5 rounded-full bg-yellow-500/50"></div>
+<div class="size-2.5 rounded-full bg-green-500/50"></div>
+</div>
+<div class="text-[10px] text-slate-500 font-mono flex-1 text-center pr-8">assessment.ts</div>
+</div>
+<div class="matrix-code flex-1 overflow-hidden opacity-80">
+const generateAssessment = async (
+  jd: string, 
+  stack: Stack[]
+) =&gt; {
+  const requirements = 
+    await ai.extractSkills(jd);
+  return ai.buildEnvironment({
+    difficulty: 'Senior',
+    antiCheat: true,
+    testCases: 50,
+    modules: requirements.map(r =&gt; 
+      generateModule(r)
+    )
+  });
+};
+// Compiling...
+// Ready for candidates
+                    </div>
+<div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0B0F14] to-transparent"></div>
+<div class="absolute bottom-2 right-2">
+<span class="material-symbols-outlined text-primary text-sm animate-pulse">settings</span>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-8 flex flex-col relative z-10 h-[420px]">
+<div class="absolute -top-4 -left-4 size-10 rounded-full bg-background-dark border border-primary flex items-center justify-center text-primary font-bold z-20 shadow-[0_0_15px_rgba(13,89,242,0.5)]">3</div>
+<div class="flex-1 flex flex-col">
+<h3 class="text-white text-xl font-semibold mb-2">Receive Ranked Talent</h3>
+<p class="text-slate-400 text-sm mb-6">Review deep analytics on candidate performance, code quality, and speed.</p>
+<div class="flex-1 rounded-xl border border-white/10 bg-white/5 p-4 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 p-3">
+<div class="px-2 py-0.5 rounded bg-green-500/20 text-green-400 text-[10px] font-bold uppercase tracking-wider border border-green-500/30">
+                            Verified
+                        </div>
+</div>
+<div class="flex items-center gap-3 mb-4 mt-2">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 relative">
+<span class="material-symbols-outlined text-primary text-sm">person</span>
+<div class="absolute -bottom-1 -right-1 size-3.5 bg-green-500 rounded-full border-2 border-[#0B0F14]"></div>
+</div>
+<div>
+<h4 class="text-white text-sm font-medium">Elena R.</h4>
+<p class="text-slate-400 text-[10px]">Staff Engineer • React, Go</p>
+</div>
+</div>
+<div class="space-y-3 flex-1">
+<div>
+<div class="flex justify-between text-[11px] mb-1">
+<span class="text-slate-300">Overall Score</span>
+<span class="text-primary font-bold">98/100</span>
+</div>
+<div class="h-1.5 w-full bg-background-dark rounded-full overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]">
+<div class="h-full bg-gradient-to-r from-primary/50 to-primary rounded-full relative" style="width: 98%;">
+<div class="absolute top-0 right-0 bottom-0 w-4 bg-white/30 blur-[2px]"></div>
+</div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-1">
+<span class="text-slate-300">Architecture</span>
+<span class="text-white font-medium">96/100</span>
+</div>
+<div class="h-1 w-full bg-background-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary/80 rounded-full" style="width: 96%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-1">
+<span class="text-slate-300">Speed</span>
+<span class="text-white font-medium">99/100</span>
+</div>
+<div class="h-1 w-full bg-background-dark rounded-full overflow-hidden">
+<div class="h-full bg-primary/90 rounded-full" style="width: 99%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-3 border-t border-white/10 flex justify-between items-center">
+<span class="text-[10px] text-slate-500">Completed 10m ago</span>
+<button class="text-[11px] text-white bg-primary/20 hover:bg-primary/40 border border-primary/30 px-3 py-1.5 rounded transition-colors">View Profile</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

@@ -1,3 +1,7 @@
 FROM node:20-alpine
 WORKDIR /app
-# Intentionally minimal for dev — volumes and commands are handled by docker-compose.dev.yml
+
+COPY package*.json ./
+RUN npm config set strict-ssl false && npm install
+
+# Code is mounted dynamically in dev

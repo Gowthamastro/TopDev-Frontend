@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TopDev Landing: Premium Pricing &amp; Trust</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0B0F14", // Ultra-dark graphite base
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gradient-mesh {
+            background: radial-gradient(circle at 50% 100%, rgba(13, 89, 242, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 0%, rgba(13, 89, 242, 0.05) 0%, transparent 40%);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .tech-grid {
+            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+        }
+        .glow-text {
+            text-shadow: 0 0 40px rgba(13, 89, 242, 0.2);
+        }
+        .glow-card-featured {
+            box-shadow: 0 0 40px rgba(13, 89, 242, 0.15), inset 0 0 20px rgba(13, 89, 242, 0.05);
+            border: 1px solid rgba(13, 89, 242, 0.5);
+            background: linear-gradient(180deg, rgba(13, 89, 242, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(13, 89, 242, 0.4), inset 0 0 10px rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen relative overflow-x-hidden selection:bg-primary/30 selection:text-white">
+<div class="gradient-mesh"></div>
+<div class="tech-grid"></div>
+<div class="relative z-10 flex h-auto min-h-screen w-full flex-col @container">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-white/5 px-6 md:px-10 py-4 glass-panel sticky top-0 z-50">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">TopDev</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-center">
+<nav class="flex items-center gap-8 glass-panel px-6 py-2 rounded-full">
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">For Companies</a>
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">For Developers</a>
+<a class="text-white text-sm font-medium leading-normal" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex gap-3">
+<button class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center rounded-xl h-10 px-5 text-slate-300 hover:text-white hover:bg-white/5 transition-all text-sm font-medium leading-normal">
+<span>Login</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-xl h-10 px-5 bg-white text-black hover:bg-slate-200 transition-colors text-sm font-semibold leading-normal">
+<span>Sign Up</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col justify-center items-center px-4 md:px-10 py-20 relative">
+<div class="max-w-7xl w-full mx-auto flex flex-col items-center z-10">
+<div class="text-center mb-16 max-w-3xl">
+<h1 class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.03em] mb-6 glow-text">
+                        The Future of Recruitment, <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500">Priced for Growth</span>
+</h1>
+<p class="text-slate-400 text-lg font-light leading-relaxed">
+                        Transparent pricing for access to top 1% global talent. No hidden fees. Pay only for successful hires.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mb-24 items-end">
+<div class="glass-panel rounded-2xl p-8 flex flex-col h-[500px]">
+<div class="mb-8">
+<h3 class="text-xl font-semibold text-white mb-2">Starter</h3>
+<p class="text-slate-400 text-sm">Perfect for early-stage startups building their core team.</p>
+</div>
+<div class="mb-8">
+<span class="text-4xl font-bold text-white">15%</span>
+<span class="text-slate-400 text-sm ml-2">per hire</span>
+</div>
+<ul class="space-y-4 mb-auto">
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>Access to vetted candidate pool</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>Basic AI assessment reports</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>Email support</span>
+</li>
+</ul>
+<button class="w-full mt-8 rounded-xl h-12 border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all text-sm font-semibold">
+                        Get Started
+                    </button>
+</div>
+<div class="glow-card-featured rounded-2xl p-8 flex flex-col h-[540px] relative transform md:-translate-y-4">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                        Most Popular
+                    </div>
+<div class="mb-8 mt-2">
+<h3 class="text-2xl font-semibold text-white mb-2">Growth</h3>
+<p class="text-slate-300 text-sm">For scaling companies that need elite talent quickly.</p>
+</div>
+<div class="mb-8">
+<span class="text-5xl font-bold text-white">$2,900</span>
+<span class="text-slate-300 text-sm ml-2">/month</span>
+</div>
+<ul class="space-y-4 mb-auto">
+<li class="flex items-start gap-3 text-sm text-white font-medium">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Unlimited hiring (no per-hire fee)</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-200">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Full AI behavioral &amp; tech assessments</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-200">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Dedicated Account Manager</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-200">
+<span class="material-symbols-outlined text-primary text-lg">check_circle</span>
+<span>Custom coding challenges</span>
+</li>
+</ul>
+<button class="w-full mt-8 rounded-xl h-14 bg-primary text-white hover:bg-primary/90 transition-all text-sm font-semibold glow-button">
+                        Start 14-Day Free Trial
+                    </button>
+</div>
+<div class="glass-panel rounded-2xl p-8 flex flex-col h-[500px]">
+<div class="mb-8">
+<h3 class="text-xl font-semibold text-white mb-2">Enterprise</h3>
+<p class="text-slate-400 text-sm">Custom solutions for large organizations with complex needs.</p>
+</div>
+<div class="mb-8">
+<span class="text-4xl font-bold text-white">Custom</span>
+</div>
+<ul class="space-y-4 mb-auto">
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>Everything in Growth</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>API Access &amp; ATS Integrations</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>SLA &amp; Premium 24/7 Support</span>
+</li>
+<li class="flex items-start gap-3 text-sm text-slate-300">
+<span class="material-symbols-outlined text-slate-500 text-lg">check</span>
+<span>Custom Contract &amp; Invoicing</span>
+</li>
+</ul>
+<button class="w-full mt-8 rounded-xl h-12 border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all text-sm font-semibold">
+                        Contact Sales
+                    </button>
+</div>
+</div>
+<div class="w-full max-w-4xl mx-auto flex flex-col items-center pt-12 border-t border-white/5">
+<p class="text-sm text-slate-400 uppercase tracking-widest font-semibold mb-8">Trusted by 500+ elite tech teams</p>
+<div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500 mb-16">
+<div class="flex items-center gap-2 text-xl font-bold text-white">
+<span class="material-symbols-outlined">layers</span> ACME Corp
+                    </div>
+<div class="flex items-center gap-2 text-xl font-bold text-white">
+<span class="material-symbols-outlined">rocket_launch</span> Nova
+                    </div>
+<div class="flex items-center gap-2 text-xl font-bold text-white">
+<span class="material-symbols-outlined">all_inclusive</span> Quantum
+                    </div>
+<div class="flex items-center gap-2 text-xl font-bold text-white">
+<span class="material-symbols-outlined">bolt</span> Zenith
+                    </div>
+<div class="flex items-center gap-2 text-xl font-bold text-white">
+<span class="material-symbols-outlined">language</span> Global
+                    </div>
+</div>
+<div class="glass-panel p-10 rounded-3xl w-full relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-50 pointer-events-none"></div>
+<div class="relative z-10 text-center md:text-left">
+<h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Ready to scale your engineering team?</h2>
+<p class="text-slate-400">Stop reviewing resumes. Start interviewing top performers.</p>
+</div>
+<div class="relative z-10">
+<button class="flex items-center justify-center gap-2 rounded-xl h-14 px-8 bg-white text-black text-base font-bold leading-normal hover:bg-slate-200 transition-all shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:shadow-[0_0_40px_rgba(255,255,255,0.5)] whitespace-nowrap">
+<span>Get Pre-Vetted Talent Today</span>
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

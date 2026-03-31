@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TopDev Elite Client Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0a0c10",
+                        "panel-dark": "#12161f",
+                        "panel-border": "#1f2633",
+                        "text-muted": "#8b94a5",
+                        "accent-green": "#00ff66",
+                        "accent-red": "#ff3366"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(18, 22, 31, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 4px 24px -4px rgba(0, 0, 0, 0.5);
+        }
+        .glow-edge {
+            position: relative;
+        }
+        .glow-edge::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(180deg, rgba(13, 89, 242, 0.3), transparent 40%);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0.5;
+        }
+        .mesh-bg {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(13, 89, 242, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(0, 255, 102, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(13, 89, 242, 0.1) 0px, transparent 50%);
+        }
+        .sidebar-hover:hover {
+            width: 240px;
+        }
+        .sidebar-hover {
+            width: 80px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .sidebar-hover:hover .sidebar-text {
+            opacity: 1;
+            transform: translateX(0);
+            display: block;
+        }
+        .sidebar-text {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.2s ease 0.1s;
+            display: none;
+            white-space: nowrap;
+        }
+        /* Noise texture overlay */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen mesh-bg relative overflow-x-hidden">
+<div class="noise"></div>
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-40 glass-panel border-b border-panel-border/50 h-16">
+<div class="flex items-center justify-between px-6 h-full">
+<div class="flex items-center gap-4 pl-16"> <!-- Offset for sidebar -->
+<div class="w-64">
+<div class="relative flex items-center w-full h-9 rounded-lg bg-panel-dark/80 border border-panel-border focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/50 transition-all">
+<span class="material-symbols-outlined absolute left-3 text-text-muted text-sm">search</span>
+<input class="w-full h-full bg-transparent border-none text-sm text-slate-100 placeholder-text-muted pl-9 pr-3 focus:ring-0" placeholder="Search roles, candidates..." type="text"/>
+<div class="absolute right-2 flex items-center gap-1">
+<kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-text-muted bg-panel-border/50 rounded border border-panel-border">⌘K</kbd>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-text-muted hover:text-slate-100 transition-colors rounded-lg hover:bg-panel-border/50">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full ring-2 ring-background-dark"></span>
+</button>
+<div class="h-5 w-px bg-panel-border"></div>
+<button class="flex items-center gap-3 pl-2 pr-1 py-1 rounded-full border border-panel-border/50 hover:bg-panel-border/30 transition-colors">
+<div class="flex flex-col items-end hidden sm:flex">
+<span class="text-xs font-medium text-slate-100">Acme Corp</span>
+<span class="text-[10px] text-primary">Elite Tier</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-gradient-to-tr from-primary to-purple-600 flex items-center justify-center text-white text-xs font-bold border border-white/10 shadow-[0_0_10px_rgba(13,89,242,0.3)]">
+                        AC
+                    </div>
+</button>
+</div>
+</div>
+</header>
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-screen z-50 glass-panel border-r border-panel-border/50 sidebar-hover flex flex-col justify-between py-4 group">
+<div>
+<!-- Logo -->
+<div class="flex items-center h-12 px-5 mb-8 overflow-hidden whitespace-nowrap">
+<div class="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 text-primary shrink-0 glow-edge">
+<span class="material-symbols-outlined text-[24px]">hexagon</span>
+</div>
+<span class="ml-4 text-lg font-bold tracking-tight text-slate-100 sidebar-text">TopDev<span class="text-primary">.</span></span>
+</div>
+<!-- Nav Links -->
+<nav class="flex flex-col gap-2 px-3">
+<a class="flex items-center h-10 px-3 rounded-lg bg-primary/10 text-primary border border-primary/20 overflow-hidden whitespace-nowrap relative group/link" href="#">
+<span class="material-symbols-outlined text-[20px] shrink-0">dashboard</span>
+<span class="ml-4 text-sm font-medium sidebar-text">Dashboard</span>
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-primary rounded-r-full"></div>
+</a>
+<a class="flex items-center h-10 px-3 rounded-lg text-text-muted hover:text-slate-100 hover:bg-panel-border/40 overflow-hidden whitespace-nowrap transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] shrink-0">work</span>
+<span class="ml-4 text-sm font-medium sidebar-text">Active Roles</span>
+</a>
+<a class="flex items-center h-10 px-3 rounded-lg text-text-muted hover:text-slate-100 hover:bg-panel-border/40 overflow-hidden whitespace-nowrap transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] shrink-0">group</span>
+<span class="ml-4 text-sm font-medium sidebar-text">Talent Pool</span>
+</a>
+<a class="flex items-center h-10 px-3 rounded-lg text-text-muted hover:text-slate-100 hover:bg-panel-border/40 overflow-hidden whitespace-nowrap transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] shrink-0">calendar_today</span>
+<span class="ml-4 text-sm font-medium sidebar-text">Interviews</span>
+</a>
+<a class="flex items-center h-10 px-3 rounded-lg text-text-muted hover:text-slate-100 hover:bg-panel-border/40 overflow-hidden whitespace-nowrap transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] shrink-0">analytics</span>
+<span class="ml-4 text-sm font-medium sidebar-text">Reports</span>
+</a>
+</nav>
+</div>
+<div class="px-3">
+<a class="flex items-center h-10 px-3 rounded-lg text-text-muted hover:text-slate-100 hover:bg-panel-border/40 overflow-hidden whitespace-nowrap transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] shrink-0">settings</span>
+<span class="ml-4 text-sm font-medium sidebar-text">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-[80px] pt-16 min-h-screen p-8 transition-all duration-300 relative z-10">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-slate-100 mb-2">Welcome back, <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400">Acme Corp</span></h1>
+<p class="text-text-muted text-sm">Here's your AI-powered recruitment overview for today.</p>
+</div>
+<button class="flex items-center gap-2 h-10 px-5 rounded-lg bg-primary hover:bg-blue-600 text-white text-sm font-medium transition-all shadow-[0_0_15px_rgba(13,89,242,0.4)] glow-edge">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Role
+            </button>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Active Roles -->
+<div class="glass-panel rounded-xl p-5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">work</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-8 h-8 rounded-lg bg-panel-border flex items-center justify-center text-slate-300">
+<span class="material-symbols-outlined text-[16px]">work</span>
+</div>
+<h3 class="text-sm font-medium text-text-muted">Active Roles</h3>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="text-3xl font-bold text-slate-100">12</span>
+<div class="flex items-center text-xs font-medium text-accent-green bg-accent-green/10 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] mr-0.5">trending_up</span>
+                            +2
+                        </div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 to-transparent"></div>
+</div>
+<!-- Qualified Candidates -->
+<div class="glass-panel rounded-xl p-5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-slate-100">group</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-8 h-8 rounded-lg bg-panel-border flex items-center justify-center text-slate-300">
+<span class="material-symbols-outlined text-[16px]">group</span>
+</div>
+<h3 class="text-sm font-medium text-text-muted">Qualified Candidates</h3>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="text-3xl font-bold text-slate-100">148</span>
+<div class="flex items-center text-xs font-medium text-accent-red bg-accent-red/10 px-1.5 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px] mr-0.5">trending_down</span>
+                            -5
+                        </div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-slate-400/50 to-transparent"></div>
+</div>
+<!-- Avg AI Score -->
+<div class="glass-panel rounded-xl p-5 relative overflow-hidden group glow-edge">
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<div class="w-8 h-8 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">smart_toy</span>
+</div>
+<h3 class="text-sm font-medium text-text-muted">Avg AI Score</h3>
+</div>
+<div class="flex items-baseline gap-3">
+<span class="text-3xl font-bold text-slate-100">94<span class="text-lg text-text-muted font-normal">/100</span></span>
+</div>
+<div class="mt-2 flex items-center text-xs font-medium text-accent-green">
+<span class="material-symbols-outlined text-[12px] mr-0.5">arrow_upward</span>
+                            +3% this week
+                        </div>
+</div>
+<!-- Radial Gauge Mockup -->
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-panel-border" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary drop-shadow-[0_0_8px_rgba(13,89,242,0.8)]" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="94, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<span class="absolute text-xs font-bold text-slate-100">94</span>
+</div>
+</div>
+</div>
+<!-- Time to Hire -->
+<div class="glass-panel rounded-xl p-5 relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-8 h-8 rounded-lg bg-panel-border flex items-center justify-center text-slate-300">
+<span class="material-symbols-outlined text-[16px]">timer</span>
+</div>
+<h3 class="text-sm font-medium text-text-muted">Time to Hire</h3>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<span class="text-3xl font-bold text-slate-100">18 <span class="text-lg text-text-muted font-normal">days</span></span>
+</div>
+<!-- Sparkline Mockup -->
+<div class="w-20 h-10 opacity-70">
+<svg class="w-full h-full stroke-accent-green" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 100 40">
+<path d="M0 30 Q 10 20, 20 25 T 40 15 T 60 20 T 80 10 T 100 5"></path>
+<circle cx="100" cy="5" fill="#00ff66" r="3"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent-green/50 to-transparent"></div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Main Chart -->
+<div class="glass-panel rounded-xl p-6 lg:col-span-2 border border-panel-border flex flex-col glow-edge">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="text-lg font-bold text-slate-100">Candidate Pipeline Activity</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-2xl font-bold text-slate-100">342</span>
+<span class="text-sm text-text-muted">Total Activities</span>
+<span class="text-xs font-medium text-accent-green ml-2 flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_drop_up</span>12%</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-panel-dark rounded-lg p-1 border border-panel-border">
+<button class="px-3 py-1 text-xs font-medium rounded-md bg-panel-border text-slate-100">Month</button>
+<button class="px-3 py-1 text-xs font-medium rounded-md text-text-muted hover:text-slate-100 transition-colors">Quarter</button>
+</div>
+</div>
+<!-- Chart Area -->
+<div class="relative flex-1 min-h-[220px] w-full mt-4 flex flex-col justify-end">
+<!-- Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between z-0 pointer-events-none">
+<div class="w-full h-px bg-panel-border border-dashed border-t border-panel-border/50"></div>
+<div class="w-full h-px bg-panel-border border-dashed border-t border-panel-border/50"></div>
+<div class="w-full h-px bg-panel-border border-dashed border-t border-panel-border/50"></div>
+<div class="w-full h-px bg-panel-border border-dashed border-t border-panel-border/50"></div>
+</div>
+<!-- Line Chart Mockup -->
+<div class="relative z-10 w-full h-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="rgba(13,89,242,0.4)"></stop>
+<stop offset="100%" stop-color="rgba(13,89,242,0.0)"></stop>
+</lineargradient>
+</defs>
+<path d="M0 80 Q 10 70, 20 60 T 40 50 T 60 70 T 80 30 T 100 20 L 100 100 L 0 100 Z" fill="url(#chartGradient)"></path>
+<path class="drop-shadow-[0_0_8px_rgba(13,89,242,0.6)]" d="M0 80 Q 10 70, 20 60 T 40 50 T 60 70 T 80 30 T 100 20" fill="none" stroke="#0d59f2" stroke-linecap="round" stroke-width="2"></path>
+<circle class="drop-shadow-[0_0_5px_#fff]" cx="100" cy="20" fill="#fff" r="2" stroke="#0d59f2" stroke-width="1.5"></circle>
+</svg>
+</div>
+<!-- X Axis -->
+<div class="flex justify-between mt-2 text-[11px] text-text-muted font-medium px-1">
+<span>W1</span>
+<span>W2</span>
+<span>W3</span>
+<span>W4</span>
+</div>
+</div>
+</div>
+<!-- Secondary Chart -->
+<div class="glass-panel rounded-xl p-6 border border-panel-border flex flex-col">
+<div class="mb-6">
+<h2 class="text-lg font-bold text-slate-100">AI Score Distribution</h2>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-2xl font-bold text-slate-100">91</span>
+<span class="text-sm text-text-muted">Avg Score</span>
+</div>
+</div>
+<!-- Bar Chart Mockup -->
+<div class="flex-1 flex items-end justify-between gap-2 mt-4 px-2 pb-6 relative">
+<!-- Bars -->
+<div class="w-full flex flex-col justify-end items-center group/bar cursor-pointer">
+<span class="text-[10px] text-text-muted mb-1 opacity-0 group-hover/bar:opacity-100 transition-opacity">5%</span>
+<div class="w-full bg-panel-border rounded-t-sm transition-all group-hover/bar:bg-slate-600" style="height: 15%;"></div>
+<span class="absolute bottom-0 text-[11px] text-text-muted font-medium mt-2">&lt;70</span>
+</div>
+<div class="w-full flex flex-col justify-end items-center group/bar cursor-pointer">
+<span class="text-[10px] text-text-muted mb-1 opacity-0 group-hover/bar:opacity-100 transition-opacity">15%</span>
+<div class="w-full bg-slate-700 rounded-t-sm transition-all group-hover/bar:bg-slate-600" style="height: 40%;"></div>
+<span class="absolute bottom-0 text-[11px] text-text-muted font-medium mt-2">70-79</span>
+</div>
+<div class="w-full flex flex-col justify-end items-center group/bar cursor-pointer">
+<span class="text-[10px] text-text-muted mb-1 opacity-0 group-hover/bar:opacity-100 transition-opacity">30%</span>
+<div class="w-full bg-slate-600 rounded-t-sm transition-all group-hover/bar:bg-slate-500" style="height: 65%;"></div>
+<span class="absolute bottom-0 text-[11px] text-text-muted font-medium mt-2">80-89</span>
+</div>
+<div class="w-full flex flex-col justify-end items-center group/bar cursor-pointer relative">
+<div class="absolute -top-8 bg-panel-dark text-xs py-1 px-2 rounded border border-panel-border opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap z-20 shadow-lg">50% Candidates</div>
+<div class="w-full bg-primary/80 rounded-t-sm border-t border-primary drop-shadow-[0_-4px_10px_rgba(13,89,242,0.4)] transition-all group-hover/bar:bg-primary" style="height: 90%;"></div>
+<span class="absolute bottom-0 text-[11px] text-primary font-bold mt-2">90-100</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

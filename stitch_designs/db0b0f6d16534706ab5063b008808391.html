@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TopDev Cinematic Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d59f2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0B0F14", // Ultra-dark graphite base
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .gradient-mesh {
+            background: radial-gradient(circle at 50% 50%, rgba(13, 89, 242, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 30%);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .tech-grid {
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+        }
+        .glow-text {
+            text-shadow: 0 0 40px rgba(13, 89, 242, 0.3);
+        }
+        .glow-button {
+            box-shadow: 0 0 20px rgba(13, 89, 242, 0.4), inset 0 0 10px rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .card-noise::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 0;
+            border-radius: inherit;
+        }
+        .uv-glow {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(139,92,246,0.03) 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen relative overflow-x-hidden selection:bg-primary/30 selection:text-white">
+<div class="gradient-mesh"></div>
+<div class="tech-grid"></div>
+<div class="relative z-10 flex h-auto min-h-screen w-full flex-col @container">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-white/5 px-6 md:px-10 py-4 glass-panel sticky top-0 z-50">
+<div class="flex items-center gap-4 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">TopDev</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-center">
+<nav class="flex items-center gap-8 glass-panel px-6 py-2 rounded-full">
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">For Companies</a>
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">For Developers</a>
+<a class="text-slate-300 hover:text-white transition-colors text-sm font-medium leading-normal" href="#">Pricing</a>
+</nav>
+</div>
+<div class="flex gap-3">
+<button class="hidden md:flex min-w-[84px] cursor-pointer items-center justify-center rounded-xl h-10 px-5 text-slate-300 hover:text-white hover:bg-white/5 transition-all text-sm font-medium leading-normal">
+<span>Login</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-xl h-10 px-5 bg-white text-black hover:bg-slate-200 transition-colors text-sm font-semibold leading-normal">
+<span>Sign Up</span>
+</button>
+</div>
+</header>
+<main class="flex-1 w-full flex flex-col items-center relative z-10">
+<section class="w-full max-w-7xl mx-auto px-4 md:px-10 py-20 min-h-[calc(100vh-80px)] flex items-center justify-center">
+<div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+<div class="flex flex-col gap-8 text-left z-10 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/10 w-fit">
+<span class="material-symbols-outlined text-primary text-sm">auto_awesome</span>
+<span class="text-primary text-xs font-semibold tracking-wide uppercase">AI-Powered Vetting</span>
+</div>
+<h1 class="text-white text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-[-0.03em] glow-text">
+                                    Hire Developers Who Already <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-500">Proved Themselves</span>
+</h1>
+<p class="text-slate-400 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+                                    AI-generated technical assessments. Only elite candidates reach you. Save hundreds of engineering hours per hire.
+                                </p>
+<div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="flex items-center justify-center gap-2 rounded-xl h-14 px-8 bg-primary text-white text-base font-semibold leading-normal glow-button hover:bg-primary/90 transition-all">
+<span>Get Pre-Vetted Talent</span>
+<span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+<button class="flex items-center justify-center gap-2 rounded-xl h-14 px-8 border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all text-base font-semibold leading-normal glass-panel">
+<span>View Candidates</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mt-4 opacity-70">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border border-background-dark bg-slate-800" data-alt="User avatar 1" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDm6Ga23ZV5z7xj-wWHbZ0dNJhEaN7xJPzJwdwZanz95HBKnb1PmtwsMyZQbFKIZSVmiKxlOM2VeVNZeSsdlLhLttaMO8Vjw8vsQsLwpjfNaLq540RJCNH65op2OYtNugQ8k0ilhkyHGaKmrBBksq4_Nj8SnR9VJQXEAY63caCdbz0cHR3pgOGZKBoUMVY8T2GYna6AEMM1sfmTSmtm6vZWOosmjQYnnxyeVz3sFg7Y1XWdf3jtE9Se9hopLuwD9HafiP5hB1v-YHY');"></div>
+<div class="size-8 rounded-full border border-background-dark bg-slate-700" data-alt="User avatar 2" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDd2zaQiiQF3m5_-zD1PRhkgDWaBI_xNbGZS5lcKIW2IBS6yI42QjfhOihy5MUaFy_aSJhzD3_pbs6ldiNG6B5EOU7A7cfdfLBdVFyHthsm4cUo-HcrySTLmAIVr3kkrwXgOmQT6RQ6e2JMyrGGjZMfQgKfyFs5vfICdaqOFwYmC-_RuD5QnYIn1clsebsxFXK7KqvPmG-9_zrZxoAsecxJinbe985xpQFEeeCRI1Idb-doJwJwWb04zdVNZwJtvkEZmeyshcq5lek');"></div>
+<div class="size-8 rounded-full border border-background-dark bg-slate-600" data-alt="User avatar 3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC4ahcLmbytZG9IFy6X7vUa7YyxajDP0x4ymKtwqK92roRjxsA4MkWVaQfN8bUZdN4tb_0a1Lgm2jfZyrgBl55oyLk0nHMiUnP38wLg9vDL6M3pQTQ7Z29pMv0pN5wIWZQxjJ_Zpefs43mbd2Rl1fDZvd5fPTQluGIU3Hoyh4aM7wsLBCGgScdEQa8_4gJCyj6wUs30RCY6TKiOJEv9iz2XqFadGVDgwQ5I0LgvFtZ1Y3nzMwYTw47kBSUqvsJN9YJo6zXN75-0gJQ');"></div>
+</div>
+<span class="text-sm text-slate-400">Trusted by <strong class="text-white">500+</strong> tech teams</span>
+</div>
+</div>
+<div class="relative w-full aspect-square md:aspect-[4/3] lg:aspect-auto lg:h-[600px] flex items-center justify-center">
+<div class="absolute inset-0 bg-primary/20 blur-[100px] rounded-full mix-blend-screen opacity-50"></div>
+<div class="relative w-full max-w-md mx-auto glass-panel rounded-2xl border border-white/10 p-4 shadow-2xl transform rotate-[-2deg] hover:rotate-0 transition-transform duration-500 ease-out z-20">
+<div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+<div class="flex items-center gap-3">
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<h3 class="text-white font-medium">Alex Chen</h3>
+<p class="text-xs text-slate-400">Senior Full-Stack Engineer</p>
+</div>
+</div>
+<div class="px-2 py-1 rounded bg-green-500/20 text-green-400 text-xs font-medium border border-green-500/30">
+                                            Top 1%
+                                        </div>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-sm mb-1">
+<span class="text-slate-300">System Architecture</span>
+<span class="text-white font-medium">98/100</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 98%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1">
+<span class="text-slate-300">Algorithms &amp; Data Structures</span>
+<span class="text-white font-medium">95/100</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary/80 rounded-full" style="width: 95%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1">
+<span class="text-slate-300">React / Node.js</span>
+<span class="text-white font-medium">99/100</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary/90 rounded-full" style="width: 99%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 p-3 rounded-lg bg-white/5 border border-white/5">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5">smart_toy</span>
+<p class="text-xs text-slate-400 leading-relaxed">
+<strong class="text-slate-200">AI Assessment:</strong> Exceptional problem-solving skills demonstrated in complex distributed system design. Clean code architecture.
+                                            </p>
+</div>
+</div>
+</div>
+<div class="absolute -bottom-6 -right-6 md:-right-12 glass-panel p-4 rounded-xl border border-white/10 shadow-xl transform rotate-3 z-30 hidden sm:block">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-green-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-400 text-sm">check</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">Verified Assessment</p>
+<p class="text-xs text-slate-400">Completed 2 hrs ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="w-full max-w-7xl mx-auto px-4 md:px-10 py-24 z-10 relative">
+<div class="flex flex-col items-center text-center mb-16">
+<h2 class="text-white text-4xl md:text-5xl font-bold tracking-tight mb-4">Hiring Developers Is <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500 glow-text">Broken</span></h2>
+<p class="text-slate-400 text-lg max-w-2xl font-light">Traditional technical hiring relies on proxies. It’s slow, biased, and drains engineering time with false positives.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="glass-panel card-noise uv-glow rounded-2xl p-8 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-purple-400">description</span>
+</div>
+<div class="relative z-10 flex flex-col gap-5">
+<div class="size-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 shadow-[0_0_15px_rgba(139,92,246,0.2)]">
+<span class="material-symbols-outlined text-purple-400">document_scanner</span>
+</div>
+<div>
+<h3 class="text-white text-xl font-semibold mb-2 tracking-tight">Resume Screening Overload</h3>
+<p class="text-slate-400 text-sm leading-relaxed font-light">Sorting through thousands of unfiltered applications to find a single viable candidate wastes critical resources.</p>
+</div>
+</div>
+</div>
+<div class="glass-panel card-noise uv-glow rounded-2xl p-8 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-purple-400">video_camera_front</span>
+</div>
+<div class="relative z-10 flex flex-col gap-5">
+<div class="size-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 shadow-[0_0_15px_rgba(139,92,246,0.2)]">
+<span class="material-symbols-outlined text-purple-400">psychology</span>
+</div>
+<div>
+<h3 class="text-white text-xl font-semibold mb-2 tracking-tight">Unreliable Interviews</h3>
+<p class="text-slate-400 text-sm leading-relaxed font-light">Live coding rounds are stressful and biased. They test performance anxiety rather than actual on-the-job engineering capability.</p>
+</div>
+</div>
+</div>
+<div class="glass-panel card-noise uv-glow rounded-2xl p-8 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300">
+<div class="absolute -top-4 -right-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-purple-400">hourglass_empty</span>
+</div>
+<div class="relative z-10 flex flex-col gap-5">
+<div class="size-12 rounded-xl bg-purple-500/10 flex items-center justify-center border border-purple-500/20 shadow-[0_0_15px_rgba(139,92,246,0.2)]">
+<span class="material-symbols-outlined text-purple-400">timer</span>
+</div>
+<div>
+<h3 class="text-white text-xl font-semibold mb-2 tracking-tight">Slow Hiring Cycles</h3>
+<p class="text-slate-400 text-sm leading-relaxed font-light">Months of scheduling back-and-forths and multi-stage interviews cause you to lose top talent to faster competitors.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
