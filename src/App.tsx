@@ -30,6 +30,7 @@ import AdminAuditLog from './pages/admin/AuditLog';
 
 // Candidate pages
 import CandidateDashboard from './pages/candidate/Dashboard';
+import CandidateOnboarding from './pages/candidate/Onboarding';
 import TestPage from './pages/candidate/TestPage';
 
 // Public
@@ -96,6 +97,7 @@ export default function App() {
           {/* Candidate Dashboard */}
           <Route path="/candidate" element={<ProtectedRoute roles={['candidate', 'admin']}><DashboardLayout role="candidate" /></ProtectedRoute>}>
             <Route index element={<CandidateDashboard />} />
+            <Route path="onboard" element={<CandidateOnboarding />} />
           </Route>
 
           <Route path="/unauthorized" element={<div style={{ color: 'white', padding: 40 }}>Access denied.</div>} />
