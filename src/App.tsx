@@ -32,6 +32,7 @@ import AdminAuditLog from './pages/admin/AuditLog';
 import CandidateDashboard from './pages/candidate/Dashboard';
 import CandidateOnboarding from './pages/candidate/Onboarding';
 import TestPage from './pages/candidate/TestPage';
+import ResultsPage from './pages/candidate/ResultsPage';
 
 // Public
 import LandingPage from './pages/public/LandingPage';
@@ -98,6 +99,7 @@ export default function App() {
           <Route path="/candidate" element={<ProtectedRoute roles={['candidate', 'admin']}><DashboardLayout role="candidate" /></ProtectedRoute>}>
             <Route index element={<CandidateDashboard />} />
             <Route path="onboard" element={<CandidateOnboarding />} />
+            <Route path="results/:attemptId" element={<ResultsPage />} />
           </Route>
 
           <Route path="/unauthorized" element={<div style={{ color: 'white', padding: 40 }}>Access denied.</div>} />

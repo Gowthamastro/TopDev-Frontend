@@ -56,8 +56,13 @@ export default function TestPage() {
             return res.data;
         },
         onSuccess: (data) => {
-            toast.success('Assessment submitted successfully!');
-            navigate('/'); // For now redirect to home/landing after completion
+            toast.success('Assessment submitted! Calculating your score…');
+            // Redirect to results page — the API now returns attempt_id
+            if (data?.attempt_id) {
+                navigate(`/candidate/results/${data.attempt_id}`);
+            } else {
+                navigate('/candidate');
+            }
         },
         onError: (err: any) => {
             toast.error(err.response?.data?.detail || 'Failed to submit test');
