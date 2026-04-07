@@ -52,7 +52,7 @@ export default function TestPage() {
 
     const submitMutation = useMutation({
         mutationFn: async (payload: { answers: Record<string, string> }) => {
-            const res = await api.post(`/api/v1/assessments/test/${token}/submit`, payload);
+            const res = await api.post(`/api/v1/candidates/test/${token}/submit`, payload);
             return res.data;
         },
         onSuccess: (data) => {
@@ -205,8 +205,9 @@ export default function TestPage() {
                                         const isSelected = answers[activeQuestion.id] === optVal;
                                         
                                         return (
-                                            <label
+                                            <div
                                                 key={i}
+                                                onClick={() => handleAnswerChange(optVal)}
                                                 className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200 
                                                     ${isSelected ? 'border-[#0d59f2] bg-[#0d59f2]/5 shadow-[0_0_15px_rgba(13,89,242,0.1)]' : 'border-[#1e2433] bg-[#11141c] hover:border-slate-600'}
                                                 `}
@@ -217,7 +218,7 @@ export default function TestPage() {
                                                 <span className={`text-base leading-relaxed ${isSelected ? 'text-white' : 'text-slate-300'}`}>
                                                     {optText}
                                                 </span>
-                                            </label>
+                                            </div>
                                         );
                                     })}
                                 </div>
