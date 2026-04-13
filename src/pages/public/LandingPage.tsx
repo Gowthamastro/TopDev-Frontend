@@ -218,13 +218,14 @@ export default function LandingPage() {
                     <span className="lp-logo-text">TopDev</span>
                 </Link>
                 <nav className="lp-nav-links">
-                    <a href="#problem" className="lp-nav-link">For Companies</a>
-                    <a href="#process" className="lp-nav-link">For Developers</a>
+                    <a href="#problem" className="lp-nav-link">Problem</a>
+                    <a href="#features" className="lp-nav-link">Features</a>
+                    <a href="#how-it-works" className="lp-nav-link">How It Works</a>
                     <a href="#pricing" className="lp-nav-link">Pricing</a>
                 </nav>
                 <div className="lp-nav-actions">
                     <Link to="/login" className="lp-login">Login</Link>
-                    <Link to="/register" className="lp-btn-primary">Get Started</Link>
+                    <Link to="/register?role=candidate" className="lp-btn-primary">Get Started</Link>
                 </div>
             </header>
 
@@ -233,24 +234,23 @@ export default function LandingPage() {
                 <section className="lp-hero">
                     <div className="lp-hero-copy">
                         <div className="lp-badge">
-                            <span className="material-symbols-outlined" style={{ color: '#6badf7', fontSize: 16 }}>auto_awesome</span>
-                            <span className="lp-badge-text">AI-Powered Vetting</span>
+                            <span className="material-symbols-outlined" style={{ color: '#6badf7', fontSize: 16 }}>how_to_reg</span>
+                            <span className="lp-badge-text">Structured Candidate Data</span>
                         </div>
                         <h1 className="lp-h1">
-                            Hire Developers<br />
-                            Who Already<br />
-                            <span className="lp-h1-dim">Proved</span><br />
-                            <span className="lp-h1-grad">Themselves</span>
+                            Hire Faster<br />
+                            With Structured<br />
+                            <span className="lp-h1-grad">Candidate Data</span>
                         </h1>
                         <p className="lp-tagline">
-                            AI-generated technical assessments. Only elite candidates reach you. Save hundreds of engineering hours per hire.
+                            Collect complete candidate profiles, post jobs, and manage applicants — all in one simple platform.
                         </p>
                         <div className="lp-cta-row">
-                            <Link to="/register" className="lp-btn-primary lp-btn-hero">
-                                Get Pre-Vetted Talent
+                            <Link to="/register?role=client" className="lp-btn-primary lp-btn-hero">
+                                Post a Job
                                 <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
                             </Link>
-                            <button className="lp-btn-secondary lp-btn-hero">View Demo</button>
+                            <Link to="/register?role=candidate" className="lp-btn-secondary lp-btn-hero">Get Started</Link>
                         </div>
                         <div className="lp-social-proof">
                             <div className="lp-avatars">
@@ -274,7 +274,7 @@ export default function LandingPage() {
                                         <div className="lp-card-role">Senior Full-Stack Engineer</div>
                                     </div>
                                 </div>
-                                <span className="lp-badge-green">Top 1%</span>
+                                <span className="lp-badge-green">Profile Complete</span>
                             </div>
                             <div className="lp-scores">
                                 {[
@@ -294,9 +294,9 @@ export default function LandingPage() {
                                 ))}
                             </div>
                             <div className="lp-ai-note">
-                                <span className="material-symbols-outlined" style={{ color: '#0d59f2', fontSize: 20, flexShrink: 0 }}>smart_toy</span>
+                                <span className="material-symbols-outlined" style={{ color: '#0d59f2', fontSize: 20, flexShrink: 0 }}>verified_user</span>
                                 <p className="lp-ai-text">
-                                    <strong>AI Assessment:</strong> Exceptional problem-solving skills demonstrated in complex distributed system design. Clean code, 99th percentile efficiency.
+                                    <strong>Recruiter Note:</strong> Candidate has provided verified phone, detailed resume, and 5+ years of verified work history in the IT sector.
                                 </p>
                             </div>
                         </div>
@@ -336,14 +336,14 @@ export default function LandingPage() {
                 {/* ── PROBLEM ── */}
                 <section id="problem" className="lp-problem">
                     <div className="lp-section-hd">
-                        <h2 className="lp-h2">Hiring Developers Is <span className="lp-h2-purple">Broken</span></h2>
-                        <p className="lp-subtext">Traditional technical hiring relies on proxies. It's slow, biased, and drains engineering time with false positives.</p>
+                        <h2 className="lp-h2">Traditional Hiring Is <span className="lp-h2-purple">Incomplete</span></h2>
+                        <p className="lp-subtext">Recruiters struggle with fragmented profiles, missing details, and slow manual verification. TopDev brings structure to the hiring process.</p>
                     </div>
                     <div className="lp-cards3">
                         {[
-                            { icon: 'receipt_long', title: 'Resume Screening Overload', desc: 'Sorting through thousands of unfiltered applications to find a single viable candidate wastes critical resources.' },
-                            { icon: 'psychology', title: 'Unreliable Interviews', desc: 'Live coding rounds are stressful and biased. They test performance anxiety rather than actual on-the-job engineering capability.' },
-                            { icon: 'timer', title: 'Slow Hiring Cycles', desc: 'Months of scheduling back-and-forths and multi-stage interviews cause you to lose top talent to faster competitors.' },
+                            { icon: 'data_object', title: 'Incomplete Candidate Data', desc: 'Recruiters waste hours chasing missing contact info, resumes, and specific skill details from fragmented applications.' },
+                            { icon: 'history_toggle_off', title: 'Screening Takes Too Long', desc: 'Manual review of non-standardized resumes is a bottleneck. It takes days just to decide who is worth a first call.' },
+                            { icon: 'person_search', title: 'Unqualified Applicant Noise', desc: 'High volume of applicants without verified experience makes it impossible to find high-quality talent quickly.' },
                         ].map(({ icon, title, desc }) => (
                             <div key={title} className="lp-card">
                                 <div className="lp-card-icon">
@@ -357,85 +357,136 @@ export default function LandingPage() {
                 </section>
 
                 {/* ── PROCESS ── */}
-                <section id="process" className="lp-process">
+                <section id="features" className="lp-process">
                     <div className="lp-section-hd">
                         <div className="lp-badge" style={{ margin: '0 auto 32px' }}>
-                            <span className="material-symbols-outlined" style={{ color: '#6badf7', fontSize: 16 }}>settings</span>
-                            <span className="lp-badge-text">The Process</span>
+                            <span className="material-symbols-outlined" style={{ color: '#6badf7', fontSize: 16 }}>featured_play_list</span>
+                            <span className="lp-badge-text">Core Features</span>
                         </div>
-                        <h2 className="lp-h2">Meet the TopDev<br /><span className="lp-h2-grad">AI Screening Engine</span></h2>
-                        <p className="lp-subtext" style={{ marginTop: 24 }}>From job description to top-tier talent in minutes. Our AI evaluates engineers so you don't have to.</p>
+                        <h2 className="lp-h2">Simplicity First.<br /><span className="lp-h2-grad">Recruitment Redefined.</span></h2>
+                        <p className="lp-subtext" style={{ marginTop: 24 }}>Structured data collection and clean applicant management. No buzzwords, just results.</p>
                     </div>
                     <div className="lp-process-cards">
-                        <div className="lp-connector"></div>
-
+                        {/* For Recruiters */}
                         <div className="lp-proc-card">
-                            <div className="lp-step-num">1</div>
+                            <div className="lp-step-num">R</div>
                             <div className="lp-proc-body">
-                                <h3 className="lp-proc-h">Upload Job Description</h3>
-                                <p className="lp-proc-p">Paste requirements or upload a PDF. Our AI extracts core technical needs instantly.</p>
+                                <h3 className="lp-proc-h">For Recruiters</h3>
+                                <p className="lp-proc-p">Streamline your hiring funnel with tools built for speed and clarity.</p>
+                                <ul className="lp-features" style={{ marginBottom: 32 }}>
+                                    {['Post jobs with ease', 'View complete candidate profiles', 'Filter by experience & salary'].map(f => (
+                                        <li key={f} className="lp-feature">
+                                            <span className="material-symbols-outlined" style={{ color: '#0d59f2', fontSize: 18 }}>check_circle</span>
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
                                 <div className="lp-upload-vis">
-                                    <span className="material-symbols-outlined" style={{ color: '#0d59f2', fontSize: 40 }}>cloud_upload</span>
-                                    <div className="lp-upload-label">Drag & drop JD here</div>
-                                    <div className="lp-upload-sub">PDF, DOCX, or Text</div>
+                                    <span className="material-symbols-outlined" style={{ color: '#0d59f2', fontSize: 40 }}>post_add</span>
+                                    <div className="lp-upload-label">Create a Job Post</div>
+                                    <div className="lp-upload-sub">Simple, structured JDs</div>
                                 </div>
                             </div>
                         </div>
 
+                        {/* For Candidates */}
                         <div className="lp-proc-card">
-                            <div className="lp-step-num">2</div>
+                            <div className="lp-step-num">C</div>
                             <div className="lp-proc-body">
-                                <h3 className="lp-proc-h">AI Generates Assessment</h3>
-                                <p className="lp-proc-p">A unique, cheat-proof coding environment is spun up tailored to your stack.</p>
-                                <div className="lp-proc-vis lp-code-vis">
-                                    <div className="lp-code-titlebar">
-                                        <div className="lp-dots">
-                                            <div className="lp-dot" style={{ background: '#ef4444' }}></div>
-                                            <div className="lp-dot" style={{ background: '#eab308' }}></div>
-                                            <div className="lp-dot" style={{ background: '#22c55e' }}></div>
-                                        </div>
-                                        <div className="lp-code-filename">assessment.ts</div>
-                                    </div>
-                                    <div className="lp-code-body">{`const gen = async (jd, stack) => {
-  const req = await ai.extract(jd);
-  return ai.buildEnv({
-    difficulty: 'Senior',
-    antiCheat: true,
-    testCases: 50,
-  });
-};`}</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="lp-proc-card">
-                            <div className="lp-step-num">3</div>
-                            <div className="lp-proc-body">
-                                <h3 className="lp-proc-h">Receive Ranked Talent</h3>
-                                <p className="lp-proc-p">Review deep analytics on performance, code quality, and speed. Hire with confidence.</p>
+                                <h3 className="lp-proc-h">For Candidates</h3>
+                                <p className="lp-proc-p">Stand out with a professional profile that speaks for itself.</p>
+                                <ul className="lp-features" style={{ marginBottom: 32 }}>
+                                    {['Create detailed profile', 'Upload resume', 'Apply to relevant jobs'].map(f => (
+                                        <li key={f} className="lp-feature">
+                                            <span className="material-symbols-outlined" style={{ color: '#0d59f2', fontSize: 18 }}>account_circle</span>
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
                                 <div className="lp-proc-vis lp-result-vis">
-                                    <div className="lp-mini-profile">
-                                        <div className="lp-mini-av">ER</div>
+                                    <div className="lp-mini-profile" style={{ marginBottom: 0 }}>
+                                        <div className="lp-mini-av">JD</div>
                                         <div>
-                                            <div className="lp-mini-name">Elena R.</div>
-                                            <div className="lp-mini-role">Staff Engineer · React, Go</div>
+                                            <div className="lp-mini-name">John Doe</div>
+                                            <div className="lp-mini-role">Backend Engineer</div>
                                         </div>
-                                        <span className="lp-mini-badge">Verified</span>
-                                    </div>
-                                    <div className="lp-mini-scores">
-                                        {[['Overall', '98', '98%', '#0d59f2'], ['Architecture', '96', '96%', '#6badf7'], ['Speed', '99', '99%', '#8b5cf6']].map(([l, s, w, c]) => (
-                                            <div key={l} className="lp-mini-score-row">
-                                                <div className="lp-mini-score-label">
-                                                    <span className="lp-mini-score-name">{l}</span>
-                                                    <span className="lp-mini-score-val">{s}/100</span>
-                                                </div>
-                                                <div className="lp-mini-track">
-                                                    <div style={{ height: '3px', width: w, background: `linear-gradient(90deg,${c},${c}99)`, borderRadius: 999, boxShadow: `0 0 8px ${c}80` }}></div>
-                                                </div>
-                                            </div>
-                                        ))}
+                                        <span className="lp-mini-badge" style={{ background: 'rgba(13,89,242,0.1)', color: '#0d59f2', border: '1px solid rgba(13,89,242,0.2)' }}>Profile 100%</span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        {/* For Teams */}
+                        <div className="lp-proc-card">
+                            <div className="lp-step-num">T</div>
+                            <div className="lp-proc-body">
+                                <h3 className="lp-proc-h">Better Management</h3>
+                                <p className="lp-proc-p">Keep your entire pipeline organized in one single place.</p>
+                                <div className="lp-upload-vis" style={{ border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)' }}>
+                                    <span className="material-symbols-outlined" style={{ color: '#6badf7', fontSize: 40 }}>dashboard_customize</span>
+                                    <div className="lp-upload-label">Clean Pipeline View</div>
+                                    <div className="lp-upload-sub">Track every stage visually</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* ── HOW IT WORKS ── */}
+                <section id="how-it-works" className="lp-process" style={{ background: 'rgba(255,255,255,0.01)', borderTop: '1px solid rgba(255,255,255,0.03)', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                    <div className="lp-section-hd">
+                        <h2 className="lp-h2">Simple 3-Step Flow</h2>
+                        <p className="lp-subtext">Everything you need, nothing you don't. Designed for speed.</p>
+                    </div>
+                    
+                    <div className="lp-section" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, marginTop: 64 }}>
+                        {/* Candidates Flow */}
+                        <div className="lp-glass" style={{ padding: 40 }}>
+                            <h3 className="lp-proc-h" style={{ fontSize: 24, marginBottom: 32, display: 'flex', alignItems: 'center', gap: 12 }}>
+                                <span className="material-symbols-outlined" style={{ color: '#0d59f2' }}>person</span>
+                                For Candidates
+                            </h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                                {[
+                                    { step: 1, title: 'Complete Your Profile', desc: 'Sign up and provide verified skills, resume, and contact details.' },
+                                    { step: 2, title: 'Browse Relevant Jobs', desc: 'Find IT roles that match your experience and salary expectations.' },
+                                    { step: 3, title: 'Apply with One Click', desc: 'Submit your structured data directly to recruiters.' }
+                                ].map((s, i) => (
+                                    <div key={i} style={{ display: 'flex', gap: 20 }}>
+                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(13,89,242,0.1)', color: '#0d59f2', display: 'flex', alignItems: 'center', fontSize: 14, fontWeight: 900, flexShrink: 0, justifyContent: 'center' }}>
+                                            {s.step}
+                                        </div>
+                                        <div>
+                                            <h4 style={{ color: 'white', fontSize: 16, fontWeight: 700, margin: '0 0 4px' }}>{s.title}</h4>
+                                            <p style={{ color: '#94a3b8', fontSize: 14, margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Recruiters Flow */}
+                        <div className="lp-glass" style={{ padding: 40 }}>
+                            <h3 className="lp-proc-h" style={{ fontSize: 24, marginBottom: 32, display: 'flex', alignItems: 'center', gap: 12 }}>
+                                <span className="material-symbols-outlined" style={{ color: '#8b5cf6' }}>business</span>
+                                For Recruiters
+                            </h3>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                                {[
+                                    { step: 1, title: 'Post a Job', desc: 'Define your role requirements in seconds with our simple editor.' },
+                                    { step: 2, title: 'Receive Applicants', desc: 'Get notified as relevant candidates apply to your job.' },
+                                    { step: 3, title: 'Review Profiles', desc: 'See structured, standardized data for every candidate instantly.' }
+                                ].map((s, i) => (
+                                    <div key={i} style={{ display: 'flex', gap: 20 }}>
+                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'rgba(139,92,246,0.1)', color: '#8b5cf6', display: 'flex', alignItems: 'center', fontSize: 14, fontWeight: 900, flexShrink: 0, justifyContent: 'center' }}>
+                                            {s.step}
+                                        </div>
+                                        <div>
+                                            <h4 style={{ color: 'white', fontSize: 16, fontWeight: 700, margin: '0 0 4px' }}>{s.title}</h4>
+                                            <p style={{ color: '#94a3b8', fontSize: 14, margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -444,37 +495,37 @@ export default function LandingPage() {
                 {/* ── PRICING ── */}
                 <section id="pricing" className="lp-pricing">
                     <div className="lp-section-hd">
-                        <h2 className="lp-h2">The Future of Recruitment,<br />Priced for <span style={{ color: '#64748b' }}>Growth</span></h2>
-                        <p className="lp-subtext" style={{ marginTop: 24 }}>Transparent pricing for access to top 1% global talent. No hidden fees.</p>
+                        <h2 className="lp-h2">Simple, Transparent<br /><span style={{ color: '#64748b' }}>Pricing</span></h2>
+                        <p className="lp-subtext" style={{ marginTop: 24 }}>Find the perfect fit for your hiring needs. No hidden fees.</p>
                     </div>
                     <div className="lp-plans">
                         <div className="lp-plan">
                             <div><p className="lp-plan-name">Starter</p><p className="lp-plan-desc">Perfect for early-stage startups building their core team.</p></div>
-                            <div className="lp-price-mb"><span className="lp-price">15%</span><span className="lp-price-unit">per hire</span></div>
+                            <div className="lp-price-mb"><span className="lp-price">$49</span><span className="lp-price-unit">/month</span></div>
                             <ul className="lp-features">
-                                {['Access to vetted candidate pool', 'Basic AI assessment reports', 'Email support'].map(f => (
+                                {['Post up to 5 jobs/month', 'View full candidate profiles', 'Standard email support'].map(f => (
                                     <li key={f} className="lp-feature">
                                         <span className="material-symbols-outlined" style={{ color: '#475569', fontSize: 18, flexShrink: 0 }}>check</span>
                                         {f}
                                     </li>
                                 ))}
                             </ul>
-                            <button className="lp-plan-btn" style={{ width: '100%' }}>Get Started</button>
+                            <Link to="/register?role=client" className="lp-plan-btn" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Get Started</Link>
                         </div>
 
                         <div className="lp-plan lp-plan-featured">
                             <div className="lp-popular-badge">Most Popular</div>
                             <div><p className="lp-plan-name">Growth</p><p className="lp-plan-desc">For scaling companies that need elite talent quickly.</p></div>
-                            <div className="lp-price-mb"><span className="lp-price">$2,900</span><span className="lp-price-unit">/month</span></div>
+                            <div className="lp-price-mb"><span className="lp-price">$149</span><span className="lp-price-unit">/month</span></div>
                             <ul className="lp-features">
-                                {['Unlimited hiring (no per-hire fee)', 'Full AI behavioral & tech assessments', 'Dedicated Account Manager', 'Custom coding challenges'].map(f => (
+                                {['Post up to 20 jobs/month', 'Clean applicant management', 'Advanced filtering', 'Priority support'].map(f => (
                                     <li key={f} className="lp-feature">
                                         <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", color: '#0d59f2', fontSize: 20, flexShrink: 0 }}>check_circle</span>
                                         {f}
                                     </li>
                                 ))}
                             </ul>
-                            <button className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%' }}>Start 14-Day Free Trial</button>
+                            <Link to="/register?role=client" className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Start 14-Day Free Trial</Link>
                         </div>
 
                         <div className="lp-plan">
@@ -493,19 +544,48 @@ export default function LandingPage() {
                     </div>
                 </section>
 
+                {/* ── COMING SOON ROADMAP ── */}
+                <section id="roadmap" className="lp-process" style={{ padding: '80px 48px', position: 'relative' }}>
+                    <div className="lp-section-hd" style={{ marginBottom: 48 }}>
+                        <div className="lp-badge" style={{ margin: '0 auto 24px', background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.2)' }}>
+                            <span className="lp-badge-text" style={{ color: '#8b5cf6' }}>Roadmap</span>
+                        </div>
+                        <h2 className="lp-h2">What's Coming Next</h2>
+                        <p className="lp-subtext">We're building the future of recruitment. Here is what to expect in the coming months.</p>
+                    </div>
+                    <div className="lp-cards3" style={{ opacity: 0.8 }}>
+                        {[
+                            { icon: 'psychology', title: 'Candidate Assessments', desc: 'Auto-generated technical tests to verify skills deeply.' },
+                            { icon: 'smart_toy', title: 'AI-Powered Screening', desc: 'Automated interview notes and performance analysis.' },
+                            { icon: 'auto_awesome', title: 'Smart Shortlisting', desc: 'AI rankings based on your specific job requirements.' },
+                        ].map(({ icon, title, desc }) => (
+                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed' }}>
+                                <div className="lp-card-icon" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                                    <span className="material-symbols-outlined" style={{ color: '#94a3b8', fontSize: 24 }}>{icon}</span>
+                                </div>
+                                <h3 className="lp-card-h" style={{ color: '#cbd5e1' }}>{title}</h3>
+                                <p className="lp-card-p">{desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
                 {/* ── CTA ── */}
                 <div className="lp-cta-wrap">
                     <div className="lp-cta-box">
                         <div className="lp-cta-glow-l"></div>
                         <div className="lp-cta-glow-r"></div>
                         <div className="lp-cta-copy">
-                            <h2 className="lp-cta-h">Ready to scale your engineering team?</h2>
-                            <p className="lp-cta-sub">Stop reviewing resumes. Start interviewing top performers.</p>
+                            <h2 className="lp-cta-h">Ready to find your next hire?</h2>
+                            <p className="lp-cta-sub">Stop chasing incomplete data. Start hiring with clarity.</p>
                         </div>
-                        <div className="lp-cta-action">
-                            <Link to="/register" className="lp-btn-white">
-                                Get Pre-Vetted Talent Today
+                        <div className="lp-cta-action" style={{ display: 'flex', gap: 16 }}>
+                            <Link to="/register?role=client" className="lp-btn-white">
+                                Start Hiring
                                 <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
+                            </Link>
+                            <Link to="/register?role=candidate" className="lp-btn-secondary" style={{ padding: '16px 32px' }}>
+                                Create Your Profile
                             </Link>
                         </div>
                     </div>
@@ -523,12 +603,18 @@ export default function LandingPage() {
                                 </div>
                                 <span className="lp-logo-text">TopDev</span>
                             </div>
-                            <p>The AI-powered platform connecting the world's best engineers with elite tech companies.</p>
+                            <p>The efficient platform connecting the world's best engineers with elite tech companies through structured data.</p>
                         </div>
                         <div>
                             <div className="lp-footer-col-h">Product</div>
                             <ul className="lp-footer-links">
-                                {['For Companies', 'For Developers', 'Pricing', 'How It Works', 'Case Studies'].map(l => <li key={l}><a href="#">{l}</a></li>)}
+                                {[
+                                    { name: 'For Recruiters', link: '#features' },
+                                    { name: 'For Candidates', link: '#features' },
+                                    { name: 'How It Works', link: '#how-it-works' },
+                                    { name: 'Pricing', link: '#pricing' },
+                                    { name: 'Roadmap', link: '#roadmap' }
+                                ].map(l => <li key={l.name}><a href={l.link}>{l.name}</a></li>)}
                             </ul>
                         </div>
                         <div>

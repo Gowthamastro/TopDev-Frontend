@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -45,9 +45,14 @@ function getPasswordStrength(pwd: string): { score: number; label: string; color
 }
 
 export default function RegisterPage() {
+    const [searchParams] = useSearchParams();
+    const initialRole = (searchParams.get('role') === 'client' || searchParams.get('role') === 'candidate') 
+        ? searchParams.get('role') as 'client' | 'candidate' 
+        : 'candidate';
+
     const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<FormData>({
         resolver: zodResolver(schema),
-        defaultValues: { role: 'candidate' }
+        defaultValues: { role: initialRole }
     });
     const { setAuth } = useAuthStore();
     const navigate = useNavigate();
