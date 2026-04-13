@@ -9,9 +9,10 @@ import {
 const clientNav = [
     { to: '/client', icon: 'dashboard', label: 'Dashboard', end: true },
     { to: '/client/jobs', icon: 'work', label: 'Active Roles' },
-    { to: '/client/candidates', icon: 'group', label: 'Talent Pool' },
-    { to: '/client/interviews', icon: 'calendar_month', label: 'Interviews' },
-    { to: '/client/analytics', icon: 'monitoring', label: 'Reports' },
+    // Phase 1: Hide assessment/AI-dependent features
+    // { to: '/client/candidates', icon: 'group', label: 'Talent Pool' },
+    // { to: '/client/interviews', icon: 'calendar_month', label: 'Interviews' },
+    // { to: '/client/analytics', icon: 'monitoring', label: 'Reports' },
 ];
 
 const adminNav = [
@@ -26,6 +27,7 @@ const adminNav = [
 
 const candidateNav = [
     { to: '/candidate', icon: 'dashboard', label: 'Dashboard', end: true },
+    // Phase 1: Test/Results pages hidden — candidates just browse jobs & apply
 ];
 
 export default function DashboardLayout({ role }: { role: 'client' | 'admin' | 'candidate' }) {

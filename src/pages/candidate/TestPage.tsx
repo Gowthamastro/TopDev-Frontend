@@ -3,12 +3,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Editor from '@monaco-editor/react';
 import toast from 'react-hot-toast';
-import { Clock, Code2, FileText, Presentation, CheckCircle2, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { Clock, Code2, FileText, Presentation, CheckCircle2, ChevronLeft, ChevronRight, Shield, AlertTriangle } from 'lucide-react';
 import api from '../../services/api';
+import useProctoringMonitor from '../../hooks/useProctoringMonitor';
+import ProctoringConsent from '../../components/ProctoringConsent';
 
 export default function TestPage() {
     const { token } = useParams<{ token: string }>();
     const navigate = useNavigate();
+
+    // Proctoring state
+    const [showConsent, setShowConsent] = useState(true);
+    const [proctoringEnabled, setProctoringEnabled] = useState(false);
+    const { eventCounts, isMonitoring, totalViolations } = useProctoringMonitor(token, proctoringEnabled);
 
     // Fetch assessment
     const { data: testData, isLoading, error } = useQuery({
@@ -27,6 +34,28 @@ export default function TestPage() {
 
     const questions = testData?.questions || [];
     const activeQuestion = questions[activeIndex];
+
+    // Handle consent
+    const handleAcceptProctoring = async () => {
+        setProctoringEnabled(true);
+        setShowConsent(false);
+        try {
+            await api.post(`/api/v1/proctor/${token}/consent`, { consented: true });
+        } catch { /* non-critical */ }
+    };
+
+    const handleDeclineProctoring = async () => {
+        setProctoringEnabled(false);
+        setShowConsent(false);
+        try {
+            await api.post(`/api/v1/proctor/${token}/consent`, { consented: false });
+        } catch { /* non-critical */ }
+        toast('You declined monitoring. Your submission will be flagged as unmonitored.', {
+            icon: '⚠️',
+            duration: 5000,
+            style: { background: '#1a1520', color: '#fbbf24', border: '1px solid #78350f' },
+        });
+    };
 
     // Initialize timer
     useEffect(() => {
@@ -57,7 +86,6 @@ export default function TestPage() {
         },
         onSuccess: (data) => {
             toast.success('Assessment submitted! Calculating your score…');
-            // Redirect to results page — the API now returns attempt_id
             if (data?.attempt_id) {
                 navigate(`/candidate/results/${data.attempt_id}`);
             } else {
@@ -109,6 +137,15 @@ export default function TestPage() {
     return (
         <div className="dark bg-[#0a0c10] text-slate-100 font-display min-h-screen antialiased flex flex-col font-['Inter']">
             
+            {/* Proctoring Consent Modal */}
+            {showConsent && !isLoading && !error && (
+                <ProctoringConsent
+                    onAccept={handleAcceptProctoring}
+                    onDecline={handleDeclineProctoring}
+                    candidateName={testData?.candidate_name}
+                />
+            )}
+
             {/* Top Navigation */}
             <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#1e2433] bg-[#0d1016]/95 backdrop-blur-md px-6 py-4">
                 <div className="flex items-center gap-4">
@@ -118,7 +155,32 @@ export default function TestPage() {
                         <p className="text-xs text-slate-400">Candidate: {testData.candidate_name}</p>
                     </div>
                 </div>
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4">
+                    {/* Proctoring Indicator */}
+                    {isMonitoring ? (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-xs font-medium">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <Shield size={13} />
+                            Monitored
+                        </div>
+                    ) : !showConsent && (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-medium">
+                            <AlertTriangle size={13} />
+                            Unmonitored
+                        </div>
+                    )}
+
+                    {/* Violation counter (subtle, only if issues) */}
+                    {isMonitoring && totalViolations > 0 && (
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-mono">
+                            <AlertTriangle size={12} />
+                            {totalViolations}
+                        </div>
+                    )}
+
                     {/* Timer */}
                     {timeLeft !== null && (
                         <div className={`flex items-center gap-2 border rounded-full px-4 py-1.5 ${timeLeft < 300 ? 'border-[#f85149]/30 bg-[#f85149]/10 shadow-[0_0_15px_rgba(248,81,73,0.15)] text-[#f85149]' : 'border-[#1e2433] bg-[#11141c] text-emerald-400'}`}>
@@ -198,8 +260,6 @@ export default function TestPage() {
                                 </h1>
                             </div>
 
-                            {/* Question Body Types */}
-                            
                             {/* MCQ */}
                             {activeQuestion.type === 'mcq' && (
                                 <div className="space-y-4 max-w-3xl">
@@ -251,13 +311,13 @@ export default function TestPage() {
                                             <div className="w-3 h-3 rounded-full bg-[#3fb950]/40"></div>
                                         </div>
                                         <span className="text-xs font-mono text-slate-400">solution.js</span>
-                                        <div className="w-4"></div> {/* Spacer */}
+                                        <div className="w-4"></div>
                                     </div>
                                     <Editor
                                         height="100%"
                                         defaultLanguage="javascript"
                                         theme="vs-dark"
-                                        value={answers[activeQuestion.id] || '// Write your solution here...\\n'}
+                                        value={answers[activeQuestion.id] || '// Write your solution here...\n'}
                                         onChange={(val) => handleAnswerChange(val || '')}
                                         options={{
                                             minimap: { enabled: false },

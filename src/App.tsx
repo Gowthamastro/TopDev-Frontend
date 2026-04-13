@@ -31,11 +31,13 @@ import AdminAuditLog from './pages/admin/AuditLog';
 // Candidate pages
 import CandidateDashboard from './pages/candidate/Dashboard';
 import CandidateOnboarding from './pages/candidate/Onboarding';
+import CompleteProfile from './pages/candidate/CompleteProfile';
 import TestPage from './pages/candidate/TestPage';
 import ResultsPage from './pages/candidate/ResultsPage';
 
 // Public
 import LandingPage from './pages/public/LandingPage';
+import ComingSoon from './pages/public/ComingSoon';
 import AnalyticsPage from './pages/client/AnalyticsPage';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30000 } } });
@@ -44,6 +46,10 @@ function ProtectedRoute({ children, roles }: { children: React.ReactNode; roles?
   const { isAuthenticated, user } = useAuthStore();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (roles && user && !roles.includes(user.role)) return <Navigate to="/unauthorized" replace />;
+  // Phase 1: Force incomplete candidates to /complete-profile
+  if (user?.role === 'candidate' && !user.isProfileComplete) {
+    return <Navigate to="/complete-profile" replace />;
+  }
   return <>{children}</>;
 }
 
@@ -64,7 +70,17 @@ export default function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
           <Route path="/test/:token" element={<TestPage />} />
+
+          {/* Candidate Profile Completion (no profile-complete gate here) */}
+          <Route path="/complete-profile" element={
+            (() => {
+              const { isAuthenticated } = useAuthStore();
+              if (!isAuthenticated) return <Navigate to="/login" replace />;
+              return <CompleteProfile />;
+            })()
+          } />
 
           {/* Client Routes */}
           <Route path="/client">
@@ -109,3 +125,4 @@ export default function App() {
     </QueryClientProvider>
   );
 }
+

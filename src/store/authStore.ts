@@ -8,6 +8,7 @@ interface AuthUser {
     email: string;
     fullName: string;
     role: UserRole;
+    isProfileComplete: boolean;
 }
 
 interface AuthState {
@@ -16,6 +17,7 @@ interface AuthState {
     refreshToken: string | null;
     isAuthenticated: boolean;
     setAuth: (user: AuthUser, accessToken: string, refreshToken: string) => void;
+    updateProfileComplete: (isComplete: boolean) => void;
     setTokens: (accessToken: string, refreshToken: string) => void;
     logout: () => void;
 }
@@ -29,6 +31,10 @@ export const useAuthStore = create<AuthState>()(
             isAuthenticated: false,
             setAuth: (user, accessToken, refreshToken) =>
                 set({ user, accessToken, refreshToken, isAuthenticated: true }),
+            updateProfileComplete: (isComplete: boolean) =>
+                set((state) => ({
+                    user: state.user ? { ...state.user, isProfileComplete: isComplete } : null,
+                })),
             setTokens: (accessToken, refreshToken) =>
                 set({ accessToken, refreshToken }),
             logout: () =>

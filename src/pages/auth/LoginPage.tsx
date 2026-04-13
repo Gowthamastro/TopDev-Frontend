@@ -39,12 +39,16 @@ export default function LoginPage() {
                 });
                 
                 setAuth(
-                    { id: res.data.user_id, email: res.data.email, fullName: res.data.full_name, role: res.data.role },
+                    { id: res.data.user_id, email: res.data.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: res.data.is_profile_complete ?? true },
                     res.data.access_token,
                     res.data.refresh_token
                 );
                 const role = res.data.role;
-                navigate(role === 'admin' ? '/admin' : role === 'client' ? '/client' : '/candidate');
+                if (role === 'candidate' && !res.data.is_profile_complete) {
+                    navigate('/complete-profile');
+                } else {
+                    navigate(role === 'admin' ? '/admin' : role === 'client' ? '/client' : '/candidate');
+                }
                 toast.success(`Welcome back, ${res.data.full_name}!`);
             } catch (err: any) {
                 toast.error(err.response?.data?.detail || 'Google sign in failed');
@@ -61,12 +65,16 @@ export default function LoginPage() {
         try {
             const res = await api.post('/api/v1/auth/login', data);
             setAuth(
-                { id: res.data.user_id, email: data.email, fullName: res.data.full_name, role: res.data.role },
+                { id: res.data.user_id, email: data.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: res.data.is_profile_complete ?? true },
                 res.data.access_token,
                 res.data.refresh_token
             );
             const role = res.data.role;
-            navigate(role === 'admin' ? '/admin' : role === 'client' ? '/client' : '/candidate');
+            if (role === 'candidate' && !res.data.is_profile_complete) {
+                navigate('/complete-profile');
+            } else {
+                navigate(role === 'admin' ? '/admin' : role === 'client' ? '/client' : '/candidate');
+            }
             toast.success(`Welcome back, ${res.data.full_name}!`);
         } catch (err: any) {
             toast.error(err.response?.data?.detail || 'Invalid email or password');

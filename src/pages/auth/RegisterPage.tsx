@@ -70,11 +70,15 @@ export default function RegisterPage() {
                 });
                 
                 setAuth(
-                    { id: res.data.user_id, email: res.data.email, fullName: res.data.full_name, role: res.data.role },
+                    { id: res.data.user_id, email: res.data.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: res.data.is_profile_complete ?? false },
                     res.data.access_token,
                     res.data.refresh_token
                 );
-                navigate(res.data.role === 'admin' ? '/admin' : res.data.role === 'client' ? '/client' : '/candidate');
+                if (res.data.role === 'candidate') {
+                    navigate('/complete-profile');
+                } else {
+                    navigate(res.data.role === 'admin' ? '/admin' : '/client');
+                }
                 toast.success('Google sign in successful! 🚀');
             } catch (err: any) {
                 toast.error(err.response?.data?.detail || 'Google sign in failed');
@@ -91,11 +95,15 @@ export default function RegisterPage() {
         try {
             const res = await api.post('/api/v1/auth/register', data);
             setAuth(
-                { id: res.data.user_id, email: data.email, fullName: res.data.full_name, role: res.data.role },
+                { id: res.data.user_id, email: data.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: res.data.is_profile_complete ?? false },
                 res.data.access_token,
                 res.data.refresh_token
             );
-            navigate(res.data.role === 'client' ? '/client' : '/candidate');
+            if (res.data.role === 'candidate') {
+                navigate('/complete-profile');
+            } else {
+                navigate(res.data.role === 'client' ? '/client' : '/admin');
+            }
             toast.success('Account created! Welcome to TopDev 🚀');
         } catch (err: any) {
             toast.error(err.response?.data?.detail || 'Registration failed. Please try again.');
