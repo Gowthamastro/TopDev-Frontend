@@ -21,14 +21,14 @@ const CodeSignupEditor = () => {
         password: '••••••••',
         phone: '+1 234 567 890',
         location: 'City, Country',
-        currentSalary: 100000,
-        expectedSalary: 150000,
+        currentSalary: '',
+        expectedSalary: '',
         resume: null as File | null,
         // Client specific
-        company: 'TopDev Inc.',
-        website: 'https://topdev.io',
-        budget: 2400000,
-        jobRole: 'Senior Frontend Engineer',
+        company: '',
+        website: '',
+        budget: '',
+        jobRole: '',
     });
 
     const handleInteraction = () => {
