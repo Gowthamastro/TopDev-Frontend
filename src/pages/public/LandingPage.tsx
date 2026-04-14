@@ -49,14 +49,22 @@ const CodeSignupEditor = () => {
 
         setIsSubmitting(true);
         try {
-            // Step 1: Register
+            // Unify all onboarding data into the primary registration call
             const registerData = {
                 full_name: form.name,
                 email: form.email,
                 password: form.password,
                 role: role,
-                company_name: role === 'client' ? form.company : undefined,
+                // Onboarding fields handled in one step
+                company_name: role === 'client' ? (form.company || 'Workspace') : undefined,
+                website: role === 'client' ? form.website : undefined,
+                hiring_budget: role === 'client' ? (Number(form.budget) || 0) : undefined,
+                phone: role === 'candidate' ? form.phone : undefined,
+                location: form.location,
+                current_salary: role === 'candidate' ? (Number(form.currentSalary) || 0) : undefined,
+                expected_salary: role === 'candidate' ? (Number(form.expectedSalary) || 0) : undefined,
             };
+
             const res = await api.post('/api/v1/auth/register', registerData);
             
             setAuth(
@@ -65,27 +73,15 @@ const CodeSignupEditor = () => {
                 res.data.refresh_token
             );
 
-            // Step 2: Handle onboarding fields
-            if (role === 'candidate') {
-                await api.post('/api/v1/candidates/onboard', {
-                    phone: form.phone,
-                    location: form.location,
-                    current_salary: Number(form.currentSalary) || 0,
-                    expected_salary: Number(form.expectedSalary) || 0,
-                });
-                
-                if (form.resume) {
-                    const fd = new FormData();
-                    fd.append('file', form.resume);
+            // Only resume upload remains a separate step if file exists
+            if (role === 'candidate' && form.resume) {
+                const fd = new FormData();
+                fd.append('file', form.resume);
+                try {
                     await api.post('/api/v1/candidates/resume', fd);
+                } catch (resumeErr) {
+                    console.error("Resume upload failed but account was created", resumeErr);
                 }
-            } else {
-                await api.post('/api/v1/clients/onboard', {
-                    company_name: form.company,
-                    website: form.website,
-                    location: form.location,
-                    hiring_budget: Number(form.budget) || 0,
-                });
             }
 
             setIsSuccess(true);
