@@ -256,7 +256,7 @@ export default function CompleteProfile() {
                                         onClick={() => verifyOtpMutation.mutate()}
                                         disabled={verifyOtpMutation.isPending || otpCode.length !== 6}
                                         style={{
-                                            padding: '10px 18px', background: 'var(--color-success)', color: '#FFFFFF', border: 'none',
+                                            padding: '10px 18px', background: 'var(--color-success)', color: 'var(--color-bg)', border: 'none',
                                             borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer',
                                             opacity: otpCode.length !== 6 ? 0.5 : 1,
                                         }}
