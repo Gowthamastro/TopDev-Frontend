@@ -38,10 +38,10 @@ function getPasswordStrength(pwd: string): { score: number; label: string; color
     if (/[0-9]/.test(pwd)) score++;
     if (/[^A-Za-z0-9]/.test(pwd)) score++;
     if (pwd.length >= 12) score++;
-    if (score <= 1) return { score, label: 'Weak', color: '#f85149' };
-    if (score <= 2) return { score, label: 'Fair', color: '#f59e0b' };
-    if (score <= 3) return { score, label: 'Good', color: '#0d59f2' };
-    return { score, label: 'Strong', color: '#10b981' };
+    if (score <= 1) return { score, label: 'Weak', color: '#dc2626' };
+    if (score <= 2) return { score, label: 'Fair', color: '#ca8a04' };
+    if (score <= 3) return { score, label: 'Good', color: '#666' };
+    return { score, label: 'Strong', color: '#000' };
 }
 
 export default function RegisterPage() {
@@ -66,9 +66,7 @@ export default function RegisterPage() {
         onSuccess: async (tokenResponse) => {
             setIsGoogleLoading(true);
             try {
-                // Determine the role selected in the UI before they clicked Google sign-in
                 const selectedRole = role || 'candidate';
-                
                 const res = await api.post('/api/v1/auth/google', {
                     access_token: tokenResponse.access_token,
                     role: selectedRole
@@ -116,38 +114,25 @@ export default function RegisterPage() {
     };
 
     return (
-        <div
-            className="animated-bg"
-            style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}
-        >
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: '#FFFFFF' }}>
             <div style={{ width: '100%', maxWidth: 460 }}>
                 <div style={{ textAlign: 'center', marginBottom: 36 }}>
                     <div style={{
-                        width: 52, height: 52,
-                        background: 'linear-gradient(135deg, #0d59f2, #6366f1)',
-                        borderRadius: 14,
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        marginBottom: 16,
-                        boxShadow: '0 0 24px rgba(13, 89, 242, 0.3)'
+                        width: 52, height: 52, background: '#000', borderRadius: 14,
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16
                     }}>
                         <Zap size={26} color="white" fill="white" />
                     </div>
-                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0 }} className="gradient-text">TopDev</h1>
-                    <p style={{ color: 'var(--color-text-muted)', margin: '6px 0 0', fontSize: 14 }}>Create your account</p>
+                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, color: '#000', fontFamily: "'Manrope', sans-serif" }}>TopDev</h1>
+                    <p style={{ color: '#666', margin: '6px 0 0', fontSize: 14 }}>Create your account</p>
                 </div>
 
-                <div className="card" style={{ padding: 32 }}>
-                    <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 6px', color: '#f1f5f9' }}>Get started</h2>
-                    <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 24px' }}>Join the platform and connect with top opportunities</p>
+                <div className="card" style={{ padding: 32, borderRadius: 4 }}>
+                    <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 6px', color: '#000', fontFamily: "'Manrope', sans-serif" }}>Get started</h2>
+                    <p style={{ color: '#666', fontSize: 14, margin: '0 0 24px' }}>Join the platform and connect with top opportunities</p>
 
                     {/* Google Sign-In */}
-                    <button
-                        type="button"
-                        className="btn-google"
-                        style={{ marginBottom: 16 }}
-                        onClick={() => googleLogin()}
-                        disabled={isGoogleLoading}
-                    >
+                    <button type="button" className="btn-google" style={{ marginBottom: 16 }} onClick={() => googleLogin()} disabled={isGoogleLoading}>
                         {isGoogleLoading ? (
                             <Loader2 size={18} className="animate-spin" />
                         ) : (
@@ -169,18 +154,18 @@ export default function RegisterPage() {
                             {(['candidate', 'client'] as const).map(r => (
                                 <label key={r} style={{
                                     display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px',
-                                    border: `1px solid ${role === r ? '#0d59f2' : '#1e2433'}`,
-                                    borderRadius: 10, cursor: 'pointer',
-                                    background: role === r ? 'rgba(13, 89, 242, 0.1)' : '#11141c',
+                                    border: `1px solid ${role === r ? '#000' : 'rgba(0,0,0,0.08)'}`,
+                                    borderRadius: 4, cursor: 'pointer',
+                                    background: role === r ? 'rgba(0,0,0,0.03)' : '#fff',
                                     transition: 'all 0.2s'
                                 }}>
                                     <input type="radio" value={r} {...register('role')} style={{ display: 'none' }} />
-                                    {r === 'client' ? <Building2 size={16} color={role === r ? '#60a5fa' : '#64748b'} /> : <User size={16} color={role === r ? '#60a5fa' : '#64748b'} />}
+                                    {r === 'client' ? <Building2 size={16} color={role === r ? '#000' : '#999'} /> : <User size={16} color={role === r ? '#000' : '#999'} />}
                                     <div>
-                                        <div style={{ fontSize: 13, fontWeight: 600, color: role === r ? '#60a5fa' : 'var(--color-text)' }}>
+                                        <div style={{ fontSize: 13, fontWeight: 600, color: role === r ? '#000' : '#666', fontFamily: "'Manrope', sans-serif" }}>
                                             {r === 'client' ? 'Hiring Company' : 'Candidate'}
                                         </div>
-                                        <div style={{ fontSize: 11, color: 'var(--color-text-subtle)' }}>
+                                        <div style={{ fontSize: 11, color: '#999' }}>
                                             {r === 'client' ? 'Find top talent' : 'Get hired'}
                                         </div>
                                     </div>
@@ -189,32 +174,32 @@ export default function RegisterPage() {
                         </div>
 
                         <div>
-                            <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Full name</label>
+                            <label style={{ fontSize: 13, fontWeight: 600, color: '#000', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Full name</label>
                             <input id="register-name" {...register('full_name')} className="input-field" placeholder="Alex Johnson" />
-                            {errors.full_name && <p style={{ color: 'var(--color-danger)', fontSize: 12, margin: '4px 0 0' }}>{errors.full_name.message}</p>}
+                            {errors.full_name && <p style={{ color: '#dc2626', fontSize: 12, margin: '4px 0 0' }}>{errors.full_name.message}</p>}
                         </div>
 
                         <div>
-                            <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Email</label>
+                            <label style={{ fontSize: 13, fontWeight: 600, color: '#000', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Email</label>
                             <div style={{ position: 'relative' }}>
-                                <Mail size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: '#4b5563' }} />
+                                <Mail size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
                                 <input id="register-email" {...register('email')} type="email" className="input-field" placeholder="you@company.com" style={{ paddingLeft: 38 }} />
                             </div>
-                            {errors.email && <p style={{ color: 'var(--color-danger)', fontSize: 12, margin: '4px 0 0' }}>{errors.email.message}</p>}
+                            {errors.email && <p style={{ color: '#dc2626', fontSize: 12, margin: '4px 0 0' }}>{errors.email.message}</p>}
                         </div>
 
                         {role === 'client' && (
                             <div>
-                                <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Company name</label>
+                                <label style={{ fontSize: 13, fontWeight: 600, color: '#000', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Company name</label>
                                 <input id="register-company" {...register('company_name')} className="input-field" placeholder="Acme Corp" />
-                                {errors.company_name && <p style={{ color: 'var(--color-danger)', fontSize: 12, margin: '4px 0 0' }}>{errors.company_name.message}</p>}
+                                {errors.company_name && <p style={{ color: '#dc2626', fontSize: 12, margin: '4px 0 0' }}>{errors.company_name.message}</p>}
                             </div>
                         )}
 
                         <div>
-                            <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Password</label>
+                            <label style={{ fontSize: 13, fontWeight: 600, color: '#000', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Password</label>
                             <div style={{ position: 'relative' }}>
-                                <Lock size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: '#4b5563' }} />
+                                <Lock size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
                                 <input
                                     id="register-password"
                                     {...register('password')}
@@ -223,25 +208,21 @@ export default function RegisterPage() {
                                     placeholder="Min 8 chars, 1 uppercase, 1 number"
                                     style={{ paddingLeft: 38, paddingRight: 40 }}
                                 />
-                                <button type="button" onClick={() => setShowPwd(!showPwd)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', padding: 0 }}>
+                                <button type="button" onClick={() => setShowPwd(!showPwd)} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#999', cursor: 'pointer', padding: 0 }}>
                                     {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </button>
                             </div>
-                            {/* Password Strength Bar */}
                             {pwd.length > 0 && (
                                 <div style={{ marginTop: 8 }}>
                                     <div style={{ display: 'flex', gap: 4, marginBottom: 4 }}>
                                         {[1, 2, 3, 4].map(i => (
-                                            <div key={i} className="pwd-strength-bar" style={{
-                                                flex: 1, width: '100%',
-                                                background: i <= strength.score ? strength.color : '#1e2433'
-                                            }} />
+                                            <div key={i} className="pwd-strength-bar" style={{ flex: 1, width: '100%', background: i <= strength.score ? strength.color : '#F0F0F0' }} />
                                         ))}
                                     </div>
                                     <p style={{ fontSize: 11, color: strength.color, margin: 0 }}>{strength.label} password</p>
                                 </div>
                             )}
-                            {errors.password && <p style={{ color: 'var(--color-danger)', fontSize: 12, margin: '4px 0 0' }}>{errors.password.message}</p>}
+                            {errors.password && <p style={{ color: '#dc2626', fontSize: 12, margin: '4px 0 0' }}>{errors.password.message}</p>}
                         </div>
 
                         <button
@@ -255,9 +236,9 @@ export default function RegisterPage() {
                         </button>
                     </form>
 
-                    <p style={{ textAlign: 'center', margin: '20px 0 0', fontSize: 14, color: 'var(--color-text-muted)' }}>
+                    <p style={{ textAlign: 'center', margin: '20px 0 0', fontSize: 14, color: '#666' }}>
                         Already have an account?{' '}
-                        <Link to="/login" style={{ color: '#60a5fa', fontWeight: 500, textDecoration: 'none' }}>Sign in</Link>
+                        <Link to="/login" style={{ color: '#000', fontWeight: 600, textDecoration: 'none' }}>Sign in</Link>
                     </p>
                 </div>
             </div>

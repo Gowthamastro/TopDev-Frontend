@@ -9,115 +9,116 @@ export default function JobsPage() {
         queryFn: () => api.get('/api/v1/jobs/').then(r => r.data)
     });
 
-    const statusColors: Record<string, string> = {
-        active: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
-        draft: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
-        archived: 'text-slate-400 bg-slate-400/10 border-slate-400/20',
-        filled: 'text-indigo-400 bg-indigo-400/10 border-indigo-400/20'
+    const statusColors: Record<string, { bg: string; color: string; border: string }> = {
+        active: { bg: 'rgba(0,0,0,0.04)', color: '#000', border: '1px solid rgba(0,0,0,0.08)' },
+        draft: { bg: 'rgba(0,0,0,0.03)', color: '#666', border: '1px solid rgba(0,0,0,0.06)' },
+        archived: { bg: 'rgba(0,0,0,0.02)', color: '#999', border: '1px solid rgba(0,0,0,0.05)' },
+        filled: { bg: '#000', color: '#fff', border: '1px solid #000' }
     };
 
-    const diffColors: Record<string, string> = {
-        beginner: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20',
-        intermediate: 'text-amber-400 bg-amber-400/10 border-amber-400/20',
-        advanced: 'text-red-400 bg-red-400/10 border-red-400/20'
+    const diffConfig: Record<string, { bg: string; color: string; border: string }> = {
+        beginner: { bg: 'rgba(0,0,0,0.03)', color: '#666', border: '1px solid rgba(0,0,0,0.06)' },
+        intermediate: { bg: 'rgba(0,0,0,0.04)', color: '#333', border: '1px solid rgba(0,0,0,0.08)' },
+        advanced: { bg: '#000', color: '#fff', border: '1px solid #000' }
     };
 
     return (
-        <div className="p-8 max-w-7xl mx-auto animate-fade-in">
+        <div style={{ padding: '32px 32px', maxWidth: 1200, margin: '0 auto' }} className="animate-fadeInUp">
             {/* Header Section */}
-            <div className="flex items-center justify-between mb-8">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
                 <div>
-                    <h1 className="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
-                        <Briefcase className="text-indigo-400" size={28} />
+                    <h1 style={{ fontSize: 28, fontWeight: 800, color: '#000', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 12, margin: 0, fontFamily: "'Manrope', sans-serif" }}>
+                        <Briefcase color="#000" size={28} />
                         Active Roles
                     </h1>
-                    <p className="text-slate-400 mt-2 text-sm max-w-xl leading-relaxed">
-                        Manage your open positions, track candidate performance, and review AI-generated assessments in one unified command center.
+                    <p style={{ color: '#666', marginTop: 8, fontSize: 14, maxWidth: 560 }}>
+                        Manage your open positions, track candidates, and review assessments in one unified command center.
                     </p>
                 </div>
-                <Link to="/client/jobs/upload" className="group relative inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white transition-all duration-300 bg-indigo-600 rounded-lg hover:bg-indigo-500 hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] overflow-hidden">
-                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
+                <Link to="/client/jobs/upload" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 24px' }}>
                     <Plus size={18} />
-                    <span>Deploy New Role</span>
+                    Deploy New Role
                 </Link>
             </div>
 
             {/* Content Area */}
             {isLoading ? (
-                <div className="flex flex-col items-center justify-center p-20 glass-panel rounded-xl border border-white/5 space-y-4">
-                    <div className="w-8 h-8 rounded-full border-2 border-indigo-500/30 border-t-indigo-500 animate-spin"></div>
-                    <p className="text-slate-400 text-sm animate-pulse">Initializing role data...</p>
+                <div className="card" style={{ padding: 80, textAlign: 'center' }}>
+                    <div style={{ width: 32, height: 32, border: '3px solid #F0F0F0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
+                    <p style={{ color: '#666', fontSize: 14 }}>Initializing role data...</p>
                 </div>
             ) : isError ? (
-                <div className="p-8 glass-panel rounded-xl border border-red-500/20 flex flex-col items-center text-center">
-                    <AlertCircle className="text-red-400 mb-3" size={32} />
-                    <h3 className="text-white font-medium mb-1">Failed to load roles</h3>
-                    <p className="text-slate-400 text-sm">There was an error communicating with the server.</p>
+                <div className="card" style={{ padding: 32, textAlign: 'center' }}>
+                    <AlertCircle color="#dc2626" size={32} style={{ margin: '0 auto 12px', display: 'block' }} />
+                    <h3 style={{ color: '#000', fontWeight: 700, margin: '0 0 4px', fontFamily: "'Manrope', sans-serif" }}>Failed to load roles</h3>
+                    <p style={{ color: '#666', fontSize: 14, margin: 0 }}>There was an error communicating with the server.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {(jobs || []).map((job: any) => (
-                        <div key={job.id} className="glass-panel border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-all duration-300 group flex flex-col h-full relative overflow-hidden">
-                            {/* Subtle background glow on hover */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+                    {(jobs || []).map((job: any) => {
+                        const st = statusColors[job.status] || statusColors.archived;
+                        const df = diffConfig[job.difficulty] || diffConfig.beginner;
+                        return (
+                            <div key={job.id} className="card" style={{ padding: 24, display: 'flex', flexDirection: 'column', height: '100%', transition: 'all 0.3s' }}
+                                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.08)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)'; }}>
 
-                            {/* Card Header */}
-                            <div className="flex items-start justify-between mb-4 relative z-10">
-                                <div className="space-y-3 w-full">
-                                    <h3 className="text-lg font-semibold text-white truncate pr-4 group-hover:text-indigo-300 transition-colors">{job.title}</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        <span className={`text-[10px] px-2.5 py-1 rounded-full border uppercase tracking-wider font-semibold ${statusColors[job.status] || statusColors.archived}`}>
+                                {/* Card Header */}
+                                <div style={{ marginBottom: 16 }}>
+                                    <h3 style={{ fontSize: 17, fontWeight: 700, color: '#000', margin: '0 0 10px', fontFamily: "'Manrope', sans-serif" }}>{job.title}</h3>
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                                        <span style={{ fontSize: 10, padding: '3px 10px', borderRadius: 9999, background: st.bg, color: st.color, border: st.border, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, fontFamily: "'Manrope', sans-serif" }}>
                                             {job.status}
                                         </span>
                                         {job.difficulty && (
-                                            <span className={`text-[10px] px-2.5 py-1 rounded-full border uppercase tracking-wider font-semibold ${diffColors[job.difficulty] || diffColors.beginner}`}>
+                                            <span style={{ fontSize: 10, padding: '3px 10px', borderRadius: 9999, background: df.bg, color: df.color, border: df.border, textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700, fontFamily: "'Manrope', sans-serif" }}>
                                                 {job.difficulty}
                                             </span>
                                         )}
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Skills Tag Cloud */}
-                            <div className="flex flex-wrap gap-2 mb-6 relative z-10 flex-grow">
-                                {(job.skills || []).slice(0, 4).map((sk: string) => (
-                                    <span key={sk} className="text-xs px-2.5 py-1 bg-white/5 border border-white/10 text-slate-300 rounded-md">
-                                        {sk}
-                                    </span>
-                                ))}
-                                {(job.skills || []).length > 4 && (
-                                    <span className="text-xs px-2.5 py-1 bg-white/5 border border-white/5 text-slate-500 rounded-md">
-                                        +{(job.skills || []).length - 4}
-                                    </span>
-                                )}
-                            </div>
+                                {/* Skills */}
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20, flex: 1 }}>
+                                    {(job.skills || []).slice(0, 4).map((sk: string) => (
+                                        <span key={sk} style={{ fontSize: 12, padding: '3px 10px', background: '#F9F9F9', border: '1px solid rgba(0,0,0,0.06)', color: '#666', borderRadius: 4 }}>
+                                            {sk}
+                                        </span>
+                                    ))}
+                                    {(job.skills || []).length > 4 && (
+                                        <span style={{ fontSize: 12, padding: '3px 10px', background: '#F9F9F9', border: '1px solid rgba(0,0,0,0.04)', color: '#999', borderRadius: 4 }}>
+                                            +{(job.skills || []).length - 4}
+                                        </span>
+                                    )}
+                                </div>
 
-                            {/* Card Footer Actions */}
-                            <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-auto relative z-10">
-                                <span className="text-xs text-slate-500 flex items-center gap-1.5">
-                                    <Clock size={12} className="text-slate-400" />
-                                    {new Date(job.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
-                                </span>
-                                <div className="flex items-center gap-3">
-                                    <Link to={`/client/jobs/${job.id}/assessment`} className="text-xs text-slate-400 hover:text-white transition-colors flex items-center gap-1" title="View AI Assessment">
-                                        <Zap size={14} className="text-indigo-400" /> Test
-                                    </Link>
-                                    <Link to={`/client/jobs/${job.id}/candidates`} className="text-xs text-indigo-400 hover:text-indigo-300 font-medium transition-colors flex items-center gap-1 group/link">
-                                        Pipeline <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
-                                    </Link>
+                                {/* Footer */}
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16, borderTop: '1px solid rgba(0,0,0,0.06)', marginTop: 'auto' }}>
+                                    <span style={{ fontSize: 12, color: '#999', display: 'flex', alignItems: 'center', gap: 6 }}>
+                                        <Clock size={12} />
+                                        {new Date(job.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                    </span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                                        <Link to={`/client/jobs/${job.id}/assessment`} style={{ fontSize: 12, color: '#666', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}>
+                                            <Zap size={14} /> Test
+                                        </Link>
+                                        <Link to={`/client/jobs/${job.id}/candidates`} style={{ fontSize: 12, color: '#000', fontWeight: 600, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4, transition: 'all 0.2s' }}>
+                                            Pipeline <ArrowRight size={14} />
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
 
                     {(!jobs || jobs.length === 0) && !isError && (
-                        <div className="col-span-full py-20 glass-panel border border-white/5 rounded-2xl flex flex-col items-center justify-center text-center">
-                            <div className="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mb-4 border border-indigo-500/20">
-                                <Briefcase className="text-indigo-400" size={28} />
+                        <div style={{ gridColumn: '1 / -1' }} className="card" style={{ padding: 64, textAlign: 'center' }}>
+                            <div style={{ width: 64, height: 64, background: 'rgba(0,0,0,0.04)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', border: '1px solid rgba(0,0,0,0.06)' }}>
+                                <Briefcase color="#000" size={28} />
                             </div>
-                            <h3 className="text-xl font-semibold text-white mb-2">No active roles</h3>
-                            <p className="text-slate-400 max-w-md mx-auto mb-6">Deploy your first AI-powered job assessment to start screening elite engineering talent.</p>
-                            <Link to="/client/jobs/upload" className="px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-white font-medium transition-all flex items-center gap-2">
+                            <h3 style={{ fontSize: 20, fontWeight: 800, color: '#000', margin: '0 0 8px', fontFamily: "'Manrope', sans-serif" }}>No active roles</h3>
+                            <p style={{ color: '#666', maxWidth: 400, margin: '0 auto 24px', fontSize: 14 }}>Deploy your first job assessment to start screening talent.</p>
+                            <Link to="/client/jobs/upload" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                                 <Plus size={16} /> Create Role
                             </Link>
                         </div>
