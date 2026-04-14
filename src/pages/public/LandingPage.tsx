@@ -19,15 +19,16 @@ const CodeSignupEditor = () => {
         name: 'Gowtham R',
         email: 'your@email.com',
         password: '••••••••',
-        phone: '+91',
-        location: 'Bengaluru',
+        phone: '+91 234 567 890',
+        location: 'Bengaluru, India',
         currentSalary: 1200000,
         expectedSalary: 1800000,
         resume: null as File | null,
         // Client specific
         company: 'TopDev Inc.',
-        jobRole: 'Frontend Developer',
+        website: 'https://topdev.io',
         budget: 2400000,
+        jobRole: 'Senior Frontend Engineer',
     });
 
     const handleInteraction = () => {
@@ -59,7 +60,7 @@ const CodeSignupEditor = () => {
             const res = await api.post('/api/v1/auth/register', registerData);
             
             setAuth(
-                { id: res.data.user_id, email: form.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: false },
+                { id: res.data.user_id, email: form.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: true },
                 res.data.access_token,
                 res.data.refresh_token
             );
@@ -79,7 +80,12 @@ const CodeSignupEditor = () => {
                     await api.post('/api/v1/candidates/resume', fd);
                 }
             } else {
-                // Client onboarding if needed
+                await api.post('/api/v1/clients/onboard', {
+                    company_name: form.company,
+                    website: form.website,
+                    location: form.location,
+                    hiring_budget: Number(form.budget) || 0,
+                });
             }
 
             setIsSuccess(true);
@@ -163,33 +169,44 @@ const CodeSignupEditor = () => {
 
             <div className="lp-editor-body">
                 <div className="lp-code-line">
-                    <span style={{ color: '#C678DD' }}>import</span> {'{'} <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Company'}</span> {'}'} <span style={{ color: '#C678DD' }}>from</span> <span style={{ color: '#98C379' }}>'@topdev/network'</span>;
+                    <span style={{ color: '#C678DD' }}>import</span> {'{'} <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Recruiter'}</span> {'}'} <span style={{ color: '#C678DD' }}>from</span> <span style={{ color: '#98C379' }}>'@topdev/network'</span>;
                 </div>
                 <br />
                 <div className="lp-code-line">
-                    <span style={{ color: '#C678DD' }}>const</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'client'}</span> = <span style={{ color: '#C678DD' }}>new</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Company'}</span>({'{'}
+                    <span style={{ color: '#C678DD' }}>const</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'recruiter'}</span> = <span style={{ color: '#C678DD' }}>new</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Recruiter'}</span>({'{'}
                 </div>
                 
-                {renderStringField('name', role === 'candidate' ? 'name' : 'company', 'Name')}
+                {renderStringField(role === 'candidate' ? 'name' : 'company', role === 'candidate' ? 'name' : 'company', 'Name')}
                 {renderStringField('email', 'email', 'your@email.com', 'email')}
                 {isExpanded && renderStringField('password', 'password', 'Password', 'password')}
 
                 {isExpanded && role === 'candidate' && (
                     <>
-                        {renderStringField('phone', 'phone', '+91')}
-                        {renderStringField('location', 'location', 'Bengaluru')}
-                        {renderNumberField('currentSalary', 'currentSalary', 'Current CTC')}
-                        {renderNumberField('expectedSalary', 'expectedSalary', 'Expected CTC')}
+                        {renderStringField('phone', 'phone', '+91 234 567 890')}
+                        {renderStringField('location', 'location', 'City, Country')}
+                        {renderNumberField('currentSalary', 'currentSalary', '100000')}
+                        {renderNumberField('expectedSalary', 'expectedSalary', '150000')}
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingLeft: 20 }}>
                             <span style={{ color: '#ABB2BF' }}>resume:</span>
-                            <span 
+                            <div 
                                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                                style={{ color: '#61AFEF', cursor: 'pointer' }}
+                                style={{ 
+                                    background: '#32363e', 
+                                    padding: '2px 8px', 
+                                    borderRadius: 4, 
+                                    marginLeft: 8, 
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 6,
+                                    color: '#ABB2BF',
+                                    fontSize: 12,
+                                    border: '1px solid #484c55'
+                                }}
                             >
-                                <span style={{ color: '#61AFEF' }}>upload</span>(
-                                <span style={{ color: '#98C379' }}>'{form.resume ? form.resume.name : 'resume.pdf'}'</span>
-                                )
-                            </span>
+                                <UploadCloud size={12} />
+                                <span>{form.resume ? form.resume.name : 'upload_jd()'}</span>
+                            </div>
                             <span style={{ color: '#ABB2BF' }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
                         </div>
@@ -198,18 +215,32 @@ const CodeSignupEditor = () => {
 
                 {isExpanded && role === 'client' && (
                     <>
-                        {renderStringField('jobRole', 'jobRole', 'Frontend Developer')}
-                        {renderNumberField('budget', 'budget', 'Yearly Budget')}
+                        {renderStringField('website', 'website', 'https://topdev.io')}
+                        {renderStringField('location', 'location', 'City, Country')}
+                        {renderNumberField('budget', 'budget', '2400000')}
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingLeft: 20 }}>
                             <span style={{ color: '#ABB2BF' }}>description:</span>
-                            <span 
+                            <div 
                                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                                style={{ color: '#61AFEF', cursor: 'pointer' }}
+                                style={{ 
+                                    background: '#32363e', 
+                                    padding: '2px 8px', 
+                                    borderRadius: 4, 
+                                    marginLeft: 8, 
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 6,
+                                    color: '#ABB2BF',
+                                    fontSize: 12,
+                                    border: '1px solid #484c55'
+                                }}
                             >
-                                <span style={{ color: '#61AFEF' }}>upload</span>(
-                                <span style={{ color: '#98C379' }}>'{form.resume ? form.resume.name : 'jd.pdf'}'</span>
-                                )
-                            </span>
+                                <UploadCloud size={12} />
+                                <span>{form.resume ? form.resume.name : 'upload_jd()'}</span>
+                            </div>
+                            <span style={{ color: '#ABB2BF' }}>,</span>
+                            <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
                         </div>
                     </>
                 )}
@@ -219,7 +250,7 @@ const CodeSignupEditor = () => {
 
             <div className="lp-editor-bottom-bar" onClick={handleSubmit}>
                 <div className="lp-code-line" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ color: '#C678DD' }}>await</span> <span style={{ color: '#ABB2BF' }}>topdev</span>.<span style={{ color: '#61AFEF' }}>submit</span>(<span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'client'}</span>);
+                    <span style={{ color: '#C678DD' }}>await</span> <span style={{ color: '#ABB2BF' }}>topdev</span>.<span style={{ color: '#61AFEF' }}>submit</span>(<span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'recruiter'}</span>);
                     <span className="lp-editor-cursor"></span>
                 </div>
             </div>
