@@ -3,10 +3,7 @@ import { useAuthStore } from '../store/authStore';
 
 // Prefer same-origin (nginx proxy) when served from the Docker frontend,
 // fall back to explicit VITE_API_BASE_URL mainly for Vite dev.
-const resolvedBaseURL =
-    (typeof window !== 'undefined' && window.location.origin.includes('localhost:517'))
-        ? '' // Local dev (Vite proxy)
-        : '/api'; // Production (Nginx proxy)
+const resolvedBaseURL = '';
 
 const api = axios.create({
     baseURL: resolvedBaseURL,
