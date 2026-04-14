@@ -46,52 +46,46 @@ export default function UploadJDPage() {
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-120px)] animate-fadeInUp">
             <style>{`
                 .glass-card {
-                    background: rgba(19, 19, 22, 0.7);
-                    backdrop-filter: blur(20px);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
-                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+                    background: var(--color-surface);
+                    border: 1px solid var(--color-border);
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
                 }
                 .input-glow:focus {
-                    box-shadow: 0 0 15px rgba(13, 89, 242, 0.3);
-                    border-color: rgba(13, 89, 242, 0.5);
-                }
-                .glow-text-primary {
-                    text-shadow: 0 0 12px rgba(13, 89, 242, 0.4);
+                    border-color: var(--color-primary);
                 }
             `}</style>
             
-            <div className="w-full max-w-3xl glass-card rounded-[2rem] p-10 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#0d59f2]/10 rounded-full blur-[80px] -mr-32 -mt-32"></div>
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/5 rounded-full blur-[60px] -ml-24 -mb-24"></div>
-
+            <div className="w-full max-w-3xl glass-card rounded-[2rem] p-10 relative overflow-hidden" style={{ background: 'var(--color-bg)', border: '1px solid var(--color-border)' }}>
                 <div className="relative z-10">
                     <div className="flex flex-col items-center mb-10 text-center">
-                        <div className="w-16 h-16 rounded-2xl bg-[#0d59f2]/10 border border-[#0d59f2]/20 flex items-center justify-center text-[#0d59f2] mb-6 shadow-[0_0_20px_rgba(13,89,242,0.2)]">
+                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6" style={{ background: 'var(--color-primary)', color: 'var(--color-bg)' }}>
                             <span className="material-symbols-outlined text-4xl">auto_awesome</span>
                         </div>
-                        <h1 className="text-3xl font-black text-white glow-text-primary mb-3">Assessment Core</h1>
-                        <p className="text-[#8b94a5] text-lg max-w-md">Our AI parses your JD to craft precise technical benchmarks in seconds.</p>
+                        <h1 className="text-3xl font-black text-primary mb-3" style={{ color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Assessment Core</h1>
+                        <p className="text-secondary text-lg max-w-md" style={{ color: 'var(--color-text-muted)' }}>Our AI parses your JD to craft precise technical benchmarks in seconds.</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-8">
                         {/* Title Input */}
                         <div className="space-y-3">
-                            <label className="text-xs font-bold text-[#00f0ff] uppercase tracking-widest pl-1">Role Architecture</label>
+                            <label className="text-xs font-bold tracking-widest pl-1 uppercase" style={{ color: 'var(--color-text-muted)' }}>Role Architecture</label>
                             <input 
                                 value={title} 
                                 onChange={e => setTitle(e.target.value)} 
-                                className="w-full h-14 bg-[#131316]/80 rounded-xl border border-[#232328] px-5 text-white placeholder-[#475569] outline-none transition-all input-glow"
+                                className="w-full h-14 rounded-xl border px-5 outline-none transition-all input-glow"
+                                style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: 'var(--color-text)' }}
                                 placeholder="e.g. Senior Full-Stack Lead (TypeScript & Node.js)" 
                             />
                         </div>
 
                         {/* Text Area */}
                         <div className="space-y-3">
-                            <label className="text-xs font-bold text-[#00f0ff] uppercase tracking-widest pl-1">Job Context / Raw Text</label>
+                            <label className="text-xs font-bold tracking-widest pl-1 uppercase" style={{ color: 'var(--color-text-muted)' }}>Job Context / Raw Text</label>
                             <textarea
                                 value={jdText}
                                 onChange={e => setJdText(e.target.value)}
-                                className="w-full bg-[#131316]/80 rounded-xl border border-[#232328] p-5 text-white placeholder-[#475569] outline-none transition-all input-glow min-h-[180px] font-mono text-sm leading-relaxed"
+                                className="w-full rounded-xl p-5 outline-none transition-all input-glow min-h-[180px] font-mono text-sm leading-relaxed"
+                                style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: 'var(--color-text)' }}
                                 placeholder="Paste the technical requirements or full JD here..."
                                 rows={8}
                             />
@@ -99,36 +93,40 @@ export default function UploadJDPage() {
 
                         {/* File Upload */}
                         <div className="space-y-3">
-                            <label className="text-xs font-bold text-[#00f0ff] uppercase tracking-widest pl-1">Document Ingestion (Optional)</label>
+                            <label className="text-xs font-bold tracking-widest pl-1 uppercase" style={{ color: 'var(--color-text-muted)' }}>Document Ingestion (Optional)</label>
                             <div
                                 onDragOver={e => { e.preventDefault(); setDragOver(true); }}
                                 onDragLeave={() => setDragOver(false)}
                                 onDrop={handleDrop}
                                 onClick={() => fileRef.current?.click()}
                                 className={`group relative border-2 border-dashed rounded-2xl p-8 py-10 transition-all cursor-pointer flex flex-col items-center justify-center gap-3 ${
-                                    dragOver ? 'border-[#0d59f2] bg-[#0d59f2]/5 shadow-[0_0_20px_rgba(13,89,242,0.1)]' : 'border-[#232328] bg-[#131316]/40 hover:border-[#475569] hover:bg-[#131316]/60'
+                                    dragOver ? 'border-primary bg-primary-thin' : 'border-border bg-transparent hover:border-text-muted'
                                 }`}
+                                style={{ borderColor: dragOver ? 'var(--color-primary)' : 'var(--color-border)', background: dragOver ? 'var(--color-bg-tertiary)' : 'transparent' }}
                             >
                                 {file ? (
-                                    <div className="flex items-center gap-4 px-4 py-2 bg-[#0d59f2]/10 rounded-lg border border-[#0d59f2]/30">
-                                        <span className="material-symbols-outlined text-[#0d59f2]">description</span>
-                                        <span className="text-sm text-white font-medium truncate max-w-[200px]">{file.name}</span>
+                                    <div className="flex items-center gap-4 px-4 py-2 rounded-lg border" style={{ background: 'var(--color-bg-tertiary)', borderColor: 'var(--color-primary)' }}>
+                                        <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)' }}>description</span>
+                                        <span className="text-sm font-medium truncate max-w-[200px]" style={{ color: 'var(--color-text)' }}>{file.name}</span>
                                         <button 
                                             type="button" 
                                             onClick={e => { e.stopPropagation(); setFile(null); }} 
-                                            className="p-1 hover:bg-[#0d59f2]/20 rounded-full text-[#8b94a5] hover:text-[#0d59f2] transition-all"
+                                            className="p-1 rounded-full transition-all"
+                                            style={{ color: 'var(--color-text-muted)' }}
+                                            onMouseEnter={e => { e.currentTarget.style.color = 'var(--color-danger)'; e.currentTarget.style.background = 'var(--color-bg-secondary)'; }}
+                                            onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-text-muted)'; e.currentTarget.style.background = 'transparent'; }}
                                         >
                                             <span className="material-symbols-outlined text-[18px]">close</span>
                                         </button>
                                     </div>
                                 ) : (
                                     <>
-                                        <div className="w-12 h-12 rounded-full bg-[#1f2633] flex items-center justify-center text-[#8b94a5] group-hover:text-white transition-colors">
+                                        <div className="w-12 h-12 rounded-full flex items-center justify-center transition-colors" style={{ background: 'var(--color-bg-tertiary)', color: 'var(--color-text-muted)' }}>
                                             <span className="material-symbols-outlined text-2xl">upload_file</span>
                                         </div>
                                         <div className="text-center">
-                                            <p className="text-sm text-slate-300 font-medium">Drag & drop or <span className="text-[#0d59f2] group-hover:underline">browse files</span></p>
-                                            <p className="text-xs text-[#475569] mt-1">PDF, DOCX, or TXT (Max 10MB)</p>
+                                            <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>Drag & drop or <span style={{ color: 'var(--color-primary)' }} className="hover:underline">browse files</span></p>
+                                            <p className="text-xs mt-1" style={{ color: 'var(--color-text-muted)' }}>PDF, DOCX, or TXT (Max 10MB)</p>
                                         </div>
                                     </>
                                 )}
@@ -137,10 +135,10 @@ export default function UploadJDPage() {
                         </div>
 
                         {/* Progress Note */}
-                        <div className="flex items-start gap-4 p-5 bg-[#0d59f2]/5 border border-[#0d59f2]/10 rounded-2xl">
-                            <span className="material-symbols-outlined text-[#0d59f2] text-[20px] animate-pulse">info</span>
-                            <div className="text-xs leading-relaxed text-[#8b94a5]">
-                                <strong className="text-slate-100 block mb-1">AI Engine Analysis</strong>
+                        <div className="flex items-start gap-4 p-5 rounded-2xl" style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)' }}>
+                            <span className="material-symbols-outlined text-primary text-[20px] animate-pulse" style={{ color: 'var(--color-primary)' }}>info</span>
+                            <div className="text-xs leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
+                                <strong className="text-primary block mb-1" style={{ color: 'var(--color-text)' }}>AI Engine Analysis</strong>
                                 Our neural parser will identify tech stacks, seniority, and soft-skill requirements to build a zero-bias evaluation sandbox.
                             </div>
                         </div>
@@ -151,13 +149,18 @@ export default function UploadJDPage() {
                             disabled={loading} 
                             className={`w-full h-14 rounded-xl font-bold flex items-center justify-center gap-3 transition-all ${
                                 loading 
-                                ? 'bg-[#1f2633] text-[#475569]' 
-                                : 'bg-[#0d59f2] text-white hover:bg-[#1a67f5] shadow-[0_4px_20px_rgba(13,89,242,0.4)] active:scale-[0.98]'
+                                ? 'opacity-50 cursor-not-allowed' 
+                                : 'hover:scale-[1.01] active:scale-[0.98]'
                             }`}
+                            style={{ 
+                                background: 'var(--color-primary)', 
+                                color: 'var(--color-bg)',
+                                opacity: loading ? 0.7 : 1
+                            }}
                         >
                             {loading ? (
                                 <>
-                                    <div className="w-5 h-5 border-2 border-[#475569] border-t-white rounded-full animate-spin"></div>
+                                    <div className="w-5 h-5 border-2 border-transparent border-t-current rounded-full animate-spin"></div>
                                     <span>Synthesizing Assessment...</span>
                                 </>
                             ) : (

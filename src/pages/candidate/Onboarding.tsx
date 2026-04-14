@@ -131,18 +131,18 @@ export default function CandidateOnboarding() {
     const steps = ['Resume', 'Profile', 'Skills'];
 
     return (
-        <div className="animated-bg" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 20px' }}>
+        <div className="flex flex-col items-center justify-center animate-fadeInUp" style={{ minHeight: '100vh', padding: '32px 20px', background: 'var(--color-bg)', color: 'var(--color-text)' }}>
             {/* Header */}
             <div style={{ textAlign: 'center', marginBottom: 32 }}>
-                <div style={{ width: 44, height: 44, background: 'linear-gradient(135deg, #0d59f2, #6366f1)', borderRadius: 12, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12, boxShadow: '0 0 20px rgba(13,89,242,0.3)' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: 24, color: 'white' }}>code_blocks</span>
+                <div style={{ width: 44, height: 44, background: 'var(--color-primary)', borderRadius: 12, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: 24, color: 'var(--color-bg)' }}>code_blocks</span>
                 </div>
-                <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: '#f1f5f9' }}>Complete your profile</h1>
+                <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Complete your profile</h1>
                 <p style={{ color: 'var(--color-text-muted)', margin: '6px 0 0', fontSize: 14 }}>3 quick steps to find your perfect match</p>
             </div>
 
             {/* Step Indicator */}
-            <div className="step-indicator" style={{ width: '100%', maxWidth: 480, marginBottom: 32 }}>
+            <div className="step-indicator" style={{ width: '100%', maxWidth: 480, marginBottom: 32, display: 'flex' }}>
                 {steps.map((label, i) => {
                     const idx = i + 1;
                     const isCompleted = step > idx;
@@ -150,24 +150,33 @@ export default function CandidateOnboarding() {
                     return (
                         <div key={label} style={{ display: 'flex', alignItems: 'center', flex: i < steps.length - 1 ? 1 : 'none' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-                                <div className={`step-dot ${isCompleted ? 'completed' : isActive ? 'active' : ''}`}>
+                                <div 
+                                    className={`step-dot ${isCompleted ? 'completed' : isActive ? 'active' : ''}`}
+                                    style={{ 
+                                        width: 28, height: 28, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 'bold', 
+                                        background: isCompleted ? 'var(--color-text-success)' : isActive ? 'var(--color-primary)' : 'var(--color-bg-tertiary)',
+                                        color: isCompleted || isActive ? 'var(--color-bg)' : 'var(--color-text-subtle)',
+                                        border: '1px solid var(--color-border)'
+                                    }}
+                                >
                                     {isCompleted ? <CheckCircle2 size={16} /> : idx}
                                 </div>
-                                <span style={{ fontSize: 11, fontWeight: 500, color: isActive ? '#60a5fa' : isCompleted ? '#10b981' : '#4b5563', whiteSpace: 'nowrap' }}>{label}</span>
+                                <span style={{ fontSize: 11, fontWeight: 500, color: isActive ? 'var(--color-primary)' : isCompleted ? 'var(--color-text-success)' : 'var(--color-text-subtle)', whiteSpace: 'nowrap' }}>{label}</span>
                             </div>
-                            {i < steps.length - 1 && <div className={`step-line ${isCompleted ? 'completed' : ''}`} style={{ margin: '0 8px', marginBottom: 22 }} />}
+                            {i < steps.length - 1 && <div className={`step-line ${isCompleted ? 'completed' : ''}`} style={{ margin: '0 8px', marginBottom: 22, height: 2, flex: 1, background: isCompleted ? 'var(--color-text-success)' : 'var(--color-border)' }} />}
                         </div>
                     );
                 })}
             </div>
 
             {/* Card */}
-            <div className="card animate-fadeInUp" style={{ width: '100%', maxWidth: 600, padding: 0, overflow: 'hidden' }}>
+            {/* Card */}
+            <div className="animate-fadeInUp" style={{ width: '100%', maxWidth: 600, padding: 0, overflow: 'hidden', background: 'var(--color-bg)', border: '1px solid var(--color-border)', borderRadius: 24, boxShadow: '0 12px 40px rgba(0,0,0,0.08)' }}>
                 {/* Step 1 — Resume Upload */}
                 {step === 1 && (
                     <div style={{ padding: 40, textAlign: 'center' }}>
-                        <UploadCloud size={40} color="#0d59f2" style={{ margin: '0 auto 20px' }} />
-                        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8, color: '#f1f5f9' }}>Upload your resume</h2>
+                        <UploadCloud size={40} style={{ color: 'var(--color-primary)', margin: '0 auto 20px' }} />
+                        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8, color: 'var(--color-text)' }}>Upload your resume</h2>
                         <p style={{ color: 'var(--color-text-muted)', marginBottom: 28, fontSize: 14 }}>Our AI extracts your skills and experience — saves you lots of typing.</p>
 
                         <div
@@ -175,38 +184,38 @@ export default function CandidateOnboarding() {
                             onDrop={handleFileDrop}
                             onClick={() => !parseResumeMutation.isPending && document.getElementById('resume-upload')?.click()}
                             style={{
-                                border: '2px dashed #1e2433',
+                                border: '2px dashed var(--color-border)',
                                 borderRadius: 14, padding: '40px 24px',
                                 cursor: parseResumeMutation.isPending ? 'default' : 'pointer',
-                                background: '#0d1016',
+                                background: 'var(--color-bg-secondary)',
                                 transition: 'all 0.2s', marginBottom: 20,
                             }}
-                            onMouseEnter={e => { if (!parseResumeMutation.isPending) (e.currentTarget as HTMLDivElement).style.borderColor = '#0d59f2'; }}
-                            onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = '#1e2433'; }}
+                            onMouseEnter={e => { if (!parseResumeMutation.isPending) (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--color-primary)'; }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'var(--color-border)'; }}
                         >
                             {parseResumeMutation.isPending ? (
                                 <>
-                                    <Loader2 size={40} color="#0d59f2" style={{ margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
-                                    <p style={{ color: '#60a5fa', fontWeight: 500, margin: 0 }}>Extracting skills via AI...</p>
+                                    <Loader2 size={40} style={{ color: 'var(--color-primary)', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
+                                    <p style={{ color: 'var(--color-primary)', fontWeight: 500, margin: 0 }}>Extracting skills via AI...</p>
                                     <p style={{ color: 'var(--color-text-muted)', fontSize: 13, margin: '4px 0 0' }}>This takes a few seconds</p>
                                 </>
                             ) : resumeFile ? (
                                 <>
-                                    <CheckCircle2 size={40} color="#10b981" style={{ margin: '0 auto 12px' }} />
-                                    <p style={{ color: '#10b981', fontWeight: 500, margin: 0 }}>{resumeFile.name}</p>
+                                    <CheckCircle2 size={40} style={{ color: 'var(--color-text-success)', margin: '0 auto 12px' }} />
+                                    <p style={{ color: 'var(--color-text-success)', fontWeight: 500, margin: 0 }}>{resumeFile.name}</p>
                                     <p style={{ color: 'var(--color-text-muted)', fontSize: 13, margin: '4px 0 0' }}>Click to replace</p>
                                 </>
                             ) : (
                                 <>
-                                    <UploadCloud size={40} color="#4b5563" style={{ margin: '0 auto 12px' }} />
-                                    <p style={{ color: '#e2e8f0', fontWeight: 500, margin: 0 }}>Drop your resume here or click to browse</p>
+                                    <UploadCloud size={40} style={{ color: 'var(--color-text-subtle)', margin: '0 auto 12px' }} />
+                                    <p style={{ color: 'var(--color-text)', fontWeight: 500, margin: 0 }}>Drop your resume here or click to browse</p>
                                     <p style={{ color: 'var(--color-text-muted)', fontSize: 13, margin: '4px 0 0' }}>PDF files only • Max 10MB</p>
                                 </>
                             )}
                             <input id="resume-upload" type="file" accept=".pdf" onChange={handleFileInput} style={{ display: 'none' }} />
                         </div>
 
-                        <button onClick={() => setStep(2)} className="btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                        <button onClick={() => setStep(2)} className="btn-secondary" style={{ width: '100%', justifyContent: 'center', height: 48, fontSize: 14 }}>
                             Skip — I'll fill in manually
                         </button>
                     </div>
@@ -215,42 +224,42 @@ export default function CandidateOnboarding() {
                 {/* Step 2 — Profile Details */}
                 {step === 2 && (
                     <div style={{ padding: 40 }}>
-                        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4, color: '#f1f5f9' }}>Your details</h2>
+                        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4, color: 'var(--color-text)' }}>Your details</h2>
                         <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 28px' }}>Tell companies a bit about yourself.</p>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                             {/* Headline */}
                             <div>
                                 <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Professional Headline</label>
-                                <input className="input" value={formData.headline} onChange={e => setFormData({ ...formData, headline: e.target.value })} placeholder="e.g. Senior Frontend Engineer at Google" />
+                                <input className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.headline} onChange={e => setFormData({ ...formData, headline: e.target.value })} placeholder="e.g. Senior Frontend Engineer at Google" />
                             </div>
 
                             {/* Bio */}
                             <div>
                                 <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>
-                                    About you <span style={{ color: '#4b5563', fontWeight: 400 }}>— tell us about yourself</span>
+                                    About you <span style={{ color: 'var(--color-text-subtle)', fontWeight: 400 }}>— tell us about yourself</span>
                                 </label>
                                 <textarea
                                     className="input"
-                                    style={{ minHeight: 90, resize: 'vertical' }}
+                                    style={{ width: '100%', minHeight: 90, resize: 'vertical', background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: 16 }}
                                     value={formData.bio}
                                     onChange={e => setFormData({ ...formData, bio: e.target.value })}
                                     placeholder="I'm a passionate engineer with 5+ years of experience building scalable web applications..."
                                 />
                             </div>
 
-                            {/* Experience & Location */}
+                            {/* Experience & Level */}
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                                         <Briefcase size={13} /> Years of Experience
                                     </label>
-                                    <input type="number" min={0} max={50} className="input" value={formData.years_of_experience}
+                                    <input type="number" min={0} max={50} className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.years_of_experience}
                                         onChange={e => setFormData({ ...formData, years_of_experience: Number(e.target.value) })} />
                                 </div>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Experience Level</label>
-                                    <select className="input" style={{ appearance: 'auto' }} value={formData.experience_level}
+                                    <select className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px', appearance: 'auto' }} value={formData.experience_level}
                                         onChange={e => setFormData({ ...formData, experience_level: e.target.value })}>
                                         <option value="junior">Junior (0–2 yrs)</option>
                                         <option value="mid">Mid (3–5 yrs)</option>
@@ -263,11 +272,11 @@ export default function CandidateOnboarding() {
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Location</label>
-                                    <input className="input" value={formData.location} onChange={e => setFormData({ ...formData, location: e.target.value })} placeholder="Mumbai, India" />
+                                    <input className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.location} onChange={e => setFormData({ ...formData, location: e.target.value })} placeholder="Mumbai, India" />
                                 </div>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'block', marginBottom: 6 }}>Phone</label>
-                                    <input className="input" value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} placeholder="+91 98765 43210" />
+                                    <input className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} placeholder="+91 98765 43210" />
                                 </div>
                             </div>
 
@@ -275,9 +284,9 @@ export default function CandidateOnboarding() {
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-                                        <DollarSign size={13} /> Current Salary (₹/yr) <span style={{ color: '#4b5563' }}>optional</span>
+                                        <DollarSign size={13} /> Current Salary (₹/yr) <span style={{ color: 'var(--color-text-subtle)' }}>optional</span>
                                     </label>
-                                    <input type="number" className="input" value={formData.current_salary}
+                                    <input type="number" className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.current_salary}
                                         onChange={e => setFormData({ ...formData, current_salary: e.target.value })}
                                         placeholder="e.g. 1200000" />
                                 </div>
@@ -285,7 +294,7 @@ export default function CandidateOnboarding() {
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                                         <DollarSign size={13} /> Expected Salary (₹/yr)
                                     </label>
-                                    <input type="number" className="input" value={formData.expected_salary}
+                                    <input type="number" className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.expected_salary}
                                         onChange={e => setFormData({ ...formData, expected_salary: e.target.value })}
                                         placeholder="e.g. 1800000" />
                                 </div>
@@ -304,9 +313,9 @@ export default function CandidateOnboarding() {
                                             onClick={() => setFormData({ ...formData, notice_period_days: opt.value })}
                                             style={{
                                                 padding: '7px 16px', borderRadius: 20,
-                                                border: `1px solid ${formData.notice_period_days === opt.value ? '#0d59f2' : '#1e2433'}`,
-                                                background: formData.notice_period_days === opt.value ? 'rgba(13,89,242,0.15)' : '#11141c',
-                                                color: formData.notice_period_days === opt.value ? '#60a5fa' : '#94a3b8',
+                                                border: `1px solid ${formData.notice_period_days === opt.value ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                                                background: formData.notice_period_days === opt.value ? 'var(--color-bg-tertiary)' : 'transparent',
+                                                color: formData.notice_period_days === opt.value ? 'var(--color-primary)' : 'var(--color-text-muted)',
                                                 fontSize: 13, fontWeight: 500, cursor: 'pointer', transition: 'all 0.2s'
                                             }}
                                         >
@@ -316,19 +325,19 @@ export default function CandidateOnboarding() {
                                 </div>
                             </div>
 
-                            {/* LinkedIn & GitHub */}
+                             {/* LinkedIn & GitHub */}
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                                         <Link size={13} /> LinkedIn URL
                                     </label>
-                                    <input className="input" value={formData.linkedin_url} onChange={e => setFormData({ ...formData, linkedin_url: e.target.value })} placeholder="linkedin.com/in/..." />
+                                    <input className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.linkedin_url} onChange={e => setFormData({ ...formData, linkedin_url: e.target.value })} placeholder="linkedin.com/in/..." />
                                 </div>
                                 <div>
                                     <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                                         <Link size={13} /> GitHub URL
                                     </label>
-                                    <input className="input" value={formData.github_url} onChange={e => setFormData({ ...formData, github_url: e.target.value })} placeholder="github.com/..." />
+                                    <input className="input" style={{ width: '100%', height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }} value={formData.github_url} onChange={e => setFormData({ ...formData, github_url: e.target.value })} placeholder="github.com/..." />
                                 </div>
                             </div>
                         </div>
@@ -354,7 +363,7 @@ export default function CandidateOnboarding() {
                 {/* Step 3 — Skills */}
                 {step === 3 && (
                     <div style={{ padding: 40 }}>
-                        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4, color: '#f1f5f9' }}>Your skills</h2>
+                        <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 4, color: 'var(--color-text)' }}>Your skills</h2>
                         <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 28px' }}>Add the technologies and skills you work with. These power your job matches.</p>
 
                         {/* Skill input */}
@@ -365,37 +374,37 @@ export default function CandidateOnboarding() {
                                 onChange={e => setSkillInput(e.target.value)}
                                 onKeyDown={handleSkillKeyDown}
                                 placeholder="Type a skill and press Enter (e.g. React, Python, AWS)"
-                                style={{ flex: 1 }}
+                                style={{ flex: 1, height: 48, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', color: 'var(--color-text)', borderRadius: 10, padding: '0 16px' }}
                             />
-                            <button type="button" className="btn-secondary" onClick={() => addSkill()} style={{ flexShrink: 0, padding: '10px 16px' }}>
+                            <button type="button" className="btn-secondary" onClick={() => addSkill()} style={{ flexShrink: 0, padding: '10px 16px', height: 48 }}>
                                 <Plus size={16} />
                             </button>
                         </div>
 
                         {/* Tags */}
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, minHeight: 60, padding: 16, background: '#0d1016', borderRadius: 12, border: '1px solid #1e2433', marginBottom: 24 }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, minHeight: 60, padding: 16, background: 'var(--color-bg-secondary)', borderRadius: 12, border: '1px solid var(--color-border)', marginBottom: 24 }}>
                             {formData.skills.length === 0 ? (
-                                <p style={{ color: '#4b5563', fontSize: 13, margin: 0, alignSelf: 'center' }}>No skills added yet — add some above ☝️</p>
+                                <p style={{ color: 'var(--color-text-subtle)', fontSize: 13, margin: 0, alignSelf: 'center' }}>No skills added yet — add some above ☝️</p>
                             ) : formData.skills.map(skill => (
-                                <span key={skill} className="skill-tag">
+                                <span key={skill} className="skill-tag" style={{ background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', borderRadius: 8, padding: '4px 12px', fontSize: 13, display: 'flex', alignItems: 'center', gap: 8, color: 'var(--color-text)' }}>
                                     {skill}
-                                    <button onClick={() => removeSkill(skill)} title="Remove">×</button>
+                                    <button onClick={() => removeSkill(skill)} style={{ border: 'none', background: 'none', color: 'var(--color-text-subtle)', cursor: 'pointer', fontSize: 16 }}>×</button>
                                 </span>
                             ))}
                         </div>
 
                         {/* Suggested skills */}
                         <div style={{ marginBottom: 32 }}>
-                            <p style={{ fontSize: 12, color: '#4b5563', marginBottom: 8 }}>POPULAR SKILLS</p>
+                            <p style={{ fontSize: 12, color: 'var(--color-text-subtle)', marginBottom: 8, fontWeight: 'bold' }}>POPULAR SKILLS</p>
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                                 {['React', 'TypeScript', 'Python', 'Node.js', 'AWS', 'Docker', 'PostgreSQL', 'FastAPI', 'Go', 'Kubernetes'].map(s => (
                                     !formData.skills.includes(s) && (
                                         <button
                                             key={s} type="button"
                                             onClick={() => addSkill(s)}
-                                            style={{ padding: '4px 12px', borderRadius: 20, border: '1px solid #1e2433', background: '#11141c', color: '#94a3b8', fontSize: 12, cursor: 'pointer', transition: 'all 0.2s' }}
-                                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#0d59f2'; (e.currentTarget as HTMLButtonElement).style.color = '#60a5fa'; }}
-                                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#1e2433'; (e.currentTarget as HTMLButtonElement).style.color = '#94a3b8'; }}
+                                            style={{ padding: '6px 14px', borderRadius: 20, border: '1px solid var(--color-border)', background: 'transparent', color: 'var(--color-text-muted)', fontSize: 12, cursor: 'pointer', transition: 'all 0.2s' }}
+                                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-primary)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-primary)'; }}
+                                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--color-border)'; (e.currentTarget as HTMLButtonElement).style.color = 'var(--color-text-muted)'; }}
                                         >
                                             + {s}
                                         </button>

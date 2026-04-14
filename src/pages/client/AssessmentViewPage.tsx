@@ -16,8 +16,8 @@ export default function AssessmentViewPage() {
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center min-h-[400px] text-[#475569]">
-                <div className="w-6 h-6 border-2 border-[#0d59f2]/20 border-t-[#0d59f2] rounded-full animate-spin mr-3"></div>
+            <div className="flex items-center justify-center min-h-[400px]" style={{ color: 'var(--color-text-muted)' }}>
+                <div className="w-6 h-6 border-2 border-transparent border-t-current rounded-full animate-spin mr-3" style={{ color: 'var(--color-primary)' }}></div>
                 Loading assessment blueprint...
             </div>
         );
@@ -26,8 +26,8 @@ export default function AssessmentViewPage() {
     if (!assessment) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8 glass-card rounded-2xl mx-auto max-w-lg mt-12">
-                <span className="material-symbols-outlined text-5xl text-[#ef4444] mb-4">error</span>
-                <p className="text-[#8b94a5] mb-6">Assessment not found or could not be retrieved.</p>
+                <span className="material-symbols-outlined text-5xl mb-4" style={{ color: 'var(--color-danger)' }}>error</span>
+                <p className="mb-6" style={{ color: 'var(--color-text-subtle)' }}>Assessment not found or could not be retrieved.</p>
                 <button onClick={() => navigate('/client/jobs')} className="btn-secondary">Back to Dashboard</button>
             </div>
         );
@@ -49,23 +49,23 @@ export default function AssessmentViewPage() {
         const qExplanation = safeText(q.explanation);
 
         return (
-            <div className="glass-card rounded-2xl p-6 mb-6 border border-white/5 hover:border-white/10 transition-all group">
+            <div className="glass-card rounded-2xl p-6 mb-6 transition-all group">
                 <div className="flex items-start gap-5">
-                    <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-sm font-bold text-[#8b94a5] group-hover:bg-[#0d59f2]/10 group-hover:text-[#0d59f2] transition-colors border border-white/5">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all border" style={{ background: 'var(--color-bg-tertiary)', borderColor: 'var(--color-border)', color: 'var(--color-text-muted)' }}>
                         {index + 1}
                     </div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#0d59f2]/10 text-[#0d59f2] text-[10px] font-black uppercase tracking-wider border border-[#0d59f2]/20">
+                            <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider border" style={{ background: 'var(--color-bg-tertiary)', color: 'var(--color-primary)', borderColor: 'var(--color-border)' }}>
                                 <span className="material-symbols-outlined text-[14px]">{IconName}</span>
                                 {q.type}
                             </span>
-                            <span className="px-2 py-0.5 rounded-md bg-white/5 text-[#475569] text-[10px] font-bold uppercase border border-white/10">
+                            <span className="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase border" style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-subtle)', borderColor: 'var(--color-border)' }}>
                                 {q.difficulty}
                             </span>
                         </div>
 
-                        <div className="text-white text-lg font-medium leading-relaxed mb-6 whitespace-pre-wrap">
+                        <div className="text-lg font-medium leading-relaxed mb-6 whitespace-pre-wrap" style={{ color: 'var(--color-text)' }}>
                             {qText}
                         </div>
 
@@ -78,15 +78,16 @@ export default function AssessmentViewPage() {
                                     const isCorrect = showAnswers && (qCorrect.trim() === optText.trim() || (optLabel && qCorrect.trim() === String(optLabel).trim()));
 
                                     return (
-                                        <div key={i} className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${
-                                            isCorrect 
-                                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
-                                            : 'bg-white/5 border-white/5 text-slate-300'
-                                        }`}>
-                                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors ${
-                                                isCorrect ? 'border-emerald-500 bg-emerald-500' : 'border-[#475569]'
-                                            }`}>
-                                                {isCorrect && <span className="material-symbols-outlined text-white text-[14px] font-black">check</span>}
+                                        <div key={i} className={`flex items-center gap-4 p-4 rounded-xl border transition-all`} style={{
+                                            background: isCorrect ? 'var(--color-bg-tertiary)' : 'var(--color-bg-secondary)',
+                                            borderColor: isCorrect ? 'var(--color-success)' : 'var(--color-border)',
+                                            color: isCorrect ? 'var(--color-success)' : 'var(--color-text-muted)'
+                                        }}>
+                                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors`} style={{
+                                                borderColor: isCorrect ? 'var(--color-success)' : 'var(--color-border-subtle)',
+                                                background: isCorrect ? 'var(--color-success)' : 'transparent'
+                                            }}>
+                                                {isCorrect && <span className="material-symbols-outlined text-white text-[14px] font-black" style={{ color: 'var(--color-bg)' }}>check</span>}
                                             </div>
                                             <span className="text-sm font-medium">
                                                 {optLabel && <strong className="mr-2">{optLabel}.</strong>}
@@ -100,12 +101,12 @@ export default function AssessmentViewPage() {
 
                         {/* Explanation (Togglable) */}
                         {showAnswers && (
-                            <div className="bg-emerald-500/5 border-l-4 border-emerald-500 p-5 rounded-r-xl mt-4 animate-fadeIn">
-                                <div className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <div className="p-5 rounded-r-xl mt-4 animate-fadeIn" style={{ background: 'var(--color-bg-tertiary)', borderLeft: '4px solid var(--color-success)' }}>
+                                <div className="text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-2" style={{ color: 'var(--color-success)' }}>
                                     <span className="material-symbols-outlined text-[16px]">verified</span>
                                     AI Logic & Validated Answer
                                 </div>
-                                <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">
+                                <div className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-text-muted)' }}>
                                     {qExplanation || qCorrect || 'No rubric provided.'}
                                 </div>
                             </div>
@@ -120,28 +121,27 @@ export default function AssessmentViewPage() {
         <div className="max-w-4xl mx-auto p-8 animate-fadeInUp">
             <style>{`
                 .glass-card {
-                    background: rgba(19, 19, 22, 0.6);
-                    backdrop-filter: blur(20px);
-                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    background: var(--color-bg);
+                    border: 1px solid var(--color-border);
                 }
             `}</style>
             
             {/* Header Area */}
             <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-[#475569] hover:text-white transition-colors mb-6 text-sm font-bold uppercase tracking-wider">
+                    <button onClick={() => navigate(-1)} className="flex items-center gap-2 transition-colors mb-6 text-sm font-bold uppercase tracking-wider" style={{ color: 'var(--color-text-subtle)' }}>
                         <span className="material-symbols-outlined text-[18px]">arrow_back</span>
                         Back to Pipeline
                     </button>
-                    <h1 className="text-3xl font-black text-white glow-text-primary">
+                    <h1 className="text-3xl font-black" style={{ color: 'var(--color-text)' }}>
                         {typeof assessment.title === 'string' ? assessment.title : (assessment.title?.text || 'Technical Assessment')}
                     </h1>
                     <div className="flex items-center gap-4 mt-4">
-                        <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 text-[#8b94a5] text-xs font-bold border border-white/10">
+                        <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border" style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-subtle)', borderColor: 'var(--color-border)' }}>
                             <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>schedule</span>
                             {assessment.time_limit_minutes || 0} Minutes
                         </span>
-                        <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 text-[#8b94a5] text-xs font-bold border border-white/10">
+                        <span className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border" style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-subtle)', borderColor: 'var(--color-border)' }}>
                             <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>quiz</span>
                             {assessment.questions?.length || 0} Questions
                         </span>
@@ -151,18 +151,19 @@ export default function AssessmentViewPage() {
                 <div className="flex items-center gap-3">
                     <button 
                         onClick={() => setShowAnswers(!showAnswers)} 
-                        className={`h-11 px-5 rounded-xl font-bold text-sm flex items-center gap-2 transition-all border ${
-                            showAnswers 
-                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.15)]' 
-                            : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10'
-                        }`}
+                        className={`h-11 px-5 rounded-xl font-bold text-sm flex items-center gap-2 transition-all border`}
+                        style={{
+                            background: showAnswers ? 'var(--color-bg-tertiary)' : 'var(--color-bg-secondary)',
+                            borderColor: showAnswers ? 'var(--color-success)' : 'var(--color-border)',
+                            color: showAnswers ? 'var(--color-success)' : 'var(--color-text-muted)'
+                        }}
                     >
                         <span className="material-symbols-outlined text-[20px]">{showAnswers ? 'visibility_off' : 'visibility'}</span>
                         {showAnswers ? 'Hide Answer Key' : 'Reveal Answer Key'}
                     </button>
                     <button 
                         onClick={() => navigate(`/client/jobs/${jdId}/invite`)} 
-                        className="h-11 px-6 bg-[#0d59f2] hover:bg-[#1a67f5] text-white rounded-xl font-bold text-sm flex items-center gap-2 shadow-[0_4px_20px_rgba(13,89,242,0.4)] active:scale-95 transition-all"
+                        className="btn-primary h-11 px-6 shadow-none"
                     >
                         <span className="material-symbols-outlined text-[20px]">send</span>
                         Invite Candidates
@@ -170,7 +171,7 @@ export default function AssessmentViewPage() {
                 </div>
             </div>
 
-            <div className="w-full h-px bg-white/5 mb-10"></div>
+            <div className="w-full h-px mb-10" style={{ background: 'var(--color-border)' }}></div>
 
             <div className="space-y-2">
                 {assessment.questions?.map((q: any, i: number) => (
@@ -178,9 +179,9 @@ export default function AssessmentViewPage() {
                 ))}
 
                 {(!assessment.questions || assessment.questions.length === 0) && (
-                    <div className="p-12 text-center glass-card rounded-2xl border border-dashed border-white/10">
-                        <span className="material-symbols-outlined text-4xl text-[#475569] mb-4">analytics</span>
-                        <p className="text-[#8b94a5]">No questions found for this blueprint.</p>
+                    <div className="p-12 text-center glass-card rounded-2xl border border-dashed" style={{ borderColor: 'var(--color-border)' }}>
+                        <span className="material-symbols-outlined text-4xl mb-4" style={{ color: 'var(--color-text-subtle)' }}>analytics</span>
+                        <p style={{ color: 'var(--color-text-muted)' }}>No questions found for this blueprint.</p>
                     </div>
                 )}
             </div>

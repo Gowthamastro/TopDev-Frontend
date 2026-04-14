@@ -9,7 +9,7 @@ export default function ComingSoon() {
         <div style={{
             minHeight: '100vh', display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center', padding: 40,
-            background: '#0a0c10', color: '#f1f5f9', textAlign: 'center',
+            background: 'var(--color-bg)', color: 'var(--color-text)', textAlign: 'center',
         }}>
             <SEO 
                 title="Coming Soon" 
@@ -17,18 +17,18 @@ export default function ComingSoon() {
             />
             <div style={{
                 width: 72, height: 72, borderRadius: 20,
-                background: 'linear-gradient(135deg, rgba(13,89,242,0.15), rgba(99,102,241,0.15))',
-                border: '1px solid rgba(13,89,242,0.2)',
+                background: 'var(--color-bg-tertiary)',
+                border: '1px solid var(--color-border)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                marginBottom: 24, boxShadow: '0 0 30px rgba(13,89,242,0.15)',
+                marginBottom: 24, boxShadow: '0 0 30px rgba(var(--color-primary-rgb), 0.05)',
             }}>
-                <Rocket size={32} color="#0d59f2" />
+                <Rocket size={32} color="var(--color-primary)" />
             </div>
 
             <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>
                 Coming Soon
             </h1>
-            <p style={{ color: '#94a3b8', fontSize: 15, margin: '10px 0 32px', maxWidth: 420, lineHeight: 1.6 }}>
+            <p style={{ color: 'var(--color-text-muted)', fontSize: 15, margin: '10px 0 32px', maxWidth: 420, lineHeight: 1.6 }}>
                 This feature is under development and will be available in an upcoming release.
                 Stay tuned — we're building something great.
             </p>

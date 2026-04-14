@@ -3,11 +3,11 @@ import { Shield } from 'lucide-react';
 import api from '../../services/api';
 
 const ACTION_COLORS: Record<string, string> = {
-    update: '#6366f1',
-    create: '#10b981',
-    delete: '#ef4444',
-    login: '#f59e0b',
-    toggle: '#8b5cf6',
+    update: 'var(--color-primary)',
+    create: 'var(--color-text-success)',
+    delete: 'var(--color-text-error)',
+    login: 'var(--color-text-subtle)',
+    toggle: 'var(--color-primary)',
 };
 
 export default function AdminAuditLog() {
@@ -20,11 +20,11 @@ export default function AdminAuditLog() {
     return (
         <div style={{ padding: 32, maxWidth: 1000 }} className="animate-fadeInUp">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
-                <div style={{ width: 40, height: 40, background: 'rgba(99,102,241,0.1)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Shield size={18} color="#818cf8" />
+                <div style={{ width: 40, height: 40, background: 'var(--color-bg-tertiary)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-border)' }}>
+                    <Shield size={18} style={{ color: 'var(--color-primary)' }} />
                 </div>
                 <div>
-                    <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0 }}>Audit Log</h1>
+                    <h1 style={{ fontSize: 20, fontWeight: 700, margin: 0, color: 'var(--color-text)' }}>Audit Log</h1>
                     <p style={{ color: 'var(--color-text-muted)', margin: 0, fontSize: 13 }}>All admin actions (auto-refreshes every 30s)</p>
                 </div>
             </div>
@@ -58,8 +58,8 @@ export default function AdminAuditLog() {
                                     </td>
                                     <td>
                                         <span style={{
-                                            fontSize: 11, padding: '3px 10px', borderRadius: 20, fontWeight: 600,
-                                            background: `${actionColor}15`, color: actionColor
+                                            fontSize: 11, padding: '3px 10px', borderRadius: 20, fontWeight: 700, border: '1px solid',
+                                            background: `transparent`, borderColor: actionColor, color: actionColor, textTransform: 'uppercase', letterSpacing: '0.05em'
                                         }}>
                                             {log.action}
                                         </span>

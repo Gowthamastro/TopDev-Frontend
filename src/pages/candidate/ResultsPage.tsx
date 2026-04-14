@@ -8,12 +8,12 @@ function ScoreCircle({ score, animated }: { score: number; animated: boolean }) 
     const radius = 54;
     const circumference = 2 * Math.PI * radius;
     const offset = circumference - (score / 100) * circumference;
-    const color = score >= 90 ? '#000' : score >= 75 ? '#333' : score >= 60 ? '#666' : '#999';
+    const color = score >= 90 ? 'var(--color-primary)' : score >= 75 ? 'var(--color-text)' : score >= 60 ? 'var(--color-text-muted)' : 'var(--color-text-subtle)';
 
     return (
         <div style={{ position: 'relative', width: 144, height: 144, margin: '0 auto' }}>
             <svg width="144" height="144" style={{ transform: 'rotate(-90deg)' }}>
-                <circle cx="72" cy="72" r={radius} fill="none" stroke="#F0F0F0" strokeWidth="10" />
+                <circle cx="72" cy="72" r={radius} fill="none" stroke="var(--color-bg-tertiary)" strokeWidth="10" />
                 <circle
                     cx="72" cy="72" r={radius}
                     fill="none" stroke={color} strokeWidth="10"
@@ -24,8 +24,8 @@ function ScoreCircle({ score, animated }: { score: number; animated: boolean }) 
                 />
             </svg>
             <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: 30, fontWeight: 800, color: '#000', lineHeight: 1, fontFamily: "'Manrope', sans-serif" }}>{score}</span>
-                <span style={{ fontSize: 13, color: '#999', fontWeight: 500 }}>/ 100</span>
+                <span style={{ fontSize: 30, fontWeight: 800, color: 'var(--color-text)', lineHeight: 1, fontFamily: "'Manrope', sans-serif" }}>{score}</span>
+                <span style={{ fontSize: 13, color: 'var(--color-text-subtle)', fontWeight: 500 }}>/ 100</span>
             </div>
         </div>
     );
@@ -41,8 +41,8 @@ function ScoreBreakdownBar({ label, value, color }: { label: string; value: numb
     return (
         <div style={{ marginBottom: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <span style={{ fontSize: 13, color: '#666', fontWeight: 500 }}>{label}</span>
-                <span style={{ fontSize: 13, fontWeight: 700, color: '#000' }}>
+                <span style={{ fontSize: 13, color: 'var(--color-text-muted)', fontWeight: 500 }}>{label}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text)' }}>
                     {value != null ? `${value}%` : '—'}
                 </span>
             </div>
@@ -55,10 +55,10 @@ function ScoreBreakdownBar({ label, value, color }: { label: string; value: numb
 
 function getBadgeConfig(badge: string | null) {
     const map: Record<string, { icon: string; label: string; color: string; bg: string; desc: string }> = {
-        elite:           { icon: '🏆', label: 'Top Tier',   color: '#000', bg: 'rgba(0,0,0,0.04)', desc: 'Top 10% of candidates — exceptional performance!' },
-        strong:          { icon: '⚡', label: 'Strong',  color: '#333', bg: 'rgba(0,0,0,0.03)', desc: 'Above average — strong technical fundamentals.' },
-        qualified:       { icon: '✅', label: 'Qualified', color: '#666', bg: 'rgba(0,0,0,0.02)', desc: 'Meets the bar — solid candidate for this role.' },
-        below_threshold: { icon: '📈', label: 'Keep Going', color: '#999', bg: 'rgba(0,0,0,0.015)', desc: 'Below threshold — but every attempt sharpens your skills.' },
+        elite:           { icon: '🏆', label: 'Top Tier',   color: 'var(--color-primary)', bg: 'var(--color-bg-tertiary)', desc: 'Top 10% of candidates — exceptional performance!' },
+        strong:          { icon: '⚡', label: 'Strong',  color: 'var(--color-text)', bg: 'var(--color-bg-secondary)', desc: 'Above average — strong technical fundamentals.' },
+        qualified:       { icon: '✅', label: 'Qualified', color: 'var(--color-text-muted)', bg: 'var(--color-bg-secondary)', desc: 'Meets the bar — solid candidate for this role.' },
+        below_threshold: { icon: '📈', label: 'Keep Going', color: 'var(--color-text-subtle)', bg: 'var(--color-bg-tertiary)', desc: 'Below threshold — but every attempt sharpens your skills.' },
     };
     return badge ? (map[badge] || null) : null;
 }
@@ -95,43 +95,42 @@ export default function ResultsPage() {
     const badge = getBadgeConfig(data?.rating_badge);
 
     if (isLoading) return (
-        <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
-            <Loader2 size={40} color="#000" style={{ animation: 'spin 1s linear infinite' }} />
-            <p style={{ color: '#666', fontSize: 15 }}>Loading your results…</p>
+        <div style={{ minHeight: '100vh', background: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
+            <Loader2 size={40} color="var(--color-primary)" style={{ animation: 'spin 1s linear infinite' }} />
+            <p style={{ color: 'var(--color-text-muted)', fontSize: 15 }}>Loading your results…</p>
         </div>
     );
 
     if (error) return (
-        <div style={{ minHeight: '100vh', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
-            <p style={{ color: '#dc2626', fontSize: 15 }}>Could not load results. The attempt may not exist.</p>
+        <div style={{ minHeight: '100vh', background: 'var(--color-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
+            <p style={{ color: 'var(--color-danger)', fontSize: 15 }}>Could not load results. The attempt may not exist.</p>
             <button className="btn-secondary" onClick={() => navigate('/candidate')}>Go to Dashboard</button>
         </div>
     );
 
     return (
-        <div style={{ minHeight: '100vh', background: '#FFFFFF', color: '#000', fontFamily: "'Inter', sans-serif", padding: '0 20px 60px' }}>
+        <div style={{ minHeight: '100vh', background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: "'Inter', sans-serif", padding: '0 20px 60px' }}>
             {/* Header */}
-            <header style={{ borderBottom: '1px solid rgba(0,0,0,0.06)', background: 'rgba(255,255,255,0.9)', backdropFilter: 'blur(12px)', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 16, position: 'sticky', top: 0, zIndex: 50 }}>
+            <header style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--glass-bg)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 16, position: 'sticky', top: 0, zIndex: 50 }}>
                 <button
                     onClick={() => navigate('/candidate')}
-                    style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, padding: '6px 12px', borderRadius: 8, transition: 'all 0.2s' }}
-                    onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.color = '#000'}
-                    onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.color = '#666'}
+                    style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, padding: '6px 12px', borderRadius: 8, transition: 'all 0.2s' }}
+                    className="hover-bg-subtle"
                 >
                     <ArrowLeft size={16} /> Dashboard
                 </button>
-                <div style={{ width: 1, height: 20, background: 'rgba(0,0,0,0.08)' }} />
-                <span className="material-symbols-outlined" style={{ fontSize: 22, color: '#000' }}>code_blocks</span>
-                <span style={{ fontSize: 15, fontWeight: 700, color: '#000', fontFamily: "'Manrope', sans-serif" }}>Assessment Results</span>
+                <div style={{ width: 1, height: 20, background: 'var(--color-border)' }} />
+                <span className="material-symbols-outlined" style={{ fontSize: 22, color: 'var(--color-text)' }}>code_blocks</span>
+                <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Assessment Results</span>
             </header>
 
             <div style={{ maxWidth: 720, margin: '48px auto 0' }}>
                 {/* Scoring in progress */}
                 {isSubmitted && (
                     <div className="card float-card" style={{ padding: 48, textAlign: 'center', marginBottom: 24 }}>
-                        <div style={{ width: 56, height: 56, border: '4px solid #F0F0F0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 20px' }} />
-                        <h2 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 8px', color: '#000', fontFamily: "'Manrope', sans-serif" }}>AI is scoring your submission</h2>
-                        <p style={{ color: '#666', margin: 0, fontSize: 14 }}>
+                        <div style={{ width: 56, height: 56, border: '4px solid var(--color-bg-tertiary)', borderTopColor: 'var(--color-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 20px' }} />
+                        <h2 style={{ fontSize: 20, fontWeight: 800, margin: '0 0 8px', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>AI is scoring your submission</h2>
+                        <p style={{ color: 'var(--color-text-muted)', margin: 0, fontSize: 14 }}>
                             This usually takes 15–30 seconds. This page will update automatically.
                         </p>
                     </div>
@@ -141,15 +140,15 @@ export default function ResultsPage() {
                 <div style={{ textAlign: 'center', marginBottom: 40 }}>
                     <div style={{
                         width: 64, height: 64,
-                        background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.08)',
+                        background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)',
                         borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16
                     }}>
-                        <CheckCircle2 size={28} color="#000" />
+                        <CheckCircle2 size={28} color="var(--color-primary)" />
                     </div>
                     <h1 style={{ fontSize: 26, fontWeight: 800, margin: '0 0 8px', fontFamily: "'Manrope', sans-serif" }}>
                         {isScored ? 'Your results are in!' : 'Assessment submitted!'}
                     </h1>
-                    <p style={{ color: '#666', fontSize: 15, margin: 0 }}>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: 15, margin: 0 }}>
                         {isScored
                             ? 'Here\'s how you performed on this assessment.'
                             : 'Your answers have been received. Scoring in progress…'}
@@ -162,11 +161,11 @@ export default function ResultsPage() {
                         {/* Badge */}
                         {badge && (
                             <div style={{ textAlign: 'center', marginBottom: 32 }}>
-                                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 24px', borderRadius: 9999, background: badge.bg, border: `1px solid rgba(0,0,0,0.08)` }}>
+                                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 24px', borderRadius: 9999, background: badge.bg, border: '1px solid var(--color-border)' }}>
                                     <span style={{ fontSize: 22 }}>{badge.icon}</span>
                                     <div style={{ textAlign: 'left' }}>
                                         <div style={{ fontSize: 16, fontWeight: 800, color: badge.color, fontFamily: "'Manrope', sans-serif" }}>{badge.label}</div>
-                                        <div style={{ fontSize: 12, color: '#666' }}>{badge.desc}</div>
+                                        <div style={{ fontSize: 12, color: 'var(--color-text-subtle)' }}>{badge.desc}</div>
                                     </div>
                                 </div>
                             </div>
@@ -176,14 +175,14 @@ export default function ResultsPage() {
                         <div className="card float-card" style={{ padding: 40, textAlign: 'center', marginBottom: 20 }}>
                             <ScoreCircle score={Math.round(data.total_score ?? 0)} animated={animated} />
                             <div style={{ marginTop: 20 }}>
-                                <div style={{ fontSize: 14, color: '#666', marginBottom: 4 }}>Overall Score</div>
-                                <div style={{ fontSize: 24, fontWeight: 800, color: '#000', fontFamily: "'Manrope', sans-serif" }}>
+                                <div style={{ fontSize: 14, color: 'var(--color-text-muted)', marginBottom: 4 }}>Overall Score</div>
+                                <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>
                                     {Math.round(data.total_score ?? 0)}%
                                 </div>
                                 {data.is_qualified && (
-                                    <div style={{ marginTop: 12, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 16px', background: 'rgba(0,0,0,0.04)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 9999 }}>
-                                        <CheckCircle2 size={14} color="#000" />
-                                        <span style={{ fontSize: 13, color: '#000', fontWeight: 600 }}>Qualified for this role</span>
+                                    <div style={{ marginTop: 12, display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 16px', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', borderRadius: 9999 }}>
+                                        <CheckCircle2 size={14} color="var(--color-primary)" />
+                                        <span style={{ fontSize: 13, color: 'var(--color-text)', fontWeight: 600 }}>Qualified for this role</span>
                                     </div>
                                 )}
                             </div>
@@ -191,21 +190,21 @@ export default function ResultsPage() {
 
                         {/* Score Breakdown */}
                         <div className="card" style={{ padding: 32, marginBottom: 20 }}>
-                            <h2 style={{ fontSize: 16, fontWeight: 700, color: '#000', margin: '0 0 24px', display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'Manrope', sans-serif" }}>
-                                <TrendingUp size={17} color="#000" /> Performance Breakdown
+                            <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)', margin: '0 0 24px', display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'Manrope', sans-serif" }}>
+                                <TrendingUp size={17} color="var(--color-text)" /> Performance Breakdown
                             </h2>
-                            <ScoreBreakdownBar label="Technical Skills" value={data.technical_score != null ? Math.round(data.technical_score) : null} color="#000" />
-                            <ScoreBreakdownBar label="Communication" value={data.communication_score != null ? Math.round(data.communication_score) : null} color="#666" />
-                            <ScoreBreakdownBar label="Cultural Fit" value={data.cultural_fit_score != null ? Math.round(data.cultural_fit_score) : null} color="#999" />
+                            <ScoreBreakdownBar label="Technical Skills" value={data.technical_score != null ? Math.round(data.technical_score) : null} color="var(--color-primary)" />
+                            <ScoreBreakdownBar label="Communication" value={data.communication_score != null ? Math.round(data.communication_score) : null} color="var(--color-text-muted)" />
+                            <ScoreBreakdownBar label="Cultural Fit" value={data.cultural_fit_score != null ? Math.round(data.cultural_fit_score) : null} color="var(--color-text-subtle)" />
                         </div>
 
                         {/* AI Feedback */}
                         {data.ai_feedback && (
                             <div className="card" style={{ padding: 32, marginBottom: 24 }}>
-                                <h2 style={{ fontSize: 16, fontWeight: 700, color: '#000', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'Manrope', sans-serif" }}>
-                                    <Award size={17} color="#000" /> AI Feedback
+                                <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)', margin: '0 0 16px', display: 'flex', alignItems: 'center', gap: 8, fontFamily: "'Manrope', sans-serif" }}>
+                                    <Award size={17} color="var(--color-text)" /> AI Feedback
                                 </h2>
-                                <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
+                                <p style={{ color: 'var(--color-text-muted)', fontSize: 14, lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
                                     {data.ai_feedback}
                                 </p>
                             </div>

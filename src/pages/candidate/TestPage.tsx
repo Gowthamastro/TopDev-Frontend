@@ -15,7 +15,7 @@ export default function TestPage() {
     // Proctoring state
     const [showConsent, setShowConsent] = useState(true);
     const [proctoringEnabled, setProctoringEnabled] = useState(false);
-    const { eventCounts, isMonitoring, totalViolations } = useProctoringMonitor(token, proctoringEnabled);
+    const { isMonitoring, totalViolations } = useProctoringMonitor(token, proctoringEnabled);
 
     // Fetch assessment
     const { data: testData, isLoading, error } = useQuery({
@@ -53,7 +53,7 @@ export default function TestPage() {
         toast('You declined monitoring. Your submission will be flagged as unmonitored.', {
             icon: '⚠️',
             duration: 5000,
-            style: { background: '#1a1520', color: '#fbbf24', border: '1px solid #78350f' },
+            style: { background: 'var(--color-bg-tertiary)', color: 'var(--color-text)', border: '1px solid var(--color-border)' },
         });
     };
 
@@ -112,9 +112,9 @@ export default function TestPage() {
         setAnswers(prev => ({ ...prev, [activeQuestion.id]: val }));
     };
 
-    if (isLoading) return <div className="min-h-screen bg-[#0a0c10] flex items-center justify-center text-slate-400">Loading Assessment...</div>;
+    if (isLoading) return <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--color-bg)', color: 'var(--color-text-muted)' }}>Loading Assessment...</div>;
     if (error) return (
-        <div className="min-h-screen bg-[#0a0c10] flex items-center justify-center flex-col gap-4">
+        <div className="min-h-screen flex items-center justify-center flex-col gap-4" style={{ background: 'var(--color-bg)' }}>
             <div className="text-red-400 text-lg">{(error as any).response?.data?.detail || "Invalid or expired test link."}</div>
             <button onClick={() => navigate('/')} className="btn-secondary">Return Home</button>
         </div>
@@ -135,7 +135,7 @@ export default function TestPage() {
     };
 
     return (
-        <div className="dark bg-[#0a0c10] text-slate-100 font-display min-h-screen antialiased flex flex-col font-['Inter']">
+        <div className="bg-[var(--color-bg)] text-[var(--color-text)] font-display min-h-screen antialiased flex flex-col" style={{ fontFamily: "'Inter', sans-serif" }}>
             
             {/* Proctoring Consent Modal */}
             {showConsent && !isLoading && !error && (
@@ -147,35 +147,35 @@ export default function TestPage() {
             )}
 
             {/* Top Navigation */}
-            <header className="sticky top-0 z-50 flex items-center justify-between border-b border-[#1e2433] bg-[#0d1016]/95 backdrop-blur-md px-6 py-4">
+            <header className="sticky top-0 z-50 flex items-center justify-between border-b bg-[var(--color-bg-secondary)]/95 backdrop-blur-md px-6 py-4" style={{ borderColor: 'var(--color-border)' }}>
                 <div className="flex items-center gap-4">
-                    <span className="material-symbols-outlined text-[28px] text-[#0d59f2]">code_blocks</span>
+                    <span className="material-symbols-outlined text-[28px]" style={{ color: 'var(--color-primary)' }}>code_blocks</span>
                     <div className="hidden sm:block">
-                        <h2 className="text-white text-lg font-bold">{testData.assessment_title}</h2>
-                        <p className="text-xs text-slate-400">Candidate: {testData.candidate_name}</p>
+                        <h2 className="text-lg font-bold" style={{ color: 'var(--color-text)' }}>{testData.assessment_title}</h2>
+                        <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>Candidate: {testData.candidate_name}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
                     {/* Proctoring Indicator */}
                     {isMonitoring ? (
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-xs font-medium">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium" style={{ borderColor: 'rgba(var(--color-success-rgb), 0.2)', background: 'rgba(var(--color-success-rgb), 0.05)', color: 'var(--color-success)' }}>
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: 'var(--color-success)' }}></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: 'var(--color-success)' }}></span>
                             </span>
                             <Shield size={13} />
                             Monitored
                         </div>
                     ) : !showConsent && (
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-medium">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-medium" style={{ borderColor: 'rgba(var(--color-warning-rgb), 0.2)', background: 'rgba(var(--color-warning-rgb), 0.05)', color: 'var(--color-warning)' }}>
                             <AlertTriangle size={13} />
                             Unmonitored
                         </div>
                     )}
-
-                    {/* Violation counter (subtle, only if issues) */}
+ 
+                    {/* Violation counter */}
                     {isMonitoring && totalViolations > 0 && (
-                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-mono">
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-mono" style={{ borderColor: 'rgba(var(--color-danger-rgb), 0.2)', background: 'rgba(var(--color-danger-rgb), 0.05)', color: 'var(--color-danger)' }}>
                             <AlertTriangle size={12} />
                             {totalViolations}
                         </div>
@@ -183,7 +183,12 @@ export default function TestPage() {
 
                     {/* Timer */}
                     {timeLeft !== null && (
-                        <div className={`flex items-center gap-2 border rounded-full px-4 py-1.5 ${timeLeft < 300 ? 'border-[#f85149]/30 bg-[#f85149]/10 shadow-[0_0_15px_rgba(248,81,73,0.15)] text-[#f85149]' : 'border-[#1e2433] bg-[#11141c] text-emerald-400'}`}>
+                        <div className={`flex items-center gap-2 border rounded-full px-4 py-1.5 transition-colors`} 
+                             style={{ 
+                                borderColor: timeLeft < 300 ? 'rgba(var(--color-danger-rgb), 0.3)' : 'var(--color-border)', 
+                                background: timeLeft < 300 ? 'rgba(var(--color-danger-rgb), 0.1)' : 'var(--color-bg-tertiary)',
+                                color: timeLeft < 300 ? 'var(--color-danger)' : 'var(--color-text)' 
+                             }}>
                             <Clock size={16} />
                             <span className="font-mono font-bold tracking-wider">{formatTime(timeLeft)}</span>
                         </div>
@@ -196,14 +201,14 @@ export default function TestPage() {
 
             <div className="flex-1 flex overflow-hidden">
                 {/* Left Sidebar Layout (Navigation) */}
-                <div className="w-64 border-r border-[#1e2433] bg-[#0d1016] flex flex-col hidden lg:flex">
-                    <div className="p-4 border-b border-[#1e2433]">
+                <div className="w-64 border-r flex flex-col hidden lg:flex" style={{ background: 'var(--color-bg-secondary)', borderColor: 'var(--color-border)' }}>
+                    <div className="p-4 border-b" style={{ borderColor: 'var(--color-border)' }}>
                         <div className="flex justify-between items-center mb-2">
-                            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Progress</span>
-                            <span className="text-xs font-mono text-white">{overallProgress}%</span>
+                            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--color-text-muted)' }}>Progress</span>
+                            <span className="text-xs font-mono" style={{ color: 'var(--color-text)' }}>{overallProgress}%</span>
                         </div>
-                        <div className="h-1.5 rounded-full bg-[#1e2433] overflow-hidden">
-                            <div className="h-full rounded-full bg-[#0d59f2] transition-all duration-300" style={{ width: `${overallProgress}%` }}></div>
+                        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-border)' }}>
+                            <div className="h-full rounded-full transition-all duration-300" style={{ width: `${overallProgress}%`, background: 'var(--color-primary)' }}></div>
                         </div>
                     </div>
                     
@@ -217,19 +222,24 @@ export default function TestPage() {
                                     key={q.id}
                                     onClick={() => setActiveIndex(i)}
                                     className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors border-l-2
-                                        ${isActive ? 'bg-[#1e2433]/50 border-[#0d59f2]' : 'border-transparent hover:bg-white/[0.02]'}
+                                        ${isActive ? 'border-[var(--color-primary)]' : 'border-transparent hover:bg-[var(--color-bg-tertiary)]'}
                                     `}
+                                    style={{ background: isActive ? 'var(--color-bg-tertiary)' : '' }}
                                 >
                                     <div className="relative">
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${isAnswered ? 'bg-[#10b981]/20 text-[#10b981]' : isActive ? 'bg-[#0d59f2]/20 text-[#0d59f2]' : 'bg-[#1e2433] text-slate-400'}`}>
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors`}
+                                             style={{ 
+                                                 background: isAnswered ? 'var(--color-text-success)' : isActive ? 'var(--color-primary)' : 'var(--color-bg-tertiary)',
+                                                 color: isAnswered || isActive ? 'var(--color-bg)' : 'var(--color-text-subtle)'
+                                             }}>
                                             {isAnswered ? <CheckCircle2 size={16} /> : i + 1}
                                         </div>
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className={`text-sm truncate ${isActive ? 'text-white font-medium' : 'text-slate-300'}`}>
+                                        <div className={`text-sm truncate ${isActive ? 'font-bold' : ''}`} style={{ color: isActive ? 'var(--color-text)' : 'var(--color-text-muted)' }}>
                                             {q.type.toUpperCase()}
                                         </div>
-                                        <div className="text-xs text-slate-500">{q.max_score} pts</div>
+                                        <div className="text-xs" style={{ color: 'var(--color-text-subtle)' }}>{q.max_score} pts</div>
                                     </div>
                                 </button>
                             );
@@ -238,24 +248,27 @@ export default function TestPage() {
                 </div>
 
                 {/* Main Content Area */}
-                <main className="flex-1 flex flex-col overflow-y-auto bg-[#0a0c10] relative">
+                <main className="flex-1 flex flex-col overflow-y-auto relative" style={{ background: 'var(--color-bg)' }}>
                     {activeQuestion ? (
                         <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full p-6 lg:p-10 pb-32">
                             
                             {/* Question Header */}
                             <div className="mb-8">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <span className="px-2.5 py-1 rounded bg-[#0d59f2]/10 text-[#0d59f2] text-xs font-semibold tracking-wider uppercase border border-[#0d59f2]/20 flex items-center gap-2">
+                                    <span className="px-2.5 py-1 rounded text-xs font-semibold tracking-wider uppercase border flex items-center gap-2"
+                                          style={{ background: 'var(--color-bg-tertiary)', color: 'var(--color-text)', borderColor: 'var(--color-border)' }}>
                                         {getIcon(activeQuestion.type)} {activeQuestion.type}
                                     </span>
-                                    <span className="px-2.5 py-1 rounded bg-[#11141c] text-slate-400 text-xs font-medium border border-[#1e2433] capitalize">
+                                    <span className="px-2.5 py-1 rounded text-xs font-medium border capitalize"
+                                          style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-muted)', borderColor: 'var(--color-border)' }}>
                                         {activeQuestion.difficulty}
                                     </span>
-                                    <span className="px-2.5 py-1 rounded bg-[#11141c] text-slate-400 text-xs font-medium border border-[#1e2433]">
+                                    <span className="px-2.5 py-1 rounded text-xs font-medium border"
+                                          style={{ background: 'var(--color-bg-secondary)', color: 'var(--color-text-muted)', borderColor: 'var(--color-border)' }}>
                                         {activeQuestion.max_score} pts
                                     </span>
                                 </div>
-                                <h1 className="text-xl md:text-2xl font-bold leading-relaxed whitespace-pre-wrap text-white">
+                                <h1 className="text-xl md:text-2xl font-bold leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>
                                     {activeQuestion.text}
                                 </h1>
                             </div>
@@ -266,7 +279,6 @@ export default function TestPage() {
                                     {activeQuestion.options?.map((opt: any, i: number) => {
                                         const optText = typeof opt === 'object' ? opt.text : String(opt);
                                         const optVal = typeof opt === 'object' ? opt.label || String(optText) : String(opt);
-                                        
                                         const isSelected = answers[activeQuestion.id] === optVal;
                                         
                                         return (
@@ -274,13 +286,13 @@ export default function TestPage() {
                                                 key={i}
                                                 onClick={() => handleAnswerChange(optVal)}
                                                 className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200 
-                                                    ${isSelected ? 'border-[#0d59f2] bg-[#0d59f2]/5 shadow-[0_0_15px_rgba(13,89,242,0.1)]' : 'border-[#1e2433] bg-[#11141c] hover:border-slate-600'}
+                                                    ${isSelected ? 'border-[var(--color-primary)] bg-[var(--color-bg-tertiary)]' : 'border-[var(--color-border)] bg-[var(--color-bg-secondary)] hover:border-[var(--color-text-subtle)]'}
                                                 `}
                                             >
-                                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? 'border-[#0d59f2]' : 'border-slate-600'}`}>
-                                                    {isSelected && <div className="w-2.5 h-2.5 bg-[#0d59f2] rounded-full" />}
+                                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${isSelected ? 'border-[var(--color-primary)]' : 'border-[var(--color-text-subtle)]'}`}>
+                                                    {isSelected && <div className="w-2.5 h-2.5 bg-[var(--color-primary)] rounded-full" />}
                                                 </div>
-                                                <span className={`text-base leading-relaxed ${isSelected ? 'text-white' : 'text-slate-300'}`}>
+                                                <span className={`text-base leading-relaxed ${isSelected ? 'font-bold' : ''}`} style={{ color: isSelected ? 'var(--color-text)' : 'var(--color-text-muted)' }}>
                                                     {optText}
                                                 </span>
                                             </div>
@@ -296,21 +308,22 @@ export default function TestPage() {
                                         value={answers[activeQuestion.id] || ''}
                                         onChange={e => handleAnswerChange(e.target.value)}
                                         placeholder="Write your detailed response here..."
-                                        className="flex-1 w-full bg-[#11141c] border border-[#1e2433] rounded-xl p-4 text-slate-200 font-normal leading-relaxed focus:border-[#0d59f2] focus:ring-1 focus:ring-[#0d59f2] transition-colors resize-none shadow-inner"
+                                        className="flex-1 w-full p-4 font-normal leading-relaxed transition-colors resize-none"
+                                        style={{ background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', borderRadius: 16, color: 'var(--color-text)' }}
                                     />
                                 </div>
                             )}
 
                             {/* Coding Challenge */}
                             {activeQuestion.type === 'coding' && (
-                                <div className="flex-1 min-h-[500px] rounded-xl overflow-hidden border border-[#1e2433] bg-[#0d1117] shadow-xl flex flex-col">
-                                    <div className="flex items-center justify-between px-4 py-2 border-b border-[#1e2433] bg-[#010409]">
+                                <div className="flex-1 min-h-[500px] rounded-xl overflow-hidden border bg-[var(--color-bg-secondary)] shadow-xl flex flex-col" style={{ borderColor: 'var(--color-border)' }}>
+                                    <div className="flex items-center justify-between px-4 py-2 border-b bg-[var(--color-bg-tertiary)]" style={{ borderColor: 'var(--color-border)' }}>
                                         <div className="flex gap-1.5">
-                                            <div className="w-3 h-3 rounded-full bg-[#f85149]/40"></div>
-                                            <div className="w-3 h-3 rounded-full bg-[#e3b341]/40"></div>
-                                            <div className="w-3 h-3 rounded-full bg-[#3fb950]/40"></div>
+                                            <div className="w-3 h-3 rounded-full opacity-40" style={{ background: 'var(--color-text-muted)' }}></div>
+                                            <div className="w-3 h-3 rounded-full opacity-40" style={{ background: 'var(--color-text-muted)' }}></div>
+                                            <div className="w-3 h-3 rounded-full opacity-40" style={{ background: 'var(--color-text-muted)' }}></div>
                                         </div>
-                                        <span className="text-xs font-mono text-slate-400">solution.js</span>
+                                        <span className="text-xs font-mono" style={{ color: 'var(--color-text-muted)' }}>solution.js</span>
                                         <div className="w-4"></div>
                                     </div>
                                     <Editor
@@ -339,7 +352,7 @@ export default function TestPage() {
                     )}
                     
                     {/* Bottom Floating Navigation */}
-                    <div className="absolute bottom-0 left-0 right-0 bg-[#0d1016]/90 backdrop-blur border-t border-[#1e2433] p-4 flex justify-between items-center z-10">
+                    <div className="absolute bottom-0 left-0 right-0 backdrop-blur border-t p-4 flex justify-between items-center z-10" style={{ background: 'var(--glass-bg)', borderColor: 'var(--color-border)' }}>
                         <button 
                             disabled={activeIndex === 0}
                             onClick={() => setActiveIndex(activeIndex - 1)}
@@ -348,18 +361,18 @@ export default function TestPage() {
                             <ChevronLeft size={16} /> Previous
                         </button>
                         
-                        <div className="text-sm font-medium text-slate-400 block lg:hidden">
+                        <div className="text-sm font-medium block lg:hidden" style={{ color: 'var(--color-text-muted)' }}>
                             {activeIndex + 1} of {questions.length}
                         </div>
 
                         {activeIndex === questions.length - 1 ? (
-                            <button onClick={handleSubmit} disabled={submitMutation.isPending} className="btn-primary py-2 px-6 flex items-center gap-2 shadow-[0_0_15px_rgba(13,89,242,0.3)]">
+                            <button onClick={handleSubmit} disabled={submitMutation.isPending} className="btn-primary py-2 px-6 flex items-center gap-2">
                                 Submit Assessment <CheckCircle2 size={16} />
                             </button>
                         ) : (
                             <button 
                                 onClick={() => setActiveIndex(activeIndex + 1)}
-                                className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-[#11141c] hover:bg-[#1e2433] border border-[#1e2433] text-slate-300 hover:text-white transition-all text-sm font-medium flex items-center gap-2"
+                                className="btn-secondary py-2 flex items-center gap-2"
                             >
                                 Next <ChevronRight size={16} />
                             </button>

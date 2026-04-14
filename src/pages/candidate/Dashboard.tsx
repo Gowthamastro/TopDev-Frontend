@@ -55,8 +55,8 @@ export default function CandidateDashboard() {
     if (profileLoading || !profile) return (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
             <div style={{ textAlign: 'center' }}>
-                <div style={{ width: 40, height: 40, border: '3px solid #F0F0F0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
-                <p style={{ color: '#666', fontSize: 14 }}>Loading your dashboard…</p>
+                <div style={{ width: 40, height: 40, border: '3px solid var(--color-bg-tertiary)', borderTopColor: 'var(--color-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 16px' }} />
+                <p style={{ color: 'var(--color-text-muted)', fontSize: 14 }}>Loading your dashboard…</p>
             </div>
         </div>
     );
@@ -75,10 +75,10 @@ export default function CandidateDashboard() {
             {/* Header */}
             <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
                 <div>
-                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, letterSpacing: '-0.02em', color: '#000', fontFamily: "'Manrope', sans-serif" }}>
+                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, letterSpacing: '-0.02em', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>
                         Hi, {firstName} 👋
                     </h1>
-                    <p style={{ color: '#666', fontSize: 15, margin: '6px 0 0' }}>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: 15, margin: '6px 0 0' }}>
                         {profile.headline || 'Browse jobs and apply to your best matches'}
                     </p>
                 </div>
@@ -93,30 +93,30 @@ export default function CandidateDashboard() {
 
             {/* Profile Summary Card */}
             <div className="card float-card" style={{ padding: 20, marginBottom: 28, display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
-                <div style={{ width: 52, height: 52, borderRadius: 14, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <User size={24} color="white" />
+                <div style={{ width: 52, height: 52, borderRadius: 14, background: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <User size={24} color="var(--color-bg)" />
                 </div>
                 <div style={{ flex: 1, minWidth: 200 }}>
-                    <div style={{ fontSize: 16, fontWeight: 700, color: '#000', fontFamily: "'Manrope', sans-serif" }}>{user?.fullName}</div>
-                    <div style={{ fontSize: 13, color: '#666', marginTop: 2 }}>{profile.headline || 'Software Professional'}</div>
+                    <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>{user?.fullName}</div>
+                    <div style={{ fontSize: 13, color: 'var(--color-text-muted)', marginTop: 2 }}>{profile.headline || 'Software Professional'}</div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
                         {(profile.skills || []).slice(0, 6).map((s: string) => (
-                            <span key={s} style={{ padding: '2px 10px', background: '#F9F9F9', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 9999, fontSize: 11, color: '#666' }}>{s}</span>
+                            <span key={s} style={{ padding: '2px 10px', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', borderRadius: 9999, fontSize: 11, color: 'var(--color-text-muted)' }}>{s}</span>
                         ))}
                     </div>
                 </div>
                 <div style={{ display: 'flex', gap: 24, flexShrink: 0 }}>
                     <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: 24, fontWeight: 800, color: '#000', fontFamily: "'Manrope', sans-serif" }}>{profile.years_of_experience ?? '—'}</div>
-                        <div style={{ fontSize: 11, color: '#999' }}>Yrs Exp</div>
+                        <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>{profile.years_of_experience ?? '—'}</div>
+                        <div style={{ fontSize: 11, color: 'var(--color-text-subtle)' }}>Yrs Exp</div>
                     </div>
                     <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: 24, fontWeight: 800, color: '#000', fontFamily: "'Manrope', sans-serif" }}>{appliedJobs.length}</div>
-                        <div style={{ fontSize: 11, color: '#999' }}>Applied</div>
+                        <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>{appliedJobs.length}</div>
+                        <div style={{ fontSize: 11, color: 'var(--color-text-subtle)' }}>Applied</div>
                     </div>
                     <div style={{ textAlign: 'center' }}>
-                        <div style={{ fontSize: 24, fontWeight: 800, color: '#000', fontFamily: "'Manrope', sans-serif" }}>{availableJobs.length}</div>
-                        <div style={{ fontSize: 11, color: '#999' }}>Open Jobs</div>
+                        <div style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>{availableJobs.length}</div>
+                        <div style={{ fontSize: 11, color: 'var(--color-text-subtle)' }}>Open Jobs</div>
                     </div>
                 </div>
             </div>
@@ -127,17 +127,17 @@ export default function CandidateDashboard() {
                 {/* Available Jobs */}
                 <section>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                        <h2 style={{ fontSize: 17, fontWeight: 700, color: '#000', display: 'flex', alignItems: 'center', gap: 8, margin: 0, fontFamily: "'Manrope', sans-serif" }}>
-                            <Search size={18} color="#000" /> Available Jobs
+                        <h2 style={{ fontSize: 17, fontWeight: 700, color: 'var(--color-text)', display: 'flex', alignItems: 'center', gap: 8, margin: 0, fontFamily: "'Manrope', sans-serif" }}>
+                            <Search size={18} color="var(--color-text)" /> Available Jobs
                         </h2>
-                        <span style={{ fontSize: 12, color: '#999' }}>{availableJobs.length} open</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-text-subtle)' }}>{availableJobs.length} open</span>
                     </div>
 
                     {availableJobs.length === 0 ? (
                         <div className="card" style={{ padding: 32, textAlign: 'center' }}>
-                            <Target size={32} color="#ccc" style={{ margin: '0 auto 12px' }} />
-                            <p style={{ color: '#666', margin: 0, fontSize: 14 }}>No new roles at the moment</p>
-                            <p style={{ color: '#999', margin: '6px 0 0', fontSize: 13 }}>Check back soon — new positions added regularly.</p>
+                            <Target size={32} color="var(--color-text-subtle)" style={{ margin: '0 auto 12px', opacity: 0.5 }} />
+                            <p style={{ color: 'var(--color-text-muted)', margin: 0, fontSize: 14 }}>No new roles at the moment</p>
+                            <p style={{ color: 'var(--color-text-subtle)', margin: '6px 0 0', fontSize: 13 }}>Check back soon — new positions added regularly.</p>
                         </div>
                     ) : (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -148,20 +148,20 @@ export default function CandidateDashboard() {
 
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                                         <div>
-                                            <div style={{ fontSize: 15, fontWeight: 700, color: '#000', marginBottom: 4, fontFamily: "'Manrope', sans-serif" }}>{job.title}</div>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 12, color: '#999' }}>
+                                            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-text)', marginBottom: 4, fontFamily: "'Manrope', sans-serif" }}>{job.title}</div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 12, color: 'var(--color-text-subtle)' }}>
                                                 <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Building2 size={12} /> {job.company}</span>
                                                 {job.difficulty && <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Clock size={12} /> {job.difficulty}</span>}
                                             </div>
                                         </div>
-                                        <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 11, fontWeight: 600, background: 'rgba(0,0,0,0.04)', color: '#000', border: '1px solid rgba(0,0,0,0.08)' }}>
+                                        <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 11, fontWeight: 600, background: 'var(--color-bg-secondary)', color: 'var(--color-text)', border: '1px solid var(--color-border)' }}>
                                             {job.match_percent}% match
                                         </span>
                                     </div>
 
                                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
                                         {(job.skills || []).slice(0, 5).map((skill: string) => (
-                                            <span key={skill} style={{ padding: '2px 8px', background: '#F9F9F9', border: '1px solid rgba(0,0,0,0.06)', borderRadius: 9999, fontSize: 11, color: '#666' }}>{skill}</span>
+                                            <span key={skill} style={{ padding: '2px 8px', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', borderRadius: 9999, fontSize: 11, color: 'var(--color-text-muted)' }}>{skill}</span>
                                         ))}
                                     </div>
 
@@ -182,17 +182,17 @@ export default function CandidateDashboard() {
                 {/* Applied Jobs */}
                 <section>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                        <h2 style={{ fontSize: 17, fontWeight: 700, color: '#000', display: 'flex', alignItems: 'center', gap: 8, margin: 0, fontFamily: "'Manrope', sans-serif" }}>
-                            <FileText size={18} color="#000" /> My Applications
+                        <h2 style={{ fontSize: 17, fontWeight: 700, color: 'var(--color-text)', display: 'flex', alignItems: 'center', gap: 8, margin: 0, fontFamily: "'Manrope', sans-serif" }}>
+                            <FileText size={18} color="var(--color-text)" /> My Applications
                         </h2>
-                        <span style={{ fontSize: 12, color: '#999' }}>{appliedJobs.length} applied</span>
+                        <span style={{ fontSize: 12, color: 'var(--color-text-subtle)' }}>{appliedJobs.length} applied</span>
                     </div>
 
                     {appliedJobs.length === 0 ? (
                         <div className="card" style={{ padding: 32, textAlign: 'center' }}>
-                            <Briefcase size={32} color="#ccc" style={{ margin: '0 auto 12px' }} />
-                            <p style={{ color: '#666', margin: 0, fontSize: 14 }}>No applications yet</p>
-                            <p style={{ color: '#999', margin: '6px 0 0', fontSize: 13 }}>Apply to available roles to get started.</p>
+                            <Briefcase size={32} color="var(--color-text-subtle)" style={{ margin: '0 auto 12px', opacity: 0.5 }} />
+                            <p style={{ color: 'var(--color-text-muted)', margin: 0, fontSize: 14 }}>No applications yet</p>
+                            <p style={{ color: 'var(--color-text-subtle)', margin: '6px 0 0', fontSize: 13 }}>Apply to available roles to get started.</p>
                         </div>
                     ) : (
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -200,12 +200,12 @@ export default function CandidateDashboard() {
                                 <div key={job.id} className="card" style={{ padding: 16 }}>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                                         <div>
-                                            <div style={{ fontSize: 15, fontWeight: 700, color: '#000', marginBottom: 3, fontFamily: "'Manrope', sans-serif" }}>{job.title}</div>
-                                            <div style={{ fontSize: 12, color: '#999', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-text)', marginBottom: 3, fontFamily: "'Manrope', sans-serif" }}>{job.title}</div>
+                                            <div style={{ fontSize: 12, color: 'var(--color-text-subtle)', display: 'flex', alignItems: 'center', gap: 4 }}>
                                                 <Building2 size={12} /> {job.company}
                                             </div>
                                         </div>
-                                        <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 11, fontWeight: 600, background: 'rgba(0,0,0,0.04)', color: '#000', border: '1px solid rgba(0,0,0,0.08)' }}>
+                                        <span style={{ padding: '3px 10px', borderRadius: 9999, fontSize: 11, fontWeight: 600, background: 'var(--color-bg-secondary)', color: 'var(--color-primary)', border: '1px solid var(--color-border)' }}>
                                             Applied ✓
                                         </span>
                                     </div>

@@ -82,23 +82,23 @@ export default function LoginPage() {
     };
 
     return (
-        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: '#FFFFFF' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: 'var(--color-bg)' }}>
             <div style={{ width: '100%', maxWidth: 420 }}>
                 {/* Logo */}
                 <div style={{ textAlign: 'center', marginBottom: 40 }}>
                     <div style={{
-                        width: 52, height: 52, background: '#000', borderRadius: 14,
+                        width: 52, height: 52, background: 'var(--color-primary)', borderRadius: 14,
                         display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16
                     }}>
-                        <Zap size={26} color="white" fill="white" />
+                        <Zap size={26} color="var(--color-bg)" fill="var(--color-bg)" />
                     </div>
-                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, color: '#000', fontFamily: "'Manrope', sans-serif" }}>TopDev</h1>
-                    <p style={{ color: '#666', margin: '6px 0 0', fontSize: 14 }}>Top Talent. Top Scores.</p>
+                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>TopDev</h1>
+                    <p style={{ color: 'var(--color-text-muted)', margin: '6px 0 0', fontSize: 14 }}>Top Talent. Top Scores.</p>
                 </div>
 
                 <div className="card" style={{ padding: 32, borderRadius: 4 }}>
-                    <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 6px', color: '#000', fontFamily: "'Manrope', sans-serif" }}>Sign in to your account</h2>
-                    <p style={{ color: '#666', fontSize: 14, margin: '0 0 24px' }}>Enter your credentials to continue</p>
+                    <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 6px', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Sign in to your account</h2>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 24px' }}>Enter your credentials to continue</p>
 
                     {/* Google Sign-In */}
                     <button
@@ -125,9 +125,9 @@ export default function LoginPage() {
 
                     <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 16 }}>
                         <div>
-                            <label style={{ fontSize: 13, fontWeight: 600, color: '#000', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Email</label>
+                            <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text)', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Email</label>
                             <div style={{ position: 'relative' }}>
-                                <Mail size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
+                                <Mail size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-subtle)' }} />
                                 <input
                                     {...register('email')}
                                     type="email"
@@ -138,13 +138,13 @@ export default function LoginPage() {
                                     style={{ paddingLeft: 38 }}
                                 />
                             </div>
-                            {errors.email && <p style={{ color: '#dc2626', fontSize: 12, margin: '4px 0 0' }}>{errors.email.message}</p>}
+                            {errors.email && <p style={{ color: 'var(--color-danger)', fontSize: 12, margin: '4px 0 0' }}>{errors.email.message}</p>}
                         </div>
-
+ 
                         <div>
-                            <label style={{ fontSize: 13, fontWeight: 600, color: '#000', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Password</label>
+                            <label style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text)', display: 'block', marginBottom: 6, fontFamily: "'Manrope', sans-serif" }}>Password</label>
                             <div style={{ position: 'relative' }}>
-                                <Lock size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
+                                <Lock size={16} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-subtle)' }} />
                                 <input
                                     {...register('password')}
                                     type={showPwd ? 'text' : 'password'}
@@ -156,12 +156,12 @@ export default function LoginPage() {
                                 <button
                                     type="button"
                                     onClick={() => setShowPwd(!showPwd)}
-                                    style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#999', cursor: 'pointer', padding: 0 }}
+                                    style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--color-text-subtle)', cursor: 'pointer', padding: 0 }}
                                 >
                                     {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                                 </button>
                             </div>
-                            {errors.password && <p style={{ color: '#dc2626', fontSize: 12, margin: '4px 0 0' }}>{errors.password.message}</p>}
+                            {errors.password && <p style={{ color: 'var(--color-danger)', fontSize: 12, margin: '4px 0 0' }}>{errors.password.message}</p>}
                         </div>
 
                         <button
@@ -175,9 +175,9 @@ export default function LoginPage() {
                         </button>
                     </form>
 
-                    <p style={{ textAlign: 'center', margin: '20px 0 0', fontSize: 14, color: '#666' }}>
+                    <p style={{ textAlign: 'center', margin: '20px 0 0', fontSize: 14, color: 'var(--color-text-muted)' }}>
                         Don't have an account?{' '}
-                        <Link to="/register" style={{ color: '#000', fontWeight: 600, textDecoration: 'none' }}>Sign up</Link>
+                        <Link to="/register" style={{ color: 'var(--color-text)', fontWeight: 600, textDecoration: 'none' }}>Sign up</Link>
                     </p>
                 </div>
             </div>

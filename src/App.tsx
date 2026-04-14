@@ -60,9 +60,9 @@ export default function App() {
         <Toaster
           position="top-right"
           toastOptions={{
-            style: { background: '#16161f', color: '#e2e8f0', border: '1px solid #1e1e2e', borderRadius: '10px', fontSize: '14px' },
-            success: { iconTheme: { primary: '#10b981', secondary: '#16161f' } },
-            error: { iconTheme: { primary: '#ef4444', secondary: '#16161f' } },
+            style: { background: 'var(--color-bg-tertiary)', color: 'var(--color-text)', border: '1px solid var(--color-border)', borderRadius: '10px', fontSize: '14px' },
+            success: { iconTheme: { primary: 'var(--color-success)', secondary: 'var(--color-bg)' } },
+            error: { iconTheme: { primary: 'var(--color-danger)', secondary: 'var(--color-bg)' } },
           }}
         />
         <Routes>

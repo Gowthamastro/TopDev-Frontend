@@ -39,13 +39,13 @@ export default function AdminDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px,1fr))', gap: 16 }}>
                 {controls.map(({ to, icon: Icon, label, desc }) => (
                     <div key={to} className="card" onClick={() => navigate(to)} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 16, transition: 'border-color 0.2s' }}
-                        onMouseEnter={e => (e.currentTarget.style.borderColor = '#3d3d5c')}
+                        onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--color-primary)')}
                         onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--color-border)')}>
-                        <div style={{ width: 44, height: 44, background: 'rgba(99,102,241,0.1)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                            <Icon size={20} color="#818cf8" />
+                        <div style={{ width: 44, height: 44, background: 'var(--color-bg-tertiary)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: '1px solid var(--color-border)' }}>
+                            <Icon size={20} style={{ color: 'var(--color-primary)' }} />
                         </div>
                         <div style={{ flex: 1 }}>
-                            <div style={{ fontSize: 14, fontWeight: 600 }}>{label}</div>
+                            <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text)' }}>{label}</div>
                             <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 2 }}>{desc}</div>
                         </div>
                         <ArrowRight size={16} color="var(--color-text-subtle)" />

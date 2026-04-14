@@ -48,9 +48,9 @@ export default function AdminEmailTemplates() {
                     <div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                             <label style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-muted)' }}>HTML Body</label>
-                            <div style={{ display: 'flex', gap: 8 }}>
+                            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                                 {(t.variables || []).map((v: string) => (
-                                    <span key={v} style={{ fontSize: 11, padding: '2px 8px', background: 'rgba(99,102,241,0.1)', color: '#818cf8', borderRadius: 4, fontFamily: 'monospace', cursor: 'pointer' }}
+                                    <span key={v} style={{ fontSize: 11, padding: '2px 8px', background: 'var(--color-bg-tertiary)', color: 'var(--color-primary)', border: '1px solid var(--color-border)', borderRadius: 4, fontFamily: 'monospace', cursor: 'pointer', fontWeight: 600 }}
                                         onClick={() => { const el = document.getElementById('html-editor') as HTMLTextAreaElement; if (el) { const pos = el.selectionStart; const val = getEdit(t.slug, 'html_body', t.html_body); setField(t.slug, 'html_body', val.slice(0, pos) + `{{${v}}}` + val.slice(pos)); } }}
                                     >{`{{${v}}}`}</span>
                                 ))}

@@ -143,37 +143,37 @@ export default function CompleteProfile() {
     };
 
     const inputStyle: React.CSSProperties = {
-        width: '100%', padding: '12px 16px', background: '#0d1016', border: '1px solid #1e2433',
-        borderRadius: 10, color: '#f1f5f9', fontSize: 14, outline: 'none', transition: 'border-color 0.2s',
+        width: '100%', padding: '12px 16px', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)',
+        borderRadius: 10, color: 'var(--color-text)', fontSize: 14, outline: 'none', transition: 'border-color 0.2s',
     };
 
     const labelStyle: React.CSSProperties = {
-        fontSize: 13, fontWeight: 500, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6,
+        fontSize: 13, fontWeight: 600, color: 'var(--color-text)', display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6,
+        fontFamily: "'Manrope', sans-serif"
     };
 
     return (
-        <div className="animated-bg" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 20px' }}>
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '32px 20px', background: 'var(--color-bg)' }}>
 
             {/* Header */}
             <div style={{ textAlign: 'center', marginBottom: 28 }}>
-                <div style={{ width: 48, height: 48, background: 'linear-gradient(135deg, #0d59f2, #6366f1)', borderRadius: 14, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12, boxShadow: '0 0 20px rgba(13,89,242,0.3)' }}>
-                    <User size={24} color="white" />
+                <div style={{ width: 48, height: 48, background: 'var(--color-primary)', borderRadius: 14, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+                    <User size={24} style={{ color: 'var(--color-bg)' }} />
                 </div>
-                <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, color: '#f1f5f9' }}>Complete your profile to continue</h1>
-                <p style={{ color: '#94a3b8', margin: '6px 0 0', fontSize: 14 }}>High-quality profiles connect you with the best opportunities</p>
+                <h1 style={{ fontSize: 26, fontWeight: 800, margin: 0, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Complete your profile to continue</h1>
+                <p style={{ color: 'var(--color-text-muted)', margin: '6px 0 0', fontSize: 14 }}>High-quality profiles connect you with the best opportunities</p>
             </div>
 
             {/* Progress Bar */}
             <div style={{ width: '100%', maxWidth: 560, marginBottom: 28 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 12 }}>
-                    <span style={{ color: '#94a3b8', fontWeight: 600 }}>Profile Completion</span>
-                    <span style={{ color: completionPercent >= 100 ? '#10b981' : '#0d59f2', fontWeight: 700 }}>{completionPercent}%</span>
+                    <span style={{ color: 'var(--color-text-muted)', fontWeight: 600 }}>Profile Completion</span>
+                    <span style={{ color: 'var(--color-primary)', fontWeight: 700 }}>{completionPercent}%</span>
                 </div>
-                <div style={{ width: '100%', height: 8, background: '#1e2433', borderRadius: 8, overflow: 'hidden' }}>
+                <div style={{ width: '100%', height: 8, background: 'var(--color-bg-tertiary)', borderRadius: 8, overflow: 'hidden' }}>
                     <div style={{
                         width: `${completionPercent}%`, height: '100%', borderRadius: 8, transition: 'width 0.6s cubic-bezier(0.4,0,0.2,1)',
-                        background: completionPercent >= 100 ? 'linear-gradient(90deg, #10b981, #34d399)' : 'linear-gradient(90deg, #0d59f2, #6366f1)',
-                        boxShadow: `0 0 12px ${completionPercent >= 100 ? 'rgba(16,185,129,0.4)' : 'rgba(13,89,242,0.4)'}`,
+                        background: 'var(--color-primary)',
                     }} />
                 </div>
             </div>
@@ -183,9 +183,9 @@ export default function CompleteProfile() {
                 {STEPS.map((s, i) => (
                     <button key={s} onClick={() => setStep(i)} style={{
                         flex: 1, padding: '10px 0', borderRadius: 10, border: 'none', cursor: 'pointer',
-                        background: i === step ? 'rgba(13,89,242,0.15)' : '#0d1016',
-                        color: i === step ? '#60a5fa' : '#4b5563', fontSize: 12, fontWeight: 600,
-                        borderBottom: i === step ? '2px solid #0d59f2' : '2px solid transparent',
+                        background: i === step ? 'var(--color-bg-tertiary)' : 'var(--color-bg)',
+                        color: i === step ? 'var(--color-text)' : 'var(--color-text-muted)', fontSize: 12, fontWeight: 600,
+                        borderBottom: i === step ? '2px solid var(--color-primary)' : '2px solid transparent',
                         transition: 'all 0.2s',
                     }}>
                         {i < step ? <CheckCircle2 size={13} style={{ marginRight: 4, verticalAlign: -2 }} /> : null}
@@ -200,25 +200,25 @@ export default function CompleteProfile() {
                 {/* Step 0 — Contact */}
                 {step === 0 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                        <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <Phone size={18} color="#0d59f2" /> Contact Information
+                        <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <Phone size={18} style={{ color: 'var(--color-primary)' }} /> Contact Information
                         </h2>
 
                         <div>
-                            <label style={labelStyle}>Full Name {fieldStatus.full_name && <CheckCircle2 size={13} color="#10b981" />}</label>
+                            <label style={labelStyle}>Full Name {fieldStatus.full_name && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}</label>
                             <input style={inputStyle} value={user?.fullName || ''} disabled placeholder="Your full name" />
-                            <p style={{ fontSize: 11, color: '#4b5563', margin: '4px 0 0' }}>Set during registration</p>
+                            <p style={{ fontSize: 11, color: 'var(--color-text-subtle)', margin: '4px 0 0' }}>Set during registration</p>
                         </div>
 
                         <div>
-                            <label style={labelStyle}>Email {fieldStatus.email && <CheckCircle2 size={13} color="#10b981" />}</label>
+                            <label style={labelStyle}>Email {fieldStatus.email && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}</label>
                             <input style={inputStyle} value={user?.email || ''} disabled placeholder="your@email.com" />
                         </div>
 
                         <div>
                             <label style={labelStyle}>
-                                Phone Number <span style={{ color: '#ef4444', fontSize: 11 }}>* OTP required</span>
-                                {fieldStatus.phone_verified && <CheckCircle2 size={13} color="#10b981" />}
+                                Phone Number <span style={{ color: 'var(--color-danger)', fontSize: 11 }}>* OTP required</span>
+                                {fieldStatus.phone_verified && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}
                             </label>
                             <div style={{ display: 'flex', gap: 8 }}>
                                 <input
@@ -233,7 +233,7 @@ export default function CompleteProfile() {
                                         onClick={() => sendOtpMutation.mutate()}
                                         disabled={sendOtpMutation.isPending || form.phone.length < 10}
                                         style={{
-                                            padding: '10px 18px', background: '#0d59f2', color: 'white', border: 'none',
+                                            padding: '10px 18px', background: 'var(--color-primary)', color: 'var(--color-bg)', border: 'none',
                                             borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap',
                                             opacity: form.phone.length < 10 ? 0.5 : 1,
                                         }}
@@ -256,7 +256,7 @@ export default function CompleteProfile() {
                                         onClick={() => verifyOtpMutation.mutate()}
                                         disabled={verifyOtpMutation.isPending || otpCode.length !== 6}
                                         style={{
-                                            padding: '10px 18px', background: '#10b981', color: 'white', border: 'none',
+                                            padding: '10px 18px', background: 'var(--color-success)', color: '#FFFFFF', border: 'none',
                                             borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer',
                                             opacity: otpCode.length !== 6 ? 0.5 : 1,
                                         }}
@@ -267,7 +267,7 @@ export default function CompleteProfile() {
                             )}
 
                             {fieldStatus.phone_verified && (
-                                <p style={{ color: '#10b981', fontSize: 12, margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <p style={{ color: 'var(--color-success)', fontSize: 12, margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 4 }}>
                                     <ShieldCheck size={13} /> Phone verified
                                 </p>
                             )}
@@ -289,35 +289,35 @@ export default function CompleteProfile() {
                 {/* Step 1 — Resume */}
                 {step === 1 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                        <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <FileText size={18} color="#0d59f2" /> Resume Upload
-                            <span style={{ color: '#ef4444', fontSize: 12, fontWeight: 500 }}>* Required</span>
+                        <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <FileText size={18} style={{ color: 'var(--color-primary)' }} /> Resume Upload
+                            <span style={{ color: 'var(--color-danger)', fontSize: 12, fontWeight: 500 }}>* Required</span>
                         </h2>
 
                         <div
                             onClick={() => document.getElementById('profile-resume-upload')?.click()}
                             style={{
-                                border: `2px dashed ${fieldStatus.resume ? '#10b981' : '#1e2433'}`,
+                                border: `2px dashed ${fieldStatus.resume ? 'var(--color-success)' : 'var(--color-border)'}`,
                                 borderRadius: 14, padding: '48px 24px', textAlign: 'center',
-                                cursor: 'pointer', background: '#0d1016', transition: 'all 0.2s',
+                                cursor: 'pointer', background: 'var(--color-bg-secondary)', transition: 'all 0.2s',
                             }}
                         >
                             {resumeMutation.isPending ? (
                                 <>
-                                    <Loader2 size={40} color="#0d59f2" style={{ margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
-                                    <p style={{ color: '#60a5fa', fontWeight: 500, margin: 0 }}>Uploading…</p>
+                                    <Loader2 size={40} style={{ color: 'var(--color-primary)', margin: '0 auto 12px', animation: 'spin 1s linear infinite' }} />
+                                    <p style={{ color: 'var(--color-primary)', opacity: 0.8, fontWeight: 500, margin: 0 }}>Uploading…</p>
                                 </>
                             ) : fieldStatus.resume || resumeFile ? (
                                 <>
-                                    <CheckCircle2 size={40} color="#10b981" style={{ margin: '0 auto 12px' }} />
-                                    <p style={{ color: '#10b981', fontWeight: 500, margin: 0 }}>{resumeFile?.name || 'Resume uploaded'}</p>
-                                    <p style={{ color: '#4b5563', fontSize: 13, margin: '4px 0 0' }}>Click to replace</p>
+                                    <CheckCircle2 size={40} style={{ color: 'var(--color-success)', margin: '0 auto 12px' }} />
+                                    <p style={{ color: 'var(--color-success)', fontWeight: 500, margin: 0 }}>{resumeFile?.name || 'Resume uploaded'}</p>
+                                    <p style={{ color: 'var(--color-text-muted)', fontSize: 13, margin: '4px 0 0' }}>Click to replace</p>
                                 </>
                             ) : (
                                 <>
-                                    <UploadCloud size={40} color="#4b5563" style={{ margin: '0 auto 12px' }} />
-                                    <p style={{ color: '#e2e8f0', fontWeight: 500, margin: 0 }}>Drop your resume here or click to browse</p>
-                                    <p style={{ color: '#4b5563', fontSize: 13, margin: '6px 0 0' }}>PDF or DOC • Max 10MB</p>
+                                    <UploadCloud size={40} style={{ color: 'var(--color-text-subtle)', margin: '0 auto 12px' }} />
+                                    <p style={{ color: 'var(--color-text)', fontWeight: 500, margin: 0, opacity: 0.9 }}>Drop your resume here or click to browse</p>
+                                    <p style={{ color: 'var(--color-text-muted)', fontSize: 13, margin: '6px 0 0' }}>PDF or DOC • Max 10MB</p>
                                 </>
                             )}
                             <input id="profile-resume-upload" type="file" accept=".pdf,.doc,.docx" onChange={handleFileInput} style={{ display: 'none' }} />
@@ -333,8 +333,8 @@ export default function CompleteProfile() {
                 {/* Step 2 — Experience & Salary */}
                 {step === 2 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                        <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <Briefcase size={18} color="#0d59f2" /> Experience & Salary
+                        <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <Briefcase size={18} color="var(--color-primary)" /> Experience & Salary
                         </h2>
 
                         <div>
@@ -345,8 +345,8 @@ export default function CompleteProfile() {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                             <div>
                                 <label style={labelStyle}>
-                                    Years of Experience <span style={{ color: '#ef4444' }}>*</span>
-                                    {fieldStatus.years_of_experience && <CheckCircle2 size={13} color="#10b981" />}
+                                    Years of Experience <span style={{ color: 'var(--color-danger)' }}>*</span>
+                                    {fieldStatus.years_of_experience && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}
                                 </label>
                                 <input type="number" min={0} max={50} style={inputStyle} value={form.years_of_experience}
                                     onChange={e => setForm({ ...form, years_of_experience: Number(e.target.value) })} />
@@ -365,16 +365,16 @@ export default function CompleteProfile() {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                             <div>
                                 <label style={labelStyle}>
-                                    <DollarSign size={13} /> Current Salary (₹/yr) <span style={{ color: '#ef4444' }}>*</span>
-                                    {fieldStatus.current_salary && <CheckCircle2 size={13} color="#10b981" />}
+                                    <DollarSign size={13} /> Current Salary (₹/yr) <span style={{ color: 'var(--color-danger)' }}>*</span>
+                                    {fieldStatus.current_salary && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}
                                 </label>
                                 <input type="number" style={inputStyle} value={form.current_salary}
                                     onChange={e => setForm({ ...form, current_salary: e.target.value })} placeholder="e.g. 1200000" />
                             </div>
                             <div>
                                 <label style={labelStyle}>
-                                    <DollarSign size={13} /> Expected Salary (₹/yr) <span style={{ color: '#ef4444' }}>*</span>
-                                    {fieldStatus.expected_salary && <CheckCircle2 size={13} color="#10b981" />}
+                                    <DollarSign size={13} /> Expected Salary (₹/yr) <span style={{ color: 'var(--color-danger)' }}>*</span>
+                                    {fieldStatus.expected_salary && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}
                                 </label>
                                 <input type="number" style={inputStyle} value={form.expected_salary}
                                     onChange={e => setForm({ ...form, expected_salary: e.target.value })} placeholder="e.g. 1800000" />
@@ -391,20 +391,20 @@ export default function CompleteProfile() {
                 {/* Step 3 — Review & Submit */}
                 {step === 3 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-                        <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <CheckCircle2 size={18} color="#10b981" /> Review & Complete
+                        <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text)', margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
+                            <CheckCircle2 size={18} style={{ color: 'var(--color-success)' }} /> Review & Complete
                         </h2>
 
-                        <div style={{ background: '#0d1016', borderRadius: 12, padding: 20, border: '1px solid #1e2433' }}>
+                        <div style={{ background: 'var(--color-bg-tertiary)', borderRadius: 12, padding: 20, border: '1px solid var(--color-border)' }}>
                             {Object.entries(fieldStatus).map(([key, done]) => (
-                                <div key={key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #1e2433' }}>
-                                    <span style={{ fontSize: 13, color: '#94a3b8', textTransform: 'capitalize' }}>{key.replace(/_/g, ' ')}</span>
+                                <div key={key} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--color-border)' }}>
+                                    <span style={{ fontSize: 13, color: 'var(--color-text-muted)', textTransform: 'capitalize' }}>{key.replace(/_/g, ' ')}</span>
                                     {done ? (
-                                        <span style={{ color: '#10b981', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+                                        <span style={{ color: 'var(--color-success)', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
                                             <CheckCircle2 size={13} /> Done
                                         </span>
                                     ) : (
-                                        <span style={{ color: '#ef4444', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+                                        <span style={{ color: 'var(--color-danger)', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
                                             <X size={13} /> Missing
                                         </span>
                                     )}

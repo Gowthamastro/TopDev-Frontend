@@ -26,7 +26,7 @@ export default function AdminFeatureFlags() {
                         </div>
                         <button
                             onClick={() => mutation.mutate({ name: flag.flag_name, is_enabled: !flag.is_enabled })}
-                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center', color: flag.is_enabled ? '#10b981' : 'var(--color-text-subtle)', transition: 'color 0.2s' }}
+                            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center', color: flag.is_enabled ? 'var(--color-primary)' : 'var(--color-text-subtle)', transition: 'color 0.2s' }}
                             disabled={mutation.isPending}
                         >
                             {flag.is_enabled ? <ToggleRight size={32} /> : <ToggleLeft size={32} />}
