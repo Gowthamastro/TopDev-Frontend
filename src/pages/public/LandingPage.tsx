@@ -443,6 +443,17 @@ export default function LandingPage() {
                 .lp-loader-progress { height: 100%; background: var(--color-primary); width: 0; animation: progress 1.5s ease-in-out infinite; }
                 @keyframes progress { 0% { width: 0; margin-left: 0; } 50% { width: 50%; margin-left: 25%; } 100% { width: 0; margin-left: 100%; } }
 
+                /* Hide number input arrows */
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+                input[type=number] {
+                  -moz-appearance: textfield;
+                  appearance: textfield;
+                }
+
                 @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
                 .lp-card-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--color-border-subtle); }
                 .lp-card-id { display: flex; align-items: center; gap: 16px; }
