@@ -100,62 +100,77 @@ const CodeSignupEditor = () => {
         }
     };
 
-    const renderStringField = (label: string, field: string, placeholder: string, type: string = 'text') => (
-        <div key={field} style={{ 
-            display: 'flex', 
-            alignItems: 'baseline', 
-            gap: 4, 
-            whiteSpace: 'nowrap', 
-            paddingLeft: 20,
-            fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
-        }}>
-            <span style={{ color: '#d4d4d4' }}>{label}</span>
-            <span style={{ color: '#d4d4d4' }}>:</span>
-            <span style={{ color: '#98c379', marginLeft: 4 }}>'</span>
-            <input 
-                type={type}
-                value={(form as any)[field]}
-                onChange={(e) => handleInputChange(field, e.target.value)}
-                placeholder={placeholder}
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                    background: 'transparent', border: 'none',
-                    color: '#98c379', fontSize: 'inherit', fontFamily: 'inherit',
-                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '10px'
-                }}
-            />
-            <span style={{ color: '#98c379' }}>'</span>
-            <span style={{ color: '#d4d4d4' }}>,</span>
-        </div>
-    );
+    const renderStringField = (label: string, field: string, placeholder: string, type: string = 'text') => {
+        const value = String((form as any)[field] || '');
+        // Calculate width based on character count + a small buffer for the cursor
+        const width = `${Math.max(value.length, placeholder.length)}ch`;
 
-    const renderNumberField = (label: string, field: string, placeholder: string) => (
-        <div key={field} style={{ 
-            display: 'flex', 
-            alignItems: 'baseline', 
-            gap: 4, 
-            whiteSpace: 'nowrap', 
-            paddingLeft: 20,
-            fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
-        }}>
-            <span style={{ color: '#d4d4d4' }}>{label}</span>
-            <span style={{ color: '#d4d4d4' }}>:</span>
-            <input 
-                type="number"
-                value={(form as any)[field]}
-                onChange={(e) => handleInputChange(field, e.target.value)}
-                placeholder={placeholder}
-                onClick={(e) => e.stopPropagation()}
-                style={{
-                    background: 'transparent', border: 'none',
-                    color: '#d19a66', fontSize: 'inherit', fontFamily: 'inherit',
-                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '10px',
-                    marginLeft: 8
-                }}
-            />
-            <span style={{ color: '#d4d4d4', marginLeft: 8 }}>,</span>
-        </div>
-    );
+        return (
+            <div key={field} style={{ 
+                display: 'flex', 
+                alignItems: 'baseline', 
+                gap: 0, 
+                whiteSpace: 'nowrap', 
+                paddingLeft: 20,
+                fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
+            }}>
+                <span style={{ color: '#d4d4d4' }}>{label}</span>
+                <span style={{ color: '#d4d4d4' }}>:</span>
+                <span style={{ color: '#98c379', marginLeft: 8 }}>'</span>
+                <input 
+                    type={type}
+                    value={(form as any)[field]}
+                    onChange={(e) => handleInputChange(field, e.target.value)}
+                    placeholder={placeholder}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                        background: 'transparent', border: 'none',
+                        color: '#98c379', fontSize: 'inherit', fontFamily: 'inherit',
+                        padding: 0, outline: 'none', 
+                        width: width,
+                        minWidth: '1ch'
+                    }}
+                />
+                <span style={{ color: '#98c379' }}>'</span>
+                <span style={{ color: '#d4d4d4' }}>,</span>
+            </div>
+        );
+    };
+
+    const renderNumberField = (label: string, field: string, placeholder: string) => {
+        const value = String((form as any)[field] || '');
+        const width = `${Math.max(value.length, placeholder.length)}ch`;
+
+        return (
+            <div key={field} style={{ 
+                display: 'flex', 
+                alignItems: 'baseline', 
+                gap: 0, 
+                whiteSpace: 'nowrap', 
+                paddingLeft: 20,
+                fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
+            }}>
+                <span style={{ color: '#d4d4d4' }}>{label}</span>
+                <span style={{ color: '#d4d4d4' }}>:</span>
+                <input 
+                    type="number"
+                    value={(form as any)[field]}
+                    onChange={(e) => handleInputChange(field, e.target.value)}
+                    placeholder={placeholder}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                        background: 'transparent', border: 'none',
+                        color: '#d19a66', fontSize: 'inherit', fontFamily: 'inherit',
+                        padding: 0, outline: 'none', 
+                        width: width,
+                        minWidth: '1ch',
+                        marginLeft: 8
+                    }}
+                />
+                <span style={{ color: '#d4d4d4', marginLeft: 0 }}>,</span>
+            </div>
+        );
+    };
 
     if (isSuccess) {
         return (
@@ -340,9 +355,8 @@ export default function LandingPage() {
                 .lp-glass { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 8px; }
                 
                 .lp-editor-panel {
-                    animation: floatY 6s ease-in-out infinite;
-                    box-shadow: 0 24px 80px rgba(0,0,0,0.15);
-                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                     overflow: hidden;
                     background: #1e1e1e; /* Dark IDE background */
                 }
