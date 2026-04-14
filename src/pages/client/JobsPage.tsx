@@ -112,7 +112,7 @@ export default function JobsPage() {
                     })}
 
                     {(!jobs || jobs.length === 0) && !isError && (
-                        <div style={{ gridColumn: '1 / -1' }} className="card" style={{ padding: 64, textAlign: 'center' }}>
+                        <div style={{ gridColumn: '1 / -1', padding: 64, textAlign: 'center' }} className="card">
                             <div style={{ width: 64, height: 64, background: 'rgba(0,0,0,0.04)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', border: '1px solid rgba(0,0,0,0.06)' }}>
                                 <Briefcase color="#000" size={28} />
                             </div>
