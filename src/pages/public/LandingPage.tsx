@@ -226,8 +226,6 @@ const CodeSignupEditor = () => {
         </div>
     );
 };
-    );
-};
 
 export default function LandingPage() {
     const { theme, toggleTheme } = useTheme();
