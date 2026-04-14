@@ -5,8 +5,8 @@ import { useAuthStore } from '../store/authStore';
 // fall back to explicit VITE_API_BASE_URL mainly for Vite dev.
 const resolvedBaseURL =
     (typeof window !== 'undefined' && window.location.origin.includes('localhost:517'))
-        ? ''
-        : (import.meta.env.VITE_API_BASE_URL || '');
+        ? '' // Local dev (Vite proxy)
+        : '/api'; // Production (Nginx proxy)
 
 const api = axios.create({
     baseURL: resolvedBaseURL,
