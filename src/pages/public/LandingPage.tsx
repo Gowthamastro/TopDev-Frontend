@@ -274,7 +274,7 @@ const CodeSignupEditor = () => {
                                 }}
                             >
                                 <span className="material-symbols-outlined" style={{ fontSize: 16 }}>upload</span>
-                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_resume()'}</span>
+                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_jd()'}</span>
                             </div>
                             <span style={{ color: '#d4d4d4', marginLeft: 4 }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
@@ -584,8 +584,6 @@ export default function LandingPage() {
                     <span className="lp-logo-text">TopDev</span>
                 </Link>
                 <nav className="lp-nav-links">
-                    <Link to="/register?role=client" className="lp-nav-link">For Clients</Link>
-                    <Link to="/register?role=candidate" className="lp-nav-link">For Developers</Link>
                     <a href="#pricing" className="lp-nav-link">Pricing</a>
                 </nav>
                 <div className="lp-nav-actions">
@@ -595,7 +593,6 @@ export default function LandingPage() {
                         </span>
                     </button>
                     <Link to="/login" className="lp-login">Login</Link>
-                    <Link to="/register?role=candidate" className="lp-btn-primary">Get Started</Link>
                 </div>
             </header>
 
@@ -616,11 +613,7 @@ export default function LandingPage() {
                             Collect complete candidate profiles, post jobs, and manage applicants — all in one simple platform.
                         </p>
                         <div className="lp-cta-row">
-                            <Link to="/register?role=client" className="lp-btn-primary lp-btn-hero">
-                                Post a Job
-                                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
-                            </Link>
-                            <Link to="/register?role=candidate" className="lp-btn-secondary lp-btn-hero">Get Started</Link>
+                            <a href="#pricing" className="lp-btn-primary lp-btn-hero">View Pricing</a>
                         </div>
                         <div className="lp-social-proof">
                             <div className="lp-avatars">
@@ -678,7 +671,7 @@ export default function LandingPage() {
                                     </li>
                                 ))}
                             </ul>
-                            <Link to="/register?role=client" className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Get Started</Link>
+                            <a href="mailto:sales@topdev.io" className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Get Started</a>
                         </div>
 
                         {/* Custom / Contact Us */}
