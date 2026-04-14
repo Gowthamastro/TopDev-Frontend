@@ -146,7 +146,7 @@ export default function LandingPage() {
 
                 /* Pricing section */
                 .lp-pricing { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
-                .lp-plans { display: grid; grid-template-columns: repeat(2,1fr); gap: 32px; align-items: end; margin-top: 64px; max-width: 800px; margin-left: auto; margin-right: auto; }
+                .lp-plans { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; align-items: end; margin-top: 64px; max-width: 800px; margin-left: auto; margin-right: auto; }
                 .lp-plan { background: #0d1020; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; height: 510px; transition: border-color 0.3s; }
                 .lp-plan:hover { border-color: rgba(255,255,255,0.12); }
                 .lp-plan-featured { border-color: #0d59f2 !important; box-shadow: 0 0 40px rgba(13,89,242,0.15); height: 560px; transform: translateY(-16px); position: relative; }
@@ -513,10 +513,10 @@ export default function LandingPage() {
                                 <div style={{ color: '#94a3b8', fontSize: 13, marginTop: 8 }}>of first-year salary, per successful hire</div>
                             </div>
                             <ul className="lp-features">
-                                {['Post unlimited jobs', 'View full candidate profiles', 'Clean applicant management', 'Email support'].map(f => (
-                                    <li key={f} className="lp-feature">
+                                {['Post unlimited jobs', 'View full candidate profiles', 'Clean applicant management', 'Email support'].map(feature => (
+                                    <li key={feature} className="lp-feature">
                                         <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", color: '#0d59f2', fontSize: 20, flexShrink: 0 }}>check_circle</span>
-                                        {f}
+                                        {feature}
                                     </li>
                                 ))}
                             </ul>
@@ -531,10 +531,10 @@ export default function LandingPage() {
                                 <div style={{ color: '#64748b', fontSize: 13, marginTop: 8 }}>Tailored pricing for your organization</div>
                             </div>
                             <ul className="lp-features">
-                                {['Volume hiring discounts', 'Dedicated account manager', 'SLA & priority support', 'Custom contract & invoicing'].map(f => (
-                                    <li key={f} className="lp-feature">
+                                {['Volume hiring discounts', 'Dedicated account manager', 'SLA & priority support', 'Custom contract & invoicing'].map(feature => (
+                                    <li key={feature} className="lp-feature">
                                         <span className="material-symbols-outlined" style={{ color: '#475569', fontSize: 18, flexShrink: 0 }}>check</span>
-                                        {f}
+                                        {feature}
                                     </li>
                                 ))}
                             </ul>
@@ -558,13 +558,13 @@ export default function LandingPage() {
                             { icon: 'psychology',   title: 'Skill Assessments',     desc: 'Role-specific technical tests to verify what candidates actually know.' },
                             { icon: 'insights',     title: 'Performance Insights',   desc: 'Structured score breakdowns for every candidate, at a glance.' },
                             { icon: 'auto_awesome', title: 'Smart Shortlisting',     desc: 'AI-ranked candidates matched to your job requirements.' },
-                        ].map(({ icon, title, desc }) => (
-                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(139,92,246,0.2)' }}>
+                        ].map((item) => (
+                            <div key={item.title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(139,92,246,0.2)' }}>
                                 <div className="lp-card-icon" style={{ background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.15)' }}>
-                                    <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 26 }}>{icon}</span>
+                                    <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 26 }}>{item.icon}</span>
                                 </div>
-                                <h3 className="lp-card-h" style={{ color: '#e2e8f0' }}>{title}</h3>
-                                <p className="lp-card-p">{desc}</p>
+                                <h3 className="lp-card-h" style={{ color: '#e2e8f0' }}>{item.title}</h3>
+                                <p className="lp-card-p">{item.desc}</p>
                             </div>
                         ))}
                     </div>
