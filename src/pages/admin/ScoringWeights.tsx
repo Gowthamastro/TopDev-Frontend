@@ -81,7 +81,7 @@ export default function AdminScoringWeights() {
                 }
                 .toggle-checkbox:checked {
                     right: 0;
-                    border-color: var(--color-primary);
+                    border: 1px solid var(--color-primary);
                 }
                 .toggle-checkbox:checked + .toggle-label {
                     background-color: var(--color-primary);
@@ -90,7 +90,7 @@ export default function AdminScoringWeights() {
                 .toggle-checkbox {
                     right: 0;
                     z-index: 1;
-                    border-color: var(--color-border);
+                    border: 1px solid var(--color-border);
                     transition: all 0.3s ease;
                 }
                 .toggle-label {
@@ -223,7 +223,7 @@ export default function AdminScoringWeights() {
                                     <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)' }}>toggle_on</span>
                                     System Preferences
                                 </h3>
-                                <div className="border rounded-xl p-2 backdrop-blur-sm divide-y" style={{ background: 'var(--color-bg-secondary)', borderColor: 'var(--color-border)', divideColor: 'var(--color-border)' }}>
+                                <div className="border rounded-xl p-2 backdrop-blur-sm divide-y" style={{ background: 'var(--color-bg-secondary)', borderColor: 'var(--color-border)' }}>
                                     {/* Toggle 1 */}
                                     <div className="flex items-center justify-between p-4 transition-colors rounded-lg hover:bg-[var(--color-bg-tertiary)]">
                                         <div>

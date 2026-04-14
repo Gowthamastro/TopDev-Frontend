@@ -97,7 +97,7 @@ export default function ClientCandidatesPage() {
                             >
                                 <div className="relative flex items-center space-x-4">
                                     <div className="relative">
-                                        <img alt="Avatar" className={`w-12 h-12 rounded-full object-cover ${isSelected ? 'ring-2' : 'opacity-80 group-hover:opacity-100'}`} style={{ ringColor: isSelected ? 'var(--color-primary)' : 'transparent' }} src={avatars[index % avatars.length]} />
+                                        <img alt="Avatar" className={`w-12 h-12 rounded-full object-cover ${isSelected ? 'ring-2' : 'opacity-80 group-hover:opacity-100'}`} style={{ boxShadow: isSelected ? '0 0 0 2px var(--color-primary)' : 'none' }} src={avatars[index % avatars.length]} />
                                         {isSelected && <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2" style={{ background: 'var(--color-success)', borderColor: 'var(--color-bg)' }}></div>}
                                     </div>
                                     <div className="flex-1 min-w-0">
@@ -244,8 +244,7 @@ export default function ClientCandidatesPage() {
                                         {activeCandidate.proctor_summary && (
                                             <div className={`rounded-xl p-5 border mb-4`} style={{ 
                                                 background: 'var(--color-bg-secondary)', 
-                                                borderColor: intScore !== null && intScore >= 80 ? 'var(--color-success)' : intScore !== null && intScore >= 50 ? 'var(--color-warning)' : 'var(--color-danger)',
-                                                borderOpacity: 0.2
+                                                border: `1px solid ${intScore !== null && intScore >= 80 ? 'rgba(var(--color-success-rgb), 0.2)' : intScore !== null && intScore >= 50 ? 'rgba(var(--color-warning-rgb), 0.2)' : 'rgba(var(--color-danger-rgb), 0.2)'}`
                                             }}>
                                                 <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>{activeCandidate.proctor_summary}</p>
                                             </div>

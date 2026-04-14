@@ -26,7 +26,7 @@ export default function ProctoringConsent({ onAccept, onDecline, candidateName }
                     </div>
                     {candidateName && (
                         <p className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                            Welcome, <span style={{ color: 'var(--color-text)', fontBold: 'bold' }}>{candidateName}</span>. Before you begin, please review our assessment monitoring policy.
+                            Welcome, <span style={{ color: 'var(--color-text)', fontWeight: '700' }}>{candidateName}</span>. Before you begin, please review our assessment monitoring policy.
                         </p>
                     )}
                 </div>
