@@ -1,11 +1,218 @@
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
+import api from '../../services/api';
+import { useAuthStore } from '../../store/authStore';
+import toast from 'react-hot-toast';
+import { Loader2, CheckCircle2, UploadCloud } from 'lucide-react';
+
+const CodeSignupEditor = () => {
+    const [role, setRole] = useState<'candidate' | 'client'>('candidate');
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const navigate = useNavigate();
+    const { setAuth } = useAuthStore();
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const [form, setForm] = useState({
+        name: '',
+        email: '',
+        password: '',
+        phone: '',
+        experience: '',
+        currentCTC: '',
+        expectedCTC: '',
+        resume: null as File | null,
+        // Client specific
+        company: '',
+        jobRole: 'Frontend Developer',
+        budget: '',
+    });
+
+    const handleInteraction = () => {
+        if (!isExpanded) setIsExpanded(true);
+    };
+
+    const handleInputChange = (field: string, value: string) => {
+        setForm(prev => ({ ...prev, [field]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!form.email || !form.password || !form.name) {
+            toast.error('Please fill in the required fields (name, email, password)');
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            // Step 1: Register
+            const registerData = {
+                full_name: form.name,
+                email: form.email,
+                password: form.password,
+                role: role,
+                company_name: role === 'client' ? form.company : undefined,
+            };
+            const res = await api.post('/api/v1/auth/register', registerData);
+            
+            setAuth(
+                { id: res.data.user_id, email: form.email, fullName: res.data.full_name, role: res.data.role, isProfileComplete: false },
+                res.data.access_token,
+                res.data.refresh_token
+            );
+
+            // Step 2: Handle onboarding fields if candidate
+            if (role === 'candidate' && (form.phone || form.experience)) {
+                await api.post('/api/v1/candidates/onboard', {
+                    phone: form.phone,
+                    years_of_experience: parseInt(form.experience) || 0,
+                    current_salary: parseInt(form.currentCTC.replace(/\D/g, '')) || 0,
+                    expected_salary: parseInt(form.expectedCTC.replace(/\D/g, '')) || 0,
+                });
+                
+                if (form.resume) {
+                    const fd = new FormData();
+                    fd.append('file', form.resume);
+                    await api.post('/api/v1/candidates/resume', fd);
+                }
+            }
+
+            setIsSuccess(true);
+            toast.success('Account created successfully! 🚀');
+            setTimeout(() => {
+                navigate(role === 'candidate' ? '/complete-profile' : '/client');
+            }, 1500);
+        } catch (err: any) {
+            toast.error(err.response?.data?.detail || 'Registration failed');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const renderField = (label: string, field: string, placeholder: string, type: string = 'text') => (
+        <div key={field} style={{ display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap' }}>
+            <span style={{ color: '#888', fontStyle: 'italic' }}>  {label}:</span>
+            <span style={{ color: '#fff' }}>"</span>
+            <input 
+                type={type}
+                value={(form as any)[field]}
+                onChange={(e) => handleInputChange(field, e.target.value)}
+                placeholder={placeholder}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                    background: 'transparent', border: 'none', borderBottom: '1px dashed transparent',
+                    color: (form as any)[field] ? '#fff' : '#666', fontSize: 'inherit', fontFamily: 'inherit',
+                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '40px'
+                }}
+                className="lp-editor-input"
+            />
+            <span style={{ color: '#fff' }}>",</span>
+        </div>
+    );
+
+    if (isSuccess) {
+        return (
+            <div className="lp-glass lp-editor-panel" style={{ padding: '60px 40px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20 }}>
+                <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(var(--color-primary-rgb), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <CheckCircle2 size={40} color="var(--color-primary)" />
+                </div>
+                <h2 style={{ fontSize: 24, fontWeight: 800, color: 'var(--color-text)', margin: 0 }}>Compiling complete!</h2>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: 16 }}>Your developer profile is ready. Redirecting...</p>
+                <div className="lp-loader-bar"><div className="lp-loader-progress"></div></div>
+            </div>
+        );
+    }
+
+    return (
+        <div className={`lp-glass lp-editor-panel ${isExpanded ? 'expanded' : ''}`} onClick={handleInteraction}>
+            <div className="lp-editor-header">
+                <div className="lp-editor-dots">
+                    <span style={{ background: '#FF5F56' }}></span>
+                    <span style={{ background: '#FFBD2E' }}></span>
+                    <span style={{ background: '#27C93F' }}></span>
+                </div>
+                <div className="lp-editor-toggle">
+                    <button className={role === 'candidate' ? 'active' : ''} onClick={(e) => { e.stopPropagation(); setRole('candidate'); }}>I'm a Developer</button>
+                    <button className={role === 'client' ? 'active' : ''} onClick={(e) => { e.stopPropagation(); setRole('client'); }}>I'm Hiring</button>
+                </div>
+                <div style={{ width: 50 }}></div>
+            </div>
+
+            <div className="lp-editor-body">
+                <div className="lp-code-line">
+                    <span style={{ color: '#C678DD' }}>const</span> <span style={{ color: '#E06C75' }}>{role === 'candidate' ? 'candidate' : 'job'}</span> = {'{'}
+                </div>
+                
+                {renderField('name', role === 'candidate' ? 'name' : 'company', role === 'candidate' ? 'Start typing name...' : 'Company Name')}
+                {renderField('email', 'email', 'your@email.com', 'email')}
+                {isExpanded && renderField('password', 'password', '••••••••', 'password')}
+
+                {isExpanded && role === 'candidate' && (
+                    <>
+                        {renderField('phone', 'phone', '+91')}
+                        {renderField('experience', 'experience', 'Years')}
+                        {renderField('currentCTC', 'currentCTC', '₹ CTC')}
+                        {renderField('expectedCTC', 'expectedCTC', '₹ Expected')}
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                            <span style={{ color: '#888', fontStyle: 'italic' }}>  resume:</span>
+                            <span style={{ color: '#C678DD' }}>upload</span>(
+                            <span 
+                                onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+                                style={{ color: '#98C379', cursor: 'pointer', textDecoration: 'underline' }}
+                            >
+                                "{form.resume ? form.resume.name : 'your_resume.pdf'}"
+                            </span>
+                            )
+                            <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
+                        </div>
+                    </>
+                )}
+
+                {isExpanded && role === 'client' && (
+                    <>
+                        {renderField('role', 'jobRole', 'Frontend Developer')}
+                        {renderField('budget', 'budget', '₹ Budget')}
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                            <span style={{ color: '#888', fontStyle: 'italic' }}>  description:</span>
+                            <span style={{ color: '#C678DD' }}>upload</span>(
+                            <span 
+                                onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+                                style={{ color: '#98C379', cursor: 'pointer', textDecoration: 'underline' }}
+                            >
+                                "{form.resume ? form.resume.name : 'job_description.pdf'}"
+                            </span>
+                            )
+                        </div>
+                    </>
+                )}
+
+                <div className="lp-code-line">{'};'}</div>
+                {!isExpanded && (
+                    <div className="lp-editor-cursor"></div>
+                )}
+            </div>
+
+            {isExpanded && (
+                <div className="lp-editor-actions">
+                    <button className="lp-btn-primary lp-btn-full" onClick={handleSubmit} disabled={isSubmitting}>
+                        {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> Compiling...</> : 'Continue Setup →'}
+                    </button>
+                    <button className="lp-btn-simple" onClick={(e) => { e.stopPropagation(); navigate('/register'); }}>
+                        Switch to Simple Form
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default function LandingPage() {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <div style={{ background: 'var(--color-bg)', color: 'var(--color-text)', minHeight: '100vh', position: 'relative', overflowX: 'hidden', fontFamily: "'Inter', sans-serif" }}>
+        <div style={{ background: 'var(--color-bg)', color: 'var(--color-text)', minHeight: '100vh', position: 'relative', overflowX: 'hidden', fontFamily: "'Manrope', sans-serif" }}>
             <style>{`
                 .lp-nav {
                     position: sticky; top: 0; z-index: 50;
@@ -56,11 +263,85 @@ export default function LandingPage() {
                 .lp-proof-text { color: var(--color-text-muted); font-size: 14px; }
                 .lp-proof-text strong { color: var(--color-text); }
 
-                /* Hero card */
-                .lp-hero-card-wrap { flex-shrink: 0; width: 420px; position: relative; }
-                .lp-glass { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 4px; }
-                .lp-profile-card { padding: 24px; animation: floatY 6s ease-in-out infinite; }
-                @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+                /* Code Signup Editor */
+                .lp-hero-card-wrap { flex-shrink: 0; width: 480px; position: relative; }
+                .lp-glass { background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 8px; }
+                
+                .lp-editor-panel {
+                    animation: floatY 6s ease-in-out infinite;
+                    box-shadow: 0 24px 80px rgba(0,0,0,0.15);
+                    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                    overflow: hidden;
+                    background: #1e1e1e; /* Dark IDE background */
+                }
+                .lp-editor-panel.expanded {
+                    transform: scale(1.02);
+                }
+                
+                .lp-editor-header {
+                    padding: 12px 16px;
+                    background: #252526;
+                    border-bottom: 1px solid #333;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .lp-editor-dots { display: flex; gap: 6px; }
+                .lp-editor-dots span { width: 10px; height: 10px; border-radius: 50%; }
+                
+                .lp-editor-toggle {
+                    display: flex; background: #333; padding: 2px; border-radius: 6px; gap: 2px;
+                }
+                .lp-editor-toggle button {
+                    border: none; background: none; color: #888; font-size: 11px; font-weight: 600;
+                    padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+                }
+                .lp-editor-toggle button.active {
+                    background: #555; color: #fff;
+                }
+
+                .lp-editor-body {
+                    padding: 24px;
+                    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+                    font-size: 14px;
+                    line-height: 1.8;
+                    cursor: text;
+                }
+                .lp-code-line { color: #fff; }
+                .lp-editor-input::placeholder { color: #444; }
+                .lp-editor-input:focus { border-bottom-color: var(--color-primary); }
+
+                .lp-editor-cursor {
+                    display: inline-block; width: 8px; height: 18px; 
+                    background: var(--color-primary); margin-left: 4px;
+                    animation: blink 1s step-end infinite;
+                    vertical-align: middle;
+                }
+                @keyframes blink { 50% { opacity: 0; } }
+
+                .lp-editor-actions {
+                    padding: 24px;
+                    border-top: 1px solid #333;
+                    background: #252526;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                    animation: fadeIn 0.4s ease-out;
+                }
+                @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+                .lp-btn-full { width: 100%; justify-content: center; }
+                .lp-btn-simple {
+                    background: none; border: none; color: #888; font-size: 12px; cursor: pointer;
+                    text-decoration: underline; transition: color 0.2s;
+                }
+                .lp-btn-simple:hover { color: #fff; }
+
+                .lp-loader-bar { width: 100%; height: 4px; background: #333; border-radius: 2px; margin-top: 20px; overflow: hidden; }
+                .lp-loader-progress { height: 100%; background: var(--color-primary); width: 0; animation: progress 1.5s ease-in-out infinite; }
+                @keyframes progress { 0% { width: 0; margin-left: 0; } 50% { width: 50%; margin-left: 25%; } 100% { width: 0; margin-left: 100%; } }
+
+                @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
                 .lp-card-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--color-border-subtle); }
                 .lp-card-id { display: flex; align-items: center; gap: 16px; }
                 .lp-card-name { color: var(--color-text); font-weight: 700; font-size: 18px; font-family: 'Manrope', sans-serif; }
@@ -241,60 +522,21 @@ export default function LandingPage() {
                     </div>
 
                     <div className="lp-hero-card-wrap">
-                        <div className="lp-glass lp-profile-card" style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                            <div className="lp-card-header" style={{ paddingBottom: 20 }}>
-                                <div className="lp-card-id">
-                                    <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <span className="material-symbols-outlined" style={{ color: 'var(--color-bg)', fontSize: 22 }}>upcoming</span>
-                                    </div>
-                                    <div>
-                                        <div className="lp-card-name">Phase 2 — Coming Soon</div>
-                                        <div className="lp-card-role">Candidate Assessments &amp; Intelligence</div>
-                                    </div>
-                                </div>
-                                <span style={{ padding: '4px 12px', borderRadius: 9999, background: 'var(--color-bg-tertiary)', color: 'var(--color-text-muted)', fontSize: 11, fontWeight: 700, border: '1px solid var(--color-border)', whiteSpace: 'nowrap', fontFamily: "'Manrope', sans-serif" }}>In Development</span>
-                            </div>
-
-                            <p style={{ color: 'var(--color-text-muted)', fontSize: 14, lineHeight: 1.7, margin: 0 }}>
-                                We're building a powerful new layer on top of TopDev — deep skill assessments that give you <strong style={{ color: 'var(--color-text)' }}>verified technical scores</strong> for every candidate, so you hire with full confidence.
-                            </p>
-
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                                {[
-                                    { icon: 'psychology', label: 'Skill-based technical assessments' },
-                                    { icon: 'insights', label: 'Deep candidate performance insights' },
-                                    { icon: 'verified', label: 'Verified competency scores' },
-                                    { icon: 'smart_toy', label: 'AI-powered screening & shortlisting' },
-                                ].map(({ icon, label }) => (
-                                    <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                                        <div style={{ width: 32, height: 32, borderRadius: 4, background: 'var(--color-bg-tertiary)', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--color-text)', fontSize: 16 }}>{icon}</span>
-                                        </div>
-                                        <span style={{ color: 'var(--color-text)', opacity: 0.8, fontSize: 14, fontWeight: 500 }}>{label}</span>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div style={{ marginTop: 4, padding: '14px 16px', borderRadius: 4, background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', display: 'flex', gap: 10 }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--color-text)', fontSize: 18, flexShrink: 0 }}>notifications_active</span>
-                                <p style={{ color: 'var(--color-text-muted)', fontSize: 12, lineHeight: 1.6, margin: 0 }}>
-                                    <strong style={{ color: 'var(--color-text)' }}>Stay tuned.</strong> Assessments &amp; insights are arriving with Phase 2. Early adopters get priority access.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="lp-float-badge" style={{ border: '1px solid var(--color-border)' }}>
+                        <CodeSignupEditor />
+                        
+                        {/* Floating Badges for Anti-Gravity effect */}
+                        <div className="lp-float-badge" style={{ border: '1px solid var(--color-border)', bottom: -40, left: -20 }}>
                             <div className="lp-float-icon">
-                                <span className="material-symbols-outlined" style={{ color: 'var(--color-text)', fontSize: 16 }}>rocket_launch</span>
+                                <span className="material-symbols-outlined" style={{ color: 'var(--color-text)', fontSize: 16 }}>auto_awesome</span>
                             </div>
                             <div>
-                                <div className="lp-float-title">Phase 2 Launching Soon</div>
-                                <div className="lp-float-sub">Assessments &amp; deeper insights</div>
+                                <div className="lp-float-title">Phase 2 Launching</div>
+                                <div className="lp-float-sub">Assessments & Deep Insights</div>
                             </div>
                         </div>
 
-                        <div className="lp-float-stat">
-                            <div className="lp-stat-label">Per Hire</div>
+                        <div className="lp-float-stat" style={{ top: -30, right: -20 }}>
+                            <div className="lp-stat-label">Commision</div>
                             <div className="lp-stat-val">15<span className="lp-stat-unit">%</span></div>
                         </div>
                     </div>
@@ -315,164 +557,6 @@ export default function LandingPage() {
                     </div>
                 </div>
 
-                {/* ── PROBLEM ── */}
-                <section id="problem" className="lp-problem">
-                    <div className="lp-section-hd">
-                        <h2 className="lp-h2">Traditional Hiring Is <span className="lp-h2-purple">Incomplete</span></h2>
-                        <p className="lp-subtext">Recruiters struggle with fragmented profiles, missing details, and slow manual verification. TopDev brings structure to the hiring process.</p>
-                    </div>
-                    <div className="lp-cards3">
-                        {[
-                            { icon: 'data_object', title: 'Incomplete Candidate Data', desc: 'Recruiters waste hours chasing missing contact info, resumes, and specific skill details from fragmented applications.' },
-                            { icon: 'history_toggle_off', title: 'Screening Takes Too Long', desc: 'Manual review of non-standardized resumes is a bottleneck. It takes days just to decide who is worth a first call.' },
-                            { icon: 'person_search', title: 'Unqualified Applicant Noise', desc: 'High volume of applicants without verified experience makes it impossible to find high-quality talent quickly.' },
-                        ].map(({ icon, title, desc }) => (
-                            <div key={title} className="lp-card">
-                                <div className="lp-card-icon">
-                                    <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 28 }}>{icon}</span>
-                                </div>
-                                <h3 className="lp-card-h">{title}</h3>
-                                <p className="lp-card-p">{desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ── PROCESS ── */}
-                <section id="features" className="lp-process">
-                    <div className="lp-section-hd">
-                        <div className="lp-badge" style={{ margin: '0 auto 32px' }}>
-                            <span className="material-symbols-outlined" style={{ color: 'var(--color-text-muted)', fontSize: 16 }}>featured_play_list</span>
-                            <span className="lp-badge-text">Core Features</span>
-                        </div>
-                        <h2 className="lp-h2">Simplicity First.<br /><span className="lp-h2-grad">Recruitment Redefined.</span></h2>
-                        <p className="lp-subtext" style={{ marginTop: 24 }}>Structured data collection and clean applicant management. No buzzwords, just results.</p>
-                    </div>
-                    <div className="lp-process-cards">
-                        {/* For Recruiters */}
-                        <div className="lp-proc-card">
-                            <div className="lp-step-num">R</div>
-                            <div className="lp-proc-body">
-                                <h3 className="lp-proc-h">For Recruiters</h3>
-                                <p className="lp-proc-p">Streamline your hiring funnel with tools built for speed and clarity.</p>
-                                <ul className="lp-features" style={{ marginBottom: 32 }}>
-                                    {['Post jobs with ease', 'View complete candidate profiles', 'Filter by experience & salary'].map(f => (
-                                        <li key={f} className="lp-feature">
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 18 }}>check_circle</span>
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="lp-upload-vis">
-                                    <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 40 }}>post_add</span>
-                                    <div className="lp-upload-label">Create a Job Post</div>
-                                    <div className="lp-upload-sub">Simple, structured JDs</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* For Candidates */}
-                        <div className="lp-proc-card">
-                            <div className="lp-step-num">C</div>
-                            <div className="lp-proc-body">
-                                <h3 className="lp-proc-h">For Candidates</h3>
-                                <p className="lp-proc-p">Stand out with a professional profile that speaks for itself.</p>
-                                <ul className="lp-features" style={{ marginBottom: 32 }}>
-                                    {['Create detailed profile', 'Upload resume', 'Apply to relevant jobs'].map(f => (
-                                        <li key={f} className="lp-feature">
-                                            <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 18 }}>account_circle</span>
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <div className="lp-proc-vis lp-result-vis">
-                                    <div className="lp-mini-profile" style={{ marginBottom: 0 }}>
-                                        <div className="lp-mini-av">JD</div>
-                                        <div>
-                                            <div className="lp-mini-name">John Doe</div>
-                                            <div className="lp-mini-role">Backend Engineer</div>
-                                        </div>
-                                        <span className="lp-mini-badge">Profile 100%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* For Teams */}
-                        <div className="lp-proc-card">
-                            <div className="lp-step-num">T</div>
-                            <div className="lp-proc-body">
-                                <h3 className="lp-proc-h">Better Management</h3>
-                                <p className="lp-proc-p">Keep your entire pipeline organized in one single place.</p>
-                                <div className="lp-upload-vis" style={{ border: '1px solid var(--color-border)', background: 'var(--color-bg-secondary)' }}>
-                                    <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 40 }}>dashboard_customize</span>
-                                    <div className="lp-upload-label">Clean Pipeline View</div>
-                                    <div className="lp-upload-sub">Track every stage visually</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ── HOW IT WORKS ── */}
-                <section id="how-it-works" className="lp-process" style={{ background: 'var(--color-bg-secondary)', borderTop: '1px solid var(--color-border-subtle)', borderBottom: '1px solid var(--color-border-subtle)' }}>
-                    <div className="lp-section-hd">
-                        <h2 className="lp-h2">Simple 3-Step Flow</h2>
-                        <p className="lp-subtext">Everything you need, nothing you don't. Designed for speed.</p>
-                    </div>
-                    
-                    <div className="lp-section" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, marginTop: 64 }}>
-                        {/* Candidates Flow */}
-                        <div className="lp-glass" style={{ padding: 40 }}>
-                            <h3 className="lp-proc-h" style={{ fontSize: 24, marginBottom: 32, display: 'flex', alignItems: 'center', gap: 12 }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--color-text)' }}>person</span>
-                                For Candidates
-                            </h3>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                                {[
-                                    { step: 1, title: 'Complete Your Profile', desc: 'Sign up and provide verified skills, resume, and contact details.' },
-                                    { step: 2, title: 'Browse Relevant Jobs', desc: 'Find IT roles that match your experience and salary expectations.' },
-                                    { step: 3, title: 'Apply with One Click', desc: 'Submit your structured data directly to recruiters.' }
-                                ].map((s, i) => (
-                                    <div key={i} style={{ display: 'flex', gap: 20 }}>
-                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--color-bg-tertiary)', color: 'var(--color-text)', display: 'flex', alignItems: 'center', fontSize: 14, fontWeight: 900, flexShrink: 0, justifyContent: 'center', fontFamily: "'Manrope', sans-serif" }}>
-                                            {s.step}
-                                        </div>
-                                        <div>
-                                            <h4 style={{ color: 'var(--color-text)', fontSize: 16, fontWeight: 700, margin: '0 0 4px', fontFamily: "'Manrope', sans-serif" }}>{s.title}</h4>
-                                            <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Recruiters Flow */}
-                        <div className="lp-glass" style={{ padding: 40 }}>
-                            <h3 className="lp-proc-h" style={{ fontSize: 24, marginBottom: 32, display: 'flex', alignItems: 'center', gap: 12 }}>
-                                <span className="material-symbols-outlined" style={{ color: 'var(--color-text-muted)' }}>business</span>
-                                For Recruiters
-                            </h3>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-                                {[
-                                    { step: 1, title: 'Post a Job', desc: 'Define your role requirements in seconds with our simple editor.' },
-                                    { step: 2, title: 'Receive Applicants', desc: 'Get notified as relevant candidates apply to your job.' },
-                                    { step: 3, title: 'Review Profiles', desc: 'See structured, standardized data for every candidate instantly.' }
-                                ].map((s, i) => (
-                                    <div key={i} style={{ display: 'flex', gap: 20 }}>
-                                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--color-bg-tertiary)', color: 'var(--color-text)', display: 'flex', alignItems: 'center', fontSize: 14, fontWeight: 900, flexShrink: 0, justifyContent: 'center', fontFamily: "'Manrope', sans-serif" }}>
-                                            {s.step}
-                                        </div>
-                                        <div>
-                                            <h4 style={{ color: 'var(--color-text)', fontSize: 16, fontWeight: 700, margin: '0 0 4px', fontFamily: "'Manrope', sans-serif" }}>{s.title}</h4>
-                                            <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
                 {/* ── PRICING ── */}
                 <section id="pricing" className="lp-pricing">
@@ -520,48 +604,7 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                {/* ── COMING SOON ── */}
-                <section id="roadmap" className="lp-process" style={{ padding: '80px 48px' }}>
-                    <div className="lp-section-hd" style={{ marginBottom: 48 }}>
-                        <div className="lp-badge" style={{ margin: '0 auto 24px' }}>
-                            <span className="material-symbols-outlined" style={{ color: 'var(--color-text-muted)', fontSize: 14 }}>rocket_launch</span>
-                            <span className="lp-badge-text">Coming Soon</span>
-                        </div>
-                        <h2 className="lp-h2">Candidate <span style={{ color: 'var(--color-text-muted)' }}>Assessments</span> Are Coming</h2>
-                        <p className="lp-subtext" style={{ marginTop: 16 }}>We're building skill assessments directly into TopDev. Verify candidates before the first interview.</p>
-                    </div>
-                    <div className="lp-cards3">
-                        {[
-                            { icon: 'psychology',   title: 'Skill Assessments',     desc: 'Role-specific technical tests to verify what candidates actually know.' },
-                            { icon: 'insights',     title: 'Performance Insights',   desc: 'Structured score breakdowns for every candidate, at a glance.' },
-                            { icon: 'auto_awesome', title: 'Smart Shortlisting',     desc: 'AI-ranked candidates matched to your job requirements.' },
-                        ].map((item) => (
-                            <div key={item.title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'var(--color-border)' }}>
-                                <div className="lp-card-icon" style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border-subtle)' }}>
-                                    <span className="material-symbols-outlined" style={{ color: 'var(--color-text-muted)', fontSize: 26 }}>{item.icon}</span>
-                                </div>
-                                <h3 className="lp-card-h">{item.title}</h3>
-                                <p className="lp-card-p">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
 
-                {/* ── CTA ── */}
-                <div className="lp-cta-wrap">
-                    <div className="lp-cta-box">
-                        <div className="lp-cta-copy">
-                            <h2 className="lp-cta-h">Ready to find your next hire?</h2>
-                            <p className="lp-cta-sub">Stop chasing incomplete data. Start hiring with clarity.</p>
-                        </div>
-                        <div className="lp-cta-action" style={{ display: 'flex', gap: 16 }}>
-                            <Link to="/register?role=client" className="lp-btn-white">
-                                Start Hiring
-                                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
-                            </Link>
-                        </div>
-                    </div>
-                </div>
             </main>
 
             {/* ── FOOTER ── */}
