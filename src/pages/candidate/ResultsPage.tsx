@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../../services/api';
-import { CheckCircle2, TrendingUp, Clock, Award, ArrowLeft, Loader2 } from 'lucide-react';
+import { CheckCircle2, TrendingUp, Award, ArrowLeft, Loader2 } from 'lucide-react';
 
 function ScoreCircle({ score, animated }: { score: number; animated: boolean }) {
     const radius = 54;

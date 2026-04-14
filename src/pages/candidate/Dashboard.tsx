@@ -5,7 +5,7 @@ import { useAuthStore } from '../../store/authStore';
 import { useFeatureFlags } from '../../hooks/useFeatureFlags';
 import { useEffect } from 'react';
 import {
-    Briefcase, MapPin, Target, ChevronRight, User, FileText,
+    Briefcase, Target, User, FileText,
     Building2, Clock, Search, Edit3
 } from 'lucide-react';
 import toast from 'react-hot-toast';

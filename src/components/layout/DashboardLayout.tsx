@@ -1,10 +1,6 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
-import {
-    LayoutDashboard, Briefcase, Users, BarChart3, CreditCard,
-    Settings, Mail, ToggleLeft, BookTemplate, Sliders,
-    LogOut, Zap, Shield, Search, Bell, Hexagon, Calendar
-} from 'lucide-react';
+
 
 const clientNav = [
     { to: '/client', icon: 'dashboard', label: 'Dashboard', end: true },
