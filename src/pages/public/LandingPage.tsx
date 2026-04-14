@@ -584,7 +584,7 @@ export default function LandingPage() {
                     <span className="lp-logo-text">TopDev</span>
                 </Link>
                 <nav className="lp-nav-links">
-                    <a href="#pricing" className="lp-nav-link">Pricing</a>
+                    <a href="#vision" className="lp-nav-link">Vision</a>
                 </nav>
                 <div className="lp-nav-actions">
                     <button className="lp-theme-toggle" onClick={toggleTheme}>
@@ -628,6 +628,21 @@ export default function LandingPage() {
                     </div>
 
                     <div className="lp-hero-card-wrap">
+                        <div style={{
+                            marginBottom: 12,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            padding: '4px 12px',
+                            background: 'rgba(var(--color-primary-rgb), 0.1)',
+                            border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
+                            borderRadius: 6,
+                            width: 'fit-content',
+                            margin: '0 auto 16px'
+                        }}>
+                            <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 16 }}>bolt</span>
+                            <span style={{ color: 'var(--color-primary)', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Complete profile in 1-step</span>
+                        </div>
                         <CodeSignupEditor />
                     </div>
                 </section>
@@ -648,49 +663,56 @@ export default function LandingPage() {
                 </div>
 
 
-                {/* ── PRICING ── */}
-                <section id="pricing" className="lp-pricing">
-                    <div className="lp-section-hd">
-                        <h2 className="lp-h2">Simple, Transparent<br /><span style={{ color: 'var(--color-text-subtle)' }}>Pricing</span></h2>
-                        <p className="lp-subtext" style={{ marginTop: 24 }}>No subscriptions, no hidden fees. Pay only for results.</p>
+                {/* ── COMING SOON — PHASE 2 ── */}
+                <section id="vision" className="lp-process" style={{ padding: '112px 48px', position: 'relative' }}>
+                    <div className="lp-section-hd" style={{ marginBottom: 64 }}>
+                        <div className="lp-badge" style={{ margin: '0 auto 24px', background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.25)' }}>
+                            <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 14 }}>rocket_launch</span>
+                            <span className="lp-badge-text" style={{ color: '#a78bfa' }}>Coming Soon — Phase 2</span>
+                        </div>
+                        <h2 className="lp-h2">The Future of Candidate <span style={{ background: 'linear-gradient(135deg,#8b5cf6,#a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Assessment</span></h2>
+                        <p className="lp-subtext" style={{ marginTop: 24 }}>Phase 2 transforms TopDev into an intelligent hiring engine — going beyond profiles to give you verified skill scores and deep candidate insights before the first interview.</p>
                     </div>
-                    <div className="lp-plans">
-                        {/* 15% Per Hire */}
-                        <div className="lp-plan lp-plan-featured">
-                            <div className="lp-popular-badge">Standard</div>
-                            <div><p className="lp-plan-name">Pay Per Hire</p><p className="lp-plan-desc">Only pay when you make a successful hire. No upfront costs, no monthly commitments.</p></div>
-                            <div className="lp-price-mb">
-                                <span className="lp-price">15</span><span className="lp-price-unit" style={{ fontSize: 24, fontWeight: 700 }}>%</span>
-                                <div style={{ color: 'var(--color-text-muted)', fontSize: 13, marginTop: 8 }}>of first-year salary, per successful hire</div>
-                            </div>
-                            <ul className="lp-features">
-                                {['Post unlimited jobs', 'View full candidate profiles', 'Clean applicant management', 'Email support'].map(feature => (
-                                    <li key={feature} className="lp-feature">
-                                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", color: 'var(--color-primary)', fontSize: 20, flexShrink: 0 }}>check_circle</span>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                            <a href="mailto:sales@topdev.io" className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Get Started</a>
-                        </div>
 
-                        {/* Custom / Contact Us */}
-                        <div className="lp-plan">
-                            <div><p className="lp-plan-name">Custom Pricing</p><p className="lp-plan-desc">Have specific requirements or hiring at scale? We'll build a plan around your needs.</p></div>
-                            <div className="lp-price-mb">
-                                <span className="lp-price" style={{ fontSize: 36 }}>Contact Us</span>
-                                <div style={{ color: 'var(--color-text-subtle)', fontSize: 13, marginTop: 8 }}>Tailored pricing for your organization</div>
+                    <div className="lp-cards3">
+                        {[
+                            {
+                                icon: 'psychology',
+                                title: 'Candidate Skill Assessments',
+                                desc: 'Auto-generated, role-specific technical assessments that evaluate candidates on the skills that actually matter — directly within the platform.',
+                                tag: 'Phase 2'
+                            },
+                            {
+                                icon: 'insights',
+                                title: 'Deep Performance Insights',
+                                desc: 'Go beyond resumes. Get structured, data-driven performance breakdowns for every candidate — skill coverage and response quality.',
+                                tag: 'Phase 2'
+                            },
+                            {
+                                icon: 'auto_awesome',
+                                title: 'AI-Powered Smart Shortlisting',
+                                desc: 'Let AI rank your applicants against your specific job requirements, so your team spends time only on the candidates who are truly ready.',
+                                tag: 'Phase 2'
+                            },
+                        ].map(({ icon, title, desc, tag }) => (
+                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(139,92,246,0.2)', position: 'relative', overflow: 'hidden' }}>
+                                <div style={{ position: 'absolute', top: 12, right: 12, padding: '3px 10px', borderRadius: 999, background: 'rgba(139,92,246,0.12)', color: '#a78bfa', fontSize: 10, fontWeight: 700, border: '1px solid rgba(139,92,246,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{tag}</div>
+                                <div className="lp-card-icon" style={{ background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.15)' }}>
+                                    <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 26 }}>{icon}</span>
+                                </div>
+                                <h3 className="lp-card-h" style={{ color: '#e2e8f0' }}>{title}</h3>
+                                <p className="lp-card-p">{desc}</p>
                             </div>
-                            <ul className="lp-features">
-                                {['Volume hiring discounts', 'Dedicated account manager', 'SLA & priority support', 'Custom contract & invoicing'].map(feature => (
-                                    <li key={feature} className="lp-feature">
-                                        <span className="material-symbols-outlined" style={{ color: 'var(--color-text-subtle)', fontSize: 18, flexShrink: 0 }}>check</span>
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
-                            <a href="mailto:hello@topdev.io" className="lp-plan-btn" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Contact Us</a>
-                        </div>
+                        ))}
+                    </div>
+
+                    <div style={{ marginTop: 80, padding: '40px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(139,92,246,0.1),rgba(13,89,242,0.1))', border: '1px solid rgba(139,92,246,0.3)', textAlign: 'center', maxWidth: 800, margin: '80px auto 0' }}>
+                        <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 32, display: 'block', marginBottom: 16 }}>notifications_active</span>
+                        <h3 style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '0 0 12px' }}>Be First in Line for Phase 2</h3>
+                        <p style={{ color: '#94a3b8', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>Phase 2 is actively in development. Sign up today and get early access to assessments and AI matchmaking the moment they launch.</p>
+                        <Link to="/" className="lp-btn-primary" style={{ display: 'inline-flex', padding: '16px 40px' }}>
+                            Join the Waitlist (Sign up above)
+                        </Link>
                     </div>
                 </section>
 
