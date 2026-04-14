@@ -38,6 +38,7 @@ import ResultsPage from './pages/candidate/ResultsPage';
 // Public
 import LandingPage from './pages/public/LandingPage';
 import ComingSoon from './pages/public/ComingSoon';
+import ClientOnboarding from './pages/client/ClientOnboarding';
 import AnalyticsPage from './pages/client/AnalyticsPage';
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30000 } } });
@@ -46,10 +47,13 @@ function ProtectedRoute({ children, roles }: { children: React.ReactNode; roles?
   const { isAuthenticated, user } = useAuthStore();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   if (roles && user && !roles.includes(user.role)) return <Navigate to="/unauthorized" replace />;
-  // Phase 1: Force incomplete candidates to /complete-profile
-  if (user?.role === 'candidate' && !user.isProfileComplete) {
-    return <Navigate to="/complete-profile" replace />;
+  
+  // Force incomplete profiles to their respective onboarding pages
+  if (!user?.isProfileComplete) {
+    if (user?.role === 'candidate') return <Navigate to="/complete-profile" replace />;
+    if (user?.role === 'client') return <Navigate to="/client/setup" replace />;
   }
+  
   return <>{children}</>;
 }
 
@@ -73,12 +77,22 @@ export default function App() {
           <Route path="/coming-soon" element={<ComingSoon />} />
           <Route path="/test/:token" element={<TestPage />} />
 
-          {/* Candidate Profile Completion (no profile-complete gate here) */}
+          {/* Setup Pages (Ungated by ProtectedRoute to avoid infinite loops) */}
           <Route path="/complete-profile" element={
             (() => {
-              const { isAuthenticated } = useAuthStore();
+              const { isAuthenticated, user } = useAuthStore();
               if (!isAuthenticated) return <Navigate to="/login" replace />;
+              if (user?.role !== 'candidate') return <Navigate to="/" replace />;
               return <CompleteProfile />;
+            })()
+          } />
+
+          <Route path="/client/setup" element={
+            (() => {
+              const { isAuthenticated, user } = useAuthStore();
+              if (!isAuthenticated) return <Navigate to="/login" replace />;
+              if (user?.role !== 'client') return <Navigate to="/" replace />;
+              return <ClientOnboarding />;
             })()
           } />
 
