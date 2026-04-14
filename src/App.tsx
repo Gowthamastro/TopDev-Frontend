@@ -99,12 +99,12 @@ export default function App() {
           {/* Client Routes */}
           <Route path="/client">
             {/* Standalone Stitch Client Pages */}
-            <Route index element={<ProtectedRoute roles={['client', 'admin']}><ClientDashboard /></ProtectedRoute>} />
             <Route path="analytics" element={<ProtectedRoute roles={['client', 'admin']}><AnalyticsPage /></ProtectedRoute>} />
             <Route path="jobs/:jdId/candidates" element={<ProtectedRoute roles={['client', 'admin']}><ClientCandidatesPage /></ProtectedRoute>} />
 
             {/* Layout Wrapped pages */}
             <Route element={<ProtectedRoute roles={['client', 'admin']}><DashboardLayout role="client" /></ProtectedRoute>}>
+              <Route index element={<ClientDashboard />} />
               <Route path="jobs" element={<ClientJobsPage />} />
               <Route path="jobs/upload" element={<UploadJDPage />} />
               <Route path="jobs/:jdId/invite" element={<InviteCandidatePage />} />
