@@ -146,7 +146,7 @@ export default function LandingPage() {
 
                 /* Pricing section */
                 .lp-pricing { padding: 96px 48px; max-width: 1200px; margin: 0 auto; }
-                .lp-plans { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; align-items: end; margin-top: 64px; }
+                .lp-plans { display: grid; grid-template-columns: repeat(2,1fr); gap: 32px; align-items: end; margin-top: 64px; max-width: 800px; margin-left: auto; margin-right: auto; }
                 .lp-plan { background: #0d1020; border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; height: 510px; transition: border-color 0.3s; }
                 .lp-plan:hover { border-color: rgba(255,255,255,0.12); }
                 .lp-plan-featured { border-color: #0d59f2 !important; box-shadow: 0 0 40px rgba(13,89,242,0.15); height: 560px; transform: translateY(-16px); position: relative; }
@@ -218,8 +218,8 @@ export default function LandingPage() {
                     <span className="lp-logo-text">TopDev</span>
                 </Link>
                 <nav className="lp-nav-links">
-                    <a href="#features" className="lp-nav-link">For Clients</a>
-                    <a href="#how-it-works" className="lp-nav-link">For Developers</a>
+                    <Link to="/register?role=client" className="lp-nav-link">For Clients</Link>
+                    <Link to="/register?role=candidate" className="lp-nav-link">For Developers</Link>
                     <a href="#pricing" className="lp-nav-link">Pricing</a>
                 </nav>
                 <div className="lp-nav-actions">
@@ -501,52 +501,37 @@ export default function LandingPage() {
                 <section id="pricing" className="lp-pricing">
                     <div className="lp-section-hd">
                         <h2 className="lp-h2">Simple, Transparent<br /><span style={{ color: '#64748b' }}>Pricing</span></h2>
-                        <p className="lp-subtext" style={{ marginTop: 24 }}>Find the perfect fit for your hiring needs. No hidden fees.</p>
+                        <p className="lp-subtext" style={{ marginTop: 24 }}>No subscriptions, no hidden fees. Pay only for results.</p>
                     </div>
                     <div className="lp-plans">
-                        <div className="lp-plan">
-                            <div><p className="lp-plan-name">Pay-Per-Hire</p><p className="lp-plan-desc">Only pay when you make a successful hire. No upfront costs, no monthly commitments.</p></div>
+                        {/* 15% Per Hire */}
+                        <div className="lp-plan lp-plan-featured">
+                            <div className="lp-popular-badge">Standard</div>
+                            <div><p className="lp-plan-name">Pay Per Hire</p><p className="lp-plan-desc">Only pay when you make a successful hire. No upfront costs, no monthly commitments.</p></div>
                             <div className="lp-price-mb">
-                                <span className="lp-price">15</span><span className="lp-price-unit" style={{ fontSize: 22, fontWeight: 700 }}>%</span>
-                                <div style={{ color: '#64748b', fontSize: 13, marginTop: 6 }}>of first-year salary, per hire</div>
+                                <span className="lp-price">15</span><span className="lp-price-unit" style={{ fontSize: 24, fontWeight: 700 }}>%</span>
+                                <div style={{ color: '#94a3b8', fontSize: 13, marginTop: 8 }}>of first-year salary, per successful hire</div>
                             </div>
                             <ul className="lp-features">
-                                {['Post unlimited jobs', 'View full candidate profiles', 'Clean applicant management', 'Standard email support'].map(f => (
+                                {['Post unlimited jobs', 'View full candidate profiles', 'Clean applicant management', 'Email support'].map(f => (
                                     <li key={f} className="lp-feature">
-                                        <span className="material-symbols-outlined" style={{ color: '#475569', fontSize: 18, flexShrink: 0 }}>check</span>
+                                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", color: '#0d59f2', fontSize: 20, flexShrink: 0 }}>check_circle</span>
                                         {f}
                                     </li>
                                 ))}
                             </ul>
-                            <Link to="/register?role=client" className="lp-plan-btn" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Get Started Free</Link>
+                            <Link to="/register?role=client" className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Get Started</Link>
                         </div>
 
-                        <div className="lp-plan lp-plan-featured">
-                            <div className="lp-popular-badge">Most Popular</div>
-                            <div><p className="lp-plan-name">Growth</p><p className="lp-plan-desc">For scaling companies that need elite talent quickly and at volume.</p></div>
-                            <div className="lp-price-mb">
-                                <span className="lp-price">15</span><span className="lp-price-unit" style={{ fontSize: 22, fontWeight: 700 }}>%</span>
-                                <div style={{ color: '#94a3b8', fontSize: 13, marginTop: 6 }}>per successful hire + priority tools</div>
-                            </div>
-                            <ul className="lp-features">
-                                {['Everything in Pay-Per-Hire', 'Advanced candidate filtering', 'Priority support &amp; onboarding', 'Phase 2 early access (assessments)'].map(f => (
-                                    <li key={f} className="lp-feature">
-                                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", color: '#0d59f2', fontSize: 20, flexShrink: 0 }}>check_circle</span>
-                                        <span dangerouslySetInnerHTML={{ __html: f }} />
-                                    </li>
-                                ))}
-                            </ul>
-                            <Link to="/register?role=client" className="lp-plan-btn lp-plan-btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>Start 14-Day Free Trial</Link>
-                        </div>
-
+                        {/* Custom / Contact Us */}
                         <div className="lp-plan">
-                            <div><p className="lp-plan-name">Enterprise</p><p className="lp-plan-desc">Custom requirements? We'll tailor a pricing model that fits your organization's scale.</p></div>
+                            <div><p className="lp-plan-name">Custom Pricing</p><p className="lp-plan-desc">Have specific requirements or hiring at scale? We'll build a plan around your needs.</p></div>
                             <div className="lp-price-mb">
                                 <span className="lp-price" style={{ fontSize: 36 }}>Contact Us</span>
-                                <div style={{ color: '#64748b', fontSize: 13, marginTop: 6 }}>Tailored pricing for your needs</div>
+                                <div style={{ color: '#64748b', fontSize: 13, marginTop: 8 }}>Tailored pricing for your organization</div>
                             </div>
                             <ul className="lp-features">
-                                {['Everything in Growth', 'API Access & ATS Integrations', 'SLA & Premium 24/7 Support', 'Custom Contract & Invoicing'].map(f => (
+                                {['Volume hiring discounts', 'Dedicated account manager', 'SLA & priority support', 'Custom contract & invoicing'].map(f => (
                                     <li key={f} className="lp-feature">
                                         <span className="material-symbols-outlined" style={{ color: '#475569', fontSize: 18, flexShrink: 0 }}>check</span>
                                         {f}
@@ -558,40 +543,23 @@ export default function LandingPage() {
                     </div>
                 </section>
 
-                {/* ── COMING SOON — PHASE 2 ── */}
-                <section id="roadmap" className="lp-process" style={{ padding: '80px 48px', position: 'relative' }}>
-                    <div className="lp-section-hd" style={{ marginBottom: 56 }}>
+                {/* ── COMING SOON ── */}
+                <section id="roadmap" className="lp-process" style={{ padding: '80px 48px' }}>
+                    <div className="lp-section-hd" style={{ marginBottom: 48 }}>
                         <div className="lp-badge" style={{ margin: '0 auto 24px', background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.25)' }}>
                             <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 14 }}>rocket_launch</span>
-                            <span className="lp-badge-text" style={{ color: '#a78bfa' }}>Coming Soon — Phase 2</span>
+                            <span className="lp-badge-text" style={{ color: '#a78bfa' }}>Coming Soon</span>
                         </div>
-                        <h2 className="lp-h2">The Future of Candidate <span style={{ background: 'linear-gradient(135deg,#8b5cf6,#a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Assessment</span></h2>
-                        <p className="lp-subtext" style={{ marginTop: 20 }}>Phase 2 transforms TopDev into an intelligent hiring engine — going beyond profiles to give you verified skill scores, structured technical evaluations, and deep candidate insights before the first interview.</p>
+                        <h2 className="lp-h2">Candidate <span style={{ background: 'linear-gradient(135deg,#8b5cf6,#a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Assessments</span> Are Coming</h2>
+                        <p className="lp-subtext" style={{ marginTop: 16 }}>We're building skill assessments directly into TopDev. Verify candidates before the first interview.</p>
                     </div>
-
                     <div className="lp-cards3">
                         {[
-                            {
-                                icon: 'psychology',
-                                title: 'Candidate Skill Assessments',
-                                desc: 'Auto-generated, role-specific technical assessments that evaluate candidates on the skills that actually matter — directly within the platform.',
-                                tag: 'Phase 2'
-                            },
-                            {
-                                icon: 'insights',
-                                title: 'Deep Performance Insights',
-                                desc: 'Go beyond resumes. Get structured, data-driven performance breakdowns for every candidate — skill coverage, response quality, and time efficiency.',
-                                tag: 'Phase 2'
-                            },
-                            {
-                                icon: 'auto_awesome',
-                                title: 'AI-Powered Smart Shortlisting',
-                                desc: 'Let AI rank your applicants against your specific job requirements, so your team spends time only on the candidates who are truly ready.',
-                                tag: 'Phase 2'
-                            },
-                        ].map(({ icon, title, desc, tag }) => (
-                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(139,92,246,0.2)', position: 'relative', overflow: 'hidden' }}>
-                                <div style={{ position: 'absolute', top: 12, right: 12, padding: '3px 10px', borderRadius: 999, background: 'rgba(139,92,246,0.12)', color: '#a78bfa', fontSize: 10, fontWeight: 700, border: '1px solid rgba(139,92,246,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{tag}</div>
+                            { icon: 'psychology',   title: 'Skill Assessments',     desc: 'Role-specific technical tests to verify what candidates actually know.' },
+                            { icon: 'insights',     title: 'Performance Insights',   desc: 'Structured score breakdowns for every candidate, at a glance.' },
+                            { icon: 'auto_awesome', title: 'Smart Shortlisting',     desc: 'AI-ranked candidates matched to your job requirements.' },
+                        ].map(({ icon, title, desc }) => (
+                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(139,92,246,0.2)' }}>
                                 <div className="lp-card-icon" style={{ background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.15)' }}>
                                     <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 26 }}>{icon}</span>
                                 </div>
@@ -599,16 +567,6 @@ export default function LandingPage() {
                                 <p className="lp-card-p">{desc}</p>
                             </div>
                         ))}
-                    </div>
-
-                    <div style={{ marginTop: 56, maxWidth: 640, margin: '56px auto 0', padding: '28px 36px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(139,92,246,0.07),rgba(13,89,242,0.07))', border: '1px solid rgba(139,92,246,0.2)', textAlign: 'center' }}>
-                        <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 28, display: 'block', marginBottom: 12 }}>notifications_active</span>
-                        <h3 style={{ color: 'white', fontSize: 20, fontWeight: 700, margin: '0 0 10px' }}>Be First in Line</h3>
-                        <p style={{ color: '#94a3b8', fontSize: 15, lineHeight: 1.7, margin: '0 0 20px' }}>Phase 2 is actively in development. Sign up today and get early access to assessments, skill evaluations, and deeper candidate intelligence the moment they launch.</p>
-                        <Link to="/register?role=client" className="lp-btn-primary" style={{ display: 'inline-flex', margin: '0 auto' }}>
-                            Get Early Access
-                            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>arrow_forward</span>
-                        </Link>
                     </div>
                 </section>
 
