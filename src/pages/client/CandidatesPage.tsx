@@ -234,7 +234,11 @@ export default function ClientCandidatesPage() {
 
                                         {/* Consent Status */}
                                         {activeCandidate.proctoring_consented === false && (
-                                            <div className="mb-4 flex items-center gap-2 px-4 py-3 rounded-xl border" style={{ background: 'var(--color-warning)', color: 'var(--color-text)', borderOpacity: 0.1 }}>
+                                            <div className="mb-4 flex items-center gap-2 px-4 py-3 rounded-xl border" style={{ 
+                                                background: 'rgba(var(--color-warning-rgb), 0.1)', 
+                                                color: 'var(--color-text)',
+                                                borderColor: 'rgba(var(--color-warning-rgb), 0.2)'
+                                            }}>
                                                 <AlertTriangle size={16} style={{ color: 'var(--color-warning)' }} className="flex-shrink-0" />
                                                 <p className="text-xs">Candidate declined proctoring consent. Submission is flagged as <strong>unmonitored</strong>.</p>
                                             </div>
