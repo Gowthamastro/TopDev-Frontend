@@ -630,14 +630,14 @@ export default function LandingPage() {
                             </ul>
                         </div>
                     </div>
-                    <div className="lp-footer-bottom">
-                        <span className="lp-copyright">© 2026 TopDev. All rights reserved.</span>
-                        <div className="lp-social">
-                            <a href="#" aria-label="Twitter"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>share</span></a>
-                            <a href="#" aria-label="LinkedIn"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>group</span></a>
-                            <a href="#" aria-label="GitHub"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>code</span></a>
-                        </div>
+                <div className="lp-footer-bottom">
+                    <span className="lp-copyright">© 2026 TopDev. All rights reserved.</span>
+                    <div className="lp-social">
+                        <a href="#" aria-label="Twitter"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>share</span></a>
+                        <a href="#" aria-label="LinkedIn"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>group</span></a>
+                        <a href="#" aria-label="GitHub"><span className="material-symbols-outlined" style={{ fontSize: 20 }}>code</span></a>
                     </div>
+                </div>
                 </div>
             </footer>
         </div>
