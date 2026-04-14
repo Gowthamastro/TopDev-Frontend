@@ -55,7 +55,7 @@ function ScoreBreakdownBar({ label, value, color }: { label: string; value: numb
 
 function getBadgeConfig(badge: string | null) {
     const map: Record<string, { icon: string; label: string; color: string; bg: string; desc: string }> = {
-        elite:           { icon: '🏆', label: 'Elite',   color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', desc: 'Top 10% of candidates — exceptional performance!' },
+        elite:           { icon: '🏆', label: 'Top Tier',   color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', desc: 'Top 10% of candidates — exceptional performance!' },
         strong:          { icon: '⚡', label: 'Strong',  color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', desc: 'Above average — strong technical fundamentals.' },
         qualified:       { icon: '✅', label: 'Qualified', color: '#10b981', bg: 'rgba(16,185,129,0.12)', desc: 'Meets the bar — solid candidate for this role.' },
         below_threshold: { icon: '📈', label: 'Keep Going', color: '#6b7280', bg: 'rgba(107,114,128,0.1)', desc: 'Below threshold — but every attempt sharpens your skills.' },

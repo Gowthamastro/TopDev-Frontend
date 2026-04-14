@@ -173,7 +173,7 @@ button {
 }
 
 /* ─── Badge Colors ─── */
-.badge-elite {
+.badge-top-tier {
   background: linear-gradient(135deg, #f59e0b, #d97706);
   color: white;
 }

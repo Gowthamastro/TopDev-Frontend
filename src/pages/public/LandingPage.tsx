@@ -603,7 +603,7 @@ export default function LandingPage() {
                                 </div>
                                 <span className="lp-logo-text">TopDev</span>
                             </div>
-                            <p>The efficient platform connecting the world's best engineers with elite tech companies through structured data.</p>
+                            <p>The efficient platform connecting the world's best engineers with top tech companies through structured data.</p>
                         </div>
                         <div>
                             <div className="lp-footer-col-h">Product</div>
