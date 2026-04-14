@@ -69,7 +69,6 @@ export default function CompleteProfile() {
                 location: profile.location || '',
                 notice_period_days: profile.notice_period_days ?? 30,
             }));
-            if (profile.phone_verified) setOtpSent(false);
         }
     }, [profile]);
 
