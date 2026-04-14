@@ -16,13 +16,13 @@ const CodeSignupEditor = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [form, setForm] = useState({
-        name: 'Gowtham R',
+        name: 'your name ',
         email: 'your@email.com',
         password: '••••••••',
-        phone: '+91 234 567 890',
-        location: 'Bengaluru, India',
-        currentSalary: 1200000,
-        expectedSalary: 1800000,
+        phone: '+1 234 567 890',
+        location: 'City, Country',
+        currentSalary: 100000,
+        expectedSalary: 150000,
         resume: null as File | null,
         // Client specific
         company: 'TopDev Inc.',
@@ -240,7 +240,7 @@ const CodeSignupEditor = () => {
                                 }}
                             >
                                 <span className="material-symbols-outlined" style={{ fontSize: 16 }}>upload</span>
-                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_jd()'}</span>
+                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_resume()'}</span>
                             </div>
                             <span style={{ color: '#d4d4d4', marginLeft: 4 }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
@@ -274,7 +274,7 @@ const CodeSignupEditor = () => {
                                 }}
                             >
                                 <span className="material-symbols-outlined" style={{ fontSize: 16 }}>upload</span>
-                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_jd()'}</span>
+                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_resume()'}</span>
                             </div>
                             <span style={{ color: '#d4d4d4', marginLeft: 4 }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
