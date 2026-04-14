@@ -17,8 +17,6 @@ export default function CompleteProfile() {
     const { user, updateProfileComplete } = useAuthStore();
     const [step, setStep] = useState(0);
     const [resumeFile, setResumeFile] = useState<File | null>(null);
-    const [otpSent, setOtpSent] = useState(false);
-    const [otpCode, setOtpCode] = useState('');
 
     const [form, setForm] = useState({
         phone: '',
@@ -86,18 +84,6 @@ export default function CompleteProfile() {
     const completionPercent = profileStatus?.completion_percent ?? 0;
     const fieldStatus = profileStatus?.fields ?? {};
 
-    // --- OTP ---
-    const sendOtpMutation = useMutation({
-        mutationFn: () => api.post('/api/v1/otp/send', { phone: form.phone }),
-        onSuccess: () => { setOtpSent(true); toast.success('OTP sent to your phone!'); },
-        onError: (err: any) => toast.error(err.response?.data?.detail || 'Failed to send OTP'),
-    });
-
-    const verifyOtpMutation = useMutation({
-        mutationFn: () => api.post('/api/v1/otp/verify', { phone: form.phone, otp: otpCode }),
-        onSuccess: () => { toast.success('Phone verified ✓'); refetchStatus(); },
-        onError: (err: any) => toast.error(err.response?.data?.detail || 'Invalid OTP'),
-    });
 
     // --- Resume Upload ---
     const resumeMutation = useMutation({
@@ -217,60 +203,14 @@ export default function CompleteProfile() {
 
                         <div>
                             <label style={labelStyle}>
-                                Phone Number <span style={{ color: 'var(--color-danger)', fontSize: 11 }}>* OTP required</span>
-                                {fieldStatus.phone_verified && <CheckCircle2 size={13} style={{ color: 'var(--color-success)' }} />}
+                                Phone Number <span style={{ color: 'var(--color-danger)', fontSize: 11 }}>* Required</span>
                             </label>
-                            <div style={{ display: 'flex', gap: 8 }}>
-                                <input
-                                    style={{ ...inputStyle, flex: 1 }}
-                                    value={form.phone}
-                                    onChange={e => setForm({ ...form, phone: e.target.value })}
-                                    placeholder="+91 98765 43210"
-                                    disabled={fieldStatus.phone_verified}
-                                />
-                                {!fieldStatus.phone_verified && (
-                                    <button
-                                        onClick={() => sendOtpMutation.mutate()}
-                                        disabled={sendOtpMutation.isPending || form.phone.length < 10}
-                                        style={{
-                                            padding: '10px 18px', background: 'var(--color-primary)', color: 'var(--color-bg)', border: 'none',
-                                            borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap',
-                                            opacity: form.phone.length < 10 ? 0.5 : 1,
-                                        }}
-                                    >
-                                        {sendOtpMutation.isPending ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : otpSent ? 'Resend OTP' : 'Send OTP'}
-                                    </button>
-                                )}
-                            </div>
-
-                            {otpSent && !fieldStatus.phone_verified && (
-                                <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
-                                    <input
-                                        style={{ ...inputStyle, flex: 1, letterSpacing: 6, textAlign: 'center', fontSize: 18, fontWeight: 700 }}
-                                        value={otpCode}
-                                        onChange={e => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                                        placeholder="000000"
-                                        maxLength={6}
-                                    />
-                                    <button
-                                        onClick={() => verifyOtpMutation.mutate()}
-                                        disabled={verifyOtpMutation.isPending || otpCode.length !== 6}
-                                        style={{
-                                            padding: '10px 18px', background: 'var(--color-success)', color: 'var(--color-bg)', border: 'none',
-                                            borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: 'pointer',
-                                            opacity: otpCode.length !== 6 ? 0.5 : 1,
-                                        }}
-                                    >
-                                        {verifyOtpMutation.isPending ? <Loader2 size={14} style={{ animation: 'spin 1s linear infinite' }} /> : <><ShieldCheck size={14} /> Verify</>}
-                                    </button>
-                                </div>
-                            )}
-
-                            {fieldStatus.phone_verified && (
-                                <p style={{ color: 'var(--color-success)', fontSize: 12, margin: '6px 0 0', display: 'flex', alignItems: 'center', gap: 4 }}>
-                                    <ShieldCheck size={13} /> Phone verified
-                                </p>
-                            )}
+                            <input
+                                style={inputStyle}
+                                value={form.phone}
+                                onChange={e => setForm({ ...form, phone: e.target.value })}
+                                placeholder="+91 98765 43210"
+                            />
                         </div>
 
                         <div>

@@ -16,30 +16,31 @@ const CodeSignupEditor = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [form, setForm] = useState({
-        name: '',
-        email: '',
-        password: '',
-        phone: '',
-        experience: '',
-        currentCTC: '',
-        expectedCTC: '',
+        name: 'Gowtham R',
+        email: 'your@email.com',
+        password: '••••••••',
+        phone: '+91',
+        location: 'Bengaluru',
+        currentSalary: 1200000,
+        expectedSalary: 1800000,
         resume: null as File | null,
         // Client specific
-        company: '',
+        company: 'TopDev Inc.',
         jobRole: 'Frontend Developer',
-        budget: '',
+        budget: 2400000,
     });
 
     const handleInteraction = () => {
         if (!isExpanded) setIsExpanded(true);
     };
 
-    const handleInputChange = (field: string, value: string) => {
+    const handleInputChange = (field: string, value: any) => {
         setForm(prev => ({ ...prev, [field]: value }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        e.stopPropagation();
         if (!form.email || !form.password || !form.name) {
             toast.error('Please fill in the required fields (name, email, password)');
             return;
@@ -63,13 +64,13 @@ const CodeSignupEditor = () => {
                 res.data.refresh_token
             );
 
-            // Step 2: Handle onboarding fields if candidate
-            if (role === 'candidate' && (form.phone || form.experience)) {
+            // Step 2: Handle onboarding fields
+            if (role === 'candidate') {
                 await api.post('/api/v1/candidates/onboard', {
                     phone: form.phone,
-                    years_of_experience: parseInt(form.experience) || 0,
-                    current_salary: parseInt(form.currentCTC.replace(/\D/g, '')) || 0,
-                    expected_salary: parseInt(form.expectedCTC.replace(/\D/g, '')) || 0,
+                    location: form.location,
+                    current_salary: Number(form.currentSalary) || 0,
+                    expected_salary: Number(form.expectedSalary) || 0,
                 });
                 
                 if (form.resume) {
@@ -77,12 +78,14 @@ const CodeSignupEditor = () => {
                     fd.append('file', form.resume);
                     await api.post('/api/v1/candidates/resume', fd);
                 }
+            } else {
+                // Client onboarding if needed
             }
 
             setIsSuccess(true);
             toast.success('Account created successfully! 🚀');
             setTimeout(() => {
-                navigate(role === 'candidate' ? '/complete-profile' : '/client');
+                navigate(role === 'candidate' ? '/candidate' : '/client');
             }, 1500);
         } catch (err: any) {
             toast.error(err.response?.data?.detail || 'Registration failed');
@@ -91,10 +94,10 @@ const CodeSignupEditor = () => {
         }
     };
 
-    const renderField = (label: string, field: string, placeholder: string, type: string = 'text') => (
-        <div key={field} style={{ display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap' }}>
-            <span style={{ color: '#888', fontStyle: 'italic' }}>  {label}:</span>
-            <span style={{ color: '#fff' }}>"</span>
+    const renderStringField = (label: string, field: string, placeholder: string, type: string = 'text') => (
+        <div key={field} style={{ display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap', paddingLeft: 20 }}>
+            <span style={{ color: '#ABB2BF' }}>{label}:</span>
+            <span style={{ color: '#98C379' }}>'</span>
             <input 
                 type={type}
                 value={(form as any)[field]}
@@ -103,12 +106,30 @@ const CodeSignupEditor = () => {
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     background: 'transparent', border: 'none', borderBottom: '1px dashed transparent',
-                    color: (form as any)[field] ? '#fff' : '#666', fontSize: 'inherit', fontFamily: 'inherit',
+                    color: '#98C379', fontSize: 'inherit', fontFamily: 'inherit',
                     padding: 0, outline: 'none', width: 'fit-content', minWidth: '40px'
                 }}
-                className="lp-editor-input"
             />
-            <span style={{ color: '#fff' }}>",</span>
+            <span style={{ color: '#98C379' }}>'</span><span style={{ color: '#ABB2BF' }}>,</span>
+        </div>
+    );
+
+    const renderNumberField = (label: string, field: string, placeholder: string) => (
+        <div key={field} style={{ display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap', paddingLeft: 20 }}>
+            <span style={{ color: '#ABB2BF' }}>{label}:</span>
+            <input 
+                type="number"
+                value={(form as any)[field]}
+                onChange={(e) => handleInputChange(field, e.target.value)}
+                placeholder={placeholder}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                    background: 'transparent', border: 'none', borderBottom: '1px dashed transparent',
+                    color: '#D19A66', fontSize: 'inherit', fontFamily: 'inherit',
+                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '40px'
+                }}
+            />
+            <span style={{ color: '#ABB2BF' }}>,</span>
         </div>
     );
 
@@ -133,38 +154,43 @@ const CodeSignupEditor = () => {
                     <span style={{ background: '#FFBD2E' }}></span>
                     <span style={{ background: '#27C93F' }}></span>
                 </div>
+                <div style={{ color: '#888', fontSize: 11, fontFamily: 'monospace' }}>topdev_match.ts</div>
                 <div className="lp-editor-toggle">
                     <button className={role === 'candidate' ? 'active' : ''} onClick={(e) => { e.stopPropagation(); setRole('candidate'); }}>I'm a Developer</button>
                     <button className={role === 'client' ? 'active' : ''} onClick={(e) => { e.stopPropagation(); setRole('client'); }}>I'm Hiring</button>
                 </div>
-                <div style={{ width: 50 }}></div>
             </div>
 
             <div className="lp-editor-body">
                 <div className="lp-code-line">
-                    <span style={{ color: '#C678DD' }}>const</span> <span style={{ color: '#E06C75' }}>{role === 'candidate' ? 'candidate' : 'job'}</span> = {'{'}
+                    <span style={{ color: '#C678DD' }}>import</span> {'{'} <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Company'}</span> {'}'} <span style={{ color: '#C678DD' }}>from</span> <span style={{ color: '#98C379' }}>'@topdev/network'</span>;
+                </div>
+                <br />
+                <div className="lp-code-line">
+                    <span style={{ color: '#C678DD' }}>const</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'client'}</span> = <span style={{ color: '#C678DD' }}>new</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Company'}</span>({'{'}
                 </div>
                 
-                {renderField('name', role === 'candidate' ? 'name' : 'company', role === 'candidate' ? 'Start typing name...' : 'Company Name')}
-                {renderField('email', 'email', 'your@email.com', 'email')}
-                {isExpanded && renderField('password', 'password', '••••••••', 'password')}
+                {renderStringField('name', role === 'candidate' ? 'name' : 'company', 'Name')}
+                {renderStringField('email', 'email', 'your@email.com', 'email')}
+                {isExpanded && renderStringField('password', 'password', 'Password', 'password')}
 
                 {isExpanded && role === 'candidate' && (
                     <>
-                        {renderField('phone', 'phone', '+91')}
-                        {renderField('experience', 'experience', 'Years')}
-                        {renderField('currentCTC', 'currentCTC', '₹ CTC')}
-                        {renderField('expectedCTC', 'expectedCTC', '₹ Expected')}
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-                            <span style={{ color: '#888', fontStyle: 'italic' }}>  resume:</span>
-                            <span style={{ color: '#C678DD' }}>upload</span>(
+                        {renderStringField('phone', 'phone', '+91')}
+                        {renderStringField('location', 'location', 'Bengaluru')}
+                        {renderNumberField('currentSalary', 'currentSalary', 'Current CTC')}
+                        {renderNumberField('expectedSalary', 'expectedSalary', 'Expected CTC')}
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingLeft: 20 }}>
+                            <span style={{ color: '#ABB2BF' }}>resume:</span>
                             <span 
                                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                                style={{ color: '#98C379', cursor: 'pointer', textDecoration: 'underline' }}
+                                style={{ color: '#61AFEF', cursor: 'pointer' }}
                             >
-                                "{form.resume ? form.resume.name : 'your_resume.pdf'}"
+                                <span style={{ color: '#61AFEF' }}>upload</span>(
+                                <span style={{ color: '#98C379' }}>'{form.resume ? form.resume.name : 'resume.pdf'}'</span>
+                                )
                             </span>
-                            )
+                            <span style={{ color: '#ABB2BF' }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
                         </div>
                     </>
@@ -172,39 +198,34 @@ const CodeSignupEditor = () => {
 
                 {isExpanded && role === 'client' && (
                     <>
-                        {renderField('role', 'jobRole', 'Frontend Developer')}
-                        {renderField('budget', 'budget', '₹ Budget')}
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-                            <span style={{ color: '#888', fontStyle: 'italic' }}>  description:</span>
-                            <span style={{ color: '#C678DD' }}>upload</span>(
+                        {renderStringField('jobRole', 'jobRole', 'Frontend Developer')}
+                        {renderNumberField('budget', 'budget', 'Yearly Budget')}
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingLeft: 20 }}>
+                            <span style={{ color: '#ABB2BF' }}>description:</span>
                             <span 
                                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
-                                style={{ color: '#98C379', cursor: 'pointer', textDecoration: 'underline' }}
+                                style={{ color: '#61AFEF', cursor: 'pointer' }}
                             >
-                                "{form.resume ? form.resume.name : 'job_description.pdf'}"
+                                <span style={{ color: '#61AFEF' }}>upload</span>(
+                                <span style={{ color: '#98C379' }}>'{form.resume ? form.resume.name : 'jd.pdf'}'</span>
+                                )
                             </span>
-                            )
                         </div>
                     </>
                 )}
 
-                <div className="lp-code-line">{'};'}</div>
-                {!isExpanded && (
-                    <div className="lp-editor-cursor"></div>
-                )}
+                <div className="lp-code-line">{'}'});</div>
             </div>
 
-            {isExpanded && (
-                <div className="lp-editor-actions">
-                    <button className="lp-btn-primary lp-btn-full" onClick={handleSubmit} disabled={isSubmitting}>
-                        {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> Compiling...</> : 'Continue Setup →'}
-                    </button>
-                    <button className="lp-btn-simple" onClick={(e) => { e.stopPropagation(); navigate('/register'); }}>
-                        Switch to Simple Form
-                    </button>
+            <div className="lp-editor-bottom-bar" onClick={handleSubmit}>
+                <div className="lp-code-line" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ color: '#C678DD' }}>await</span> <span style={{ color: '#ABB2BF' }}>topdev</span>.<span style={{ color: '#61AFEF' }}>submit</span>(<span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'client'}</span>);
+                    <span className="lp-editor-cursor"></span>
                 </div>
-            )}
+            </div>
         </div>
+    );
+};
     );
 };
 
@@ -306,14 +327,26 @@ export default function LandingPage() {
                     font-size: 14px;
                     line-height: 1.8;
                     cursor: text;
+                    background: #1e1e1e;
                 }
-                .lp-code-line { color: #fff; }
+                .lp-code-line { color: #ABB2BF; }
                 .lp-editor-input::placeholder { color: #444; }
-                .lp-editor-input:focus { border-bottom-color: var(--color-primary); }
+
+                .lp-editor-bottom-bar {
+                    padding: 12px 24px;
+                    background: #151515;
+                    border-top: 1px solid #333;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                    min-height: 50px;
+                    display: flex;
+                    align-items: center;
+                }
+                .lp-editor-bottom-bar:hover { background: #1a1a1a; }
 
                 .lp-editor-cursor {
                     display: inline-block; width: 8px; height: 18px; 
-                    background: var(--color-primary); margin-left: 4px;
+                    background: #61AFEF; margin-left: 4px;
                     animation: blink 1s step-end infinite;
                     vertical-align: middle;
                 }
@@ -523,22 +556,6 @@ export default function LandingPage() {
 
                     <div className="lp-hero-card-wrap">
                         <CodeSignupEditor />
-                        
-                        {/* Floating Badges for Anti-Gravity effect */}
-                        <div className="lp-float-badge" style={{ border: '1px solid var(--color-border)', bottom: -40, left: -20 }}>
-                            <div className="lp-float-icon">
-                                <span className="material-symbols-outlined" style={{ color: 'var(--color-text)', fontSize: 16 }}>auto_awesome</span>
-                            </div>
-                            <div>
-                                <div className="lp-float-title">Phase 2 Launching</div>
-                                <div className="lp-float-sub">Assessments & Deep Insights</div>
-                            </div>
-                        </div>
-
-                        <div className="lp-float-stat" style={{ top: -30, right: -20 }}>
-                            <div className="lp-stat-label">Commision</div>
-                            <div className="lp-stat-val">15<span className="lp-stat-unit">%</span></div>
-                        </div>
                     </div>
                 </section>
 
