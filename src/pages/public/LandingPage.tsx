@@ -8,7 +8,7 @@ import { Loader2, CheckCircle2, UploadCloud } from 'lucide-react';
 
 const CodeSignupEditor = () => {
     const [role, setRole] = useState<'candidate' | 'client'>('candidate');
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const navigate = useNavigate();
@@ -101,9 +101,17 @@ const CodeSignupEditor = () => {
     };
 
     const renderStringField = (label: string, field: string, placeholder: string, type: string = 'text') => (
-        <div key={field} style={{ display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap', paddingLeft: 20 }}>
-            <span style={{ color: '#ABB2BF' }}>{label}:</span>
-            <span style={{ color: '#98C379' }}>'</span>
+        <div key={field} style={{ 
+            display: 'flex', 
+            alignItems: 'baseline', 
+            gap: 4, 
+            whiteSpace: 'nowrap', 
+            paddingLeft: 20,
+            fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
+        }}>
+            <span style={{ color: '#d4d4d4' }}>{label}</span>
+            <span style={{ color: '#d4d4d4' }}>:</span>
+            <span style={{ color: '#98c379', marginLeft: 4 }}>'</span>
             <input 
                 type={type}
                 value={(form as any)[field]}
@@ -111,18 +119,27 @@ const CodeSignupEditor = () => {
                 placeholder={placeholder}
                 onClick={(e) => e.stopPropagation()}
                 style={{
-                    background: 'transparent', border: 'none', borderBottom: '1px dashed transparent',
-                    color: '#98C379', fontSize: 'inherit', fontFamily: 'inherit',
-                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '40px'
+                    background: 'transparent', border: 'none',
+                    color: '#98c379', fontSize: 'inherit', fontFamily: 'inherit',
+                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '10px'
                 }}
             />
-            <span style={{ color: '#98C379' }}>'</span><span style={{ color: '#ABB2BF' }}>,</span>
+            <span style={{ color: '#98c379' }}>'</span>
+            <span style={{ color: '#d4d4d4' }}>,</span>
         </div>
     );
 
     const renderNumberField = (label: string, field: string, placeholder: string) => (
-        <div key={field} style={{ display: 'flex', alignItems: 'baseline', gap: 8, whiteSpace: 'nowrap', paddingLeft: 20 }}>
-            <span style={{ color: '#ABB2BF' }}>{label}:</span>
+        <div key={field} style={{ 
+            display: 'flex', 
+            alignItems: 'baseline', 
+            gap: 4, 
+            whiteSpace: 'nowrap', 
+            paddingLeft: 20,
+            fontFamily: "'JetBrains Mono', 'Fira Code', monospace"
+        }}>
+            <span style={{ color: '#d4d4d4' }}>{label}</span>
+            <span style={{ color: '#d4d4d4' }}>:</span>
             <input 
                 type="number"
                 value={(form as any)[field]}
@@ -130,12 +147,13 @@ const CodeSignupEditor = () => {
                 placeholder={placeholder}
                 onClick={(e) => e.stopPropagation()}
                 style={{
-                    background: 'transparent', border: 'none', borderBottom: '1px dashed transparent',
-                    color: '#D19A66', fontSize: 'inherit', fontFamily: 'inherit',
-                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '40px'
+                    background: 'transparent', border: 'none',
+                    color: '#d19a66', fontSize: 'inherit', fontFamily: 'inherit',
+                    padding: 0, outline: 'none', width: 'fit-content', minWidth: '10px',
+                    marginLeft: 8
                 }}
             />
-            <span style={{ color: '#ABB2BF' }}>,</span>
+            <span style={{ color: '#d4d4d4', marginLeft: 8 }}>,</span>
         </div>
     );
 
@@ -169,45 +187,47 @@ const CodeSignupEditor = () => {
 
             <div className="lp-editor-body">
                 <div className="lp-code-line">
-                    <span style={{ color: '#C678DD' }}>import</span> {'{'} <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Recruiter'}</span> {'}'} <span style={{ color: '#C678DD' }}>from</span> <span style={{ color: '#98C379' }}>'@topdev/network'</span>;
+                    <span style={{ color: '#569cd6' }}>import</span> <span style={{ color: '#d4d4d4' }}>{'{'}</span> <span style={{ color: '#9cdcfe' }}>{role === 'candidate' ? 'Developer' : 'Recruiter'}</span> <span style={{ color: '#d4d4d4' }}>{'}'}</span> <span style={{ color: '#569cd6' }}>from</span> <span style={{ color: '#98c379' }}>'@topdev/network'</span><span style={{ color: '#d4d4d4' }}>;</span>
                 </div>
                 <br />
                 <div className="lp-code-line">
-                    <span style={{ color: '#C678DD' }}>const</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'recruiter'}</span> = <span style={{ color: '#C678DD' }}>new</span> <span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'Developer' : 'Recruiter'}</span>({'{'}
+                    <span style={{ color: '#569cd6' }}>const</span> <span style={{ color: '#9cdcfe' }}>{role === 'candidate' ? 'candidate' : 'recruiter'}</span> <span style={{ color: '#d4d4d4' }}>=</span> <span style={{ color: '#569cd6' }}>new</span> <span style={{ color: '#9cdcfe' }}>{role === 'candidate' ? 'Developer' : 'Recruiter'}</span><span style={{ color: '#d4d4d4' }}>(</span><span style={{ color: '#d4d4d4' }}>{'{'}</span>
                 </div>
                 
-                {renderStringField(role === 'candidate' ? 'name' : 'company', role === 'candidate' ? 'name' : 'company', 'Name')}
-                {renderStringField('email', 'email', 'your@email.com', 'email')}
+                {renderStringField(role === 'candidate' ? 'name' : 'company', role === 'candidate' ? 'name' : 'company', 'your name ')}
+                {renderStringField('email', 'email', 'your@email.com', 'your@email.com')}
                 {isExpanded && renderStringField('password', 'password', 'Password', 'password')}
 
                 {isExpanded && role === 'candidate' && (
                     <>
-                        {renderStringField('phone', 'phone', '+91 234 567 890')}
+                        {renderStringField('phone', 'phone', '+1 234 567 890')}
                         {renderStringField('location', 'location', 'City, Country')}
                         {renderNumberField('currentSalary', 'currentSalary', '100000')}
                         {renderNumberField('expectedSalary', 'expectedSalary', '150000')}
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingLeft: 20 }}>
-                            <span style={{ color: '#ABB2BF' }}>resume:</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, paddingLeft: 20 }}>
+                            <span style={{ color: '#d4d4d4' }}>resume</span>
+                            <span style={{ color: '#d4d4d4' }}>:</span>
                             <div 
                                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
                                 style={{ 
-                                    background: '#32363e', 
-                                    padding: '2px 8px', 
-                                    borderRadius: 4, 
-                                    marginLeft: 8, 
+                                    background: '#333333', 
+                                    padding: '4px 12px', 
+                                    borderRadius: 6, 
+                                    marginLeft: 12, 
                                     cursor: 'pointer',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 6,
-                                    color: '#ABB2BF',
-                                    fontSize: 12,
-                                    border: '1px solid #484c55'
+                                    gap: 8,
+                                    color: '#d4d4d4',
+                                    fontSize: 13,
+                                    border: '1px solid #444',
+                                    boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.2)'
                                 }}
                             >
-                                <UploadCloud size={12} />
-                                <span>{form.resume ? form.resume.name : 'upload_jd()'}</span>
+                                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>upload</span>
+                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_jd()'}</span>
                             </div>
-                            <span style={{ color: '#ABB2BF' }}>,</span>
+                            <span style={{ color: '#d4d4d4', marginLeft: 4 }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
                         </div>
                     </>
@@ -218,41 +238,44 @@ const CodeSignupEditor = () => {
                         {renderStringField('website', 'website', 'https://topdev.io')}
                         {renderStringField('location', 'location', 'City, Country')}
                         {renderNumberField('budget', 'budget', '2400000')}
-                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingLeft: 20 }}>
-                            <span style={{ color: '#ABB2BF' }}>description:</span>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, paddingLeft: 20 }}>
+                            <span style={{ color: '#d4d4d4' }}>description</span>
+                            <span style={{ color: '#d4d4d4' }}>:</span>
                             <div 
                                 onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
                                 style={{ 
-                                    background: '#32363e', 
-                                    padding: '2px 8px', 
-                                    borderRadius: 4, 
-                                    marginLeft: 8, 
+                                    background: '#333333', 
+                                    padding: '4px 12px', 
+                                    borderRadius: 6, 
+                                    marginLeft: 12, 
                                     cursor: 'pointer',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 6,
-                                    color: '#ABB2BF',
-                                    fontSize: 12,
-                                    border: '1px solid #484c55'
+                                    gap: 8,
+                                    color: '#d4d4d4',
+                                    fontSize: 13,
+                                    border: '1px solid #444',
+                                    boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.2)'
                                 }}
                             >
-                                <UploadCloud size={12} />
-                                <span>{form.resume ? form.resume.name : 'upload_jd()'}</span>
+                                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>upload</span>
+                                <span style={{ fontFamily: 'inherit' }}>{form.resume ? form.resume.name : 'upload_jd()'}</span>
                             </div>
-                            <span style={{ color: '#ABB2BF' }}>,</span>
+                            <span style={{ color: '#d4d4d4', marginLeft: 4 }}>,</span>
                             <input type="file" ref={fileInputRef} onChange={(e) => setForm({...form, resume: e.target.files?.[0] || null})} style={{ display: 'none' }} />
                         </div>
                     </>
                 )}
 
-                <div className="lp-code-line">{'}'});</div>
+                <div className="lp-code-line"><span style={{ color: '#d4d4d4' }}>{'}'}</span><span style={{ color: '#d4d4d4' }}>);</span></div>
             </div>
 
             <div className="lp-editor-bottom-bar" onClick={handleSubmit}>
-                <div className="lp-code-line" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ color: '#C678DD' }}>await</span> <span style={{ color: '#ABB2BF' }}>topdev</span>.<span style={{ color: '#61AFEF' }}>submit</span>(<span style={{ color: '#61AFEF' }}>{role === 'candidate' ? 'candidate' : 'recruiter'}</span>);
+                <div className="lp-submit-box">
+                    <span style={{ color: '#569cd6' }}>await</span> <span style={{ color: '#9cdcfe' }}>topdev</span><span style={{ color: '#d4d4d4' }}>.</span><span style={{ color: '#dcdcaa' }}>submit</span><span style={{ color: '#d4d4d4' }}>(</span><span style={{ color: '#9cdcfe' }}>{role === 'candidate' ? 'candidate' : 'recruiter'}</span><span style={{ color: '#d4d4d4' }}>)</span><span style={{ color: '#d4d4d4' }}>;</span>
                     <span className="lp-editor-cursor"></span>
                 </div>
+            </div>
             </div>
         </div>
     );
@@ -362,22 +385,26 @@ export default function LandingPage() {
                 .lp-editor-input::placeholder { color: #444; }
 
                 .lp-editor-bottom-bar {
-                    padding: 12px 24px;
-                    background: #151515;
+                    padding: 16px 20px;
+                    background: #1e1e1e;
                     border-top: 1px solid #333;
                     cursor: pointer;
-                    transition: background 0.2s;
-                    min-height: 50px;
+                }
+                .lp-submit-box {
+                    background: #252d38;
+                    border: 1px solid #3d4a5c;
+                    border-radius: 6px;
+                    padding: 10px 16px;
                     display: flex;
                     align-items: center;
+                    gap: 8px;
+                    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+                    font-size: 14px;
                 }
-                .lp-editor-bottom-bar:hover { background: #1a1a1a; }
-
                 .lp-editor-cursor {
-                    display: inline-block; width: 8px; height: 18px; 
-                    background: #61AFEF; margin-left: 4px;
-                    animation: blink 1s step-end infinite;
-                    vertical-align: middle;
+                    display: inline-block; width: 10px; height: 18px; 
+                    background: #569cd6; margin-left: 2px;
+                    animation: blink 1 step-end infinite;
                 }
                 @keyframes blink { 50% { opacity: 0; } }
 
