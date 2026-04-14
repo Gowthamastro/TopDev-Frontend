@@ -114,7 +114,6 @@ export default function RegisterPage() {
     };
 
     return (
-    return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: 'var(--color-bg)' }}>
             <div style={{ width: '100%', maxWidth: 460 }}>
                 <div style={{ textAlign: 'center', marginBottom: 36 }}>
