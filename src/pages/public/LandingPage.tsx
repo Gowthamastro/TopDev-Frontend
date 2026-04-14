@@ -710,11 +710,11 @@ export default function LandingPage() {
                 {/* ── COMING SOON — PHASE 2 ── */}
                 <section id="vision" className="lp-process" style={{ padding: '112px 48px', position: 'relative' }}>
                     <div className="lp-section-hd" style={{ marginBottom: 64 }}>
-                        <div className="lp-badge" style={{ margin: '0 auto 24px', background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.25)' }}>
-                            <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 14 }}>rocket_launch</span>
-                            <span className="lp-badge-text" style={{ color: '#a78bfa' }}>Coming Soon — Phase 2</span>
+                        <div className="lp-badge" style={{ margin: '0 auto 24px', background: 'rgba(var(--color-primary-rgb), 0.12)', border: '1px solid rgba(var(--color-primary-rgb), 0.25)' }}>
+                            <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 14 }}>rocket_launch</span>
+                            <span className="lp-badge-text" style={{ color: 'var(--color-primary)' }}>Coming Soon — Phase 2</span>
                         </div>
-                        <h2 className="lp-h2">The Future of Candidate <span style={{ background: 'linear-gradient(135deg,#8b5cf6,#a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Assessment</span></h2>
+                        <h2 className="lp-h2">The Future of Candidate <span style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-text-subtle))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Assessment</span></h2>
                         <p className="lp-subtext" style={{ marginTop: 24 }}>Phase 2 transforms TopDev into an intelligent hiring engine — going beyond profiles to give you verified skill scores and deep candidate insights before the first interview.</p>
                     </div>
 
@@ -739,21 +739,21 @@ export default function LandingPage() {
                                 tag: 'Phase 2'
                             },
                         ].map(({ icon, title, desc, tag }) => (
-                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(139,92,246,0.2)', position: 'relative', overflow: 'hidden' }}>
-                                <div style={{ position: 'absolute', top: 12, right: 12, padding: '3px 10px', borderRadius: 999, background: 'rgba(139,92,246,0.12)', color: '#a78bfa', fontSize: 10, fontWeight: 700, border: '1px solid rgba(139,92,246,0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{tag}</div>
-                                <div className="lp-card-icon" style={{ background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.15)' }}>
-                                    <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 26 }}>{icon}</span>
+                            <div key={title} className="lp-card" style={{ borderStyle: 'dashed', borderColor: 'rgba(var(--color-primary-rgb), 0.2)', position: 'relative', overflow: 'hidden' }}>
+                                <div style={{ position: 'absolute', top: 12, right: 12, padding: '3px 10px', borderRadius: 999, background: 'rgba(var(--color-primary-rgb), 0.12)', color: 'var(--color-primary)', fontSize: 10, fontWeight: 700, border: '1px solid rgba(var(--color-primary-rgb), 0.2)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{tag}</div>
+                                <div className="lp-card-icon" style={{ background: 'rgba(var(--color-primary-rgb), 0.06)', border: '1px solid rgba(var(--color-primary-rgb), 0.15)' }}>
+                                    <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 26 }}>{icon}</span>
                                 </div>
-                                <h3 className="lp-card-h" style={{ color: '#e2e8f0' }}>{title}</h3>
+                                <h3 className="lp-card-h" style={{ color: 'var(--color-text)' }}>{title}</h3>
                                 <p className="lp-card-p">{desc}</p>
                             </div>
                         ))}
                     </div>
 
-                    <div style={{ marginTop: 80, padding: '40px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(139,92,246,0.1),rgba(13,89,242,0.1))', border: '1px solid rgba(139,92,246,0.3)', textAlign: 'center', maxWidth: 800, margin: '80px auto 0' }}>
-                        <span className="material-symbols-outlined" style={{ color: '#a78bfa', fontSize: 32, display: 'block', marginBottom: 16 }}>notifications_active</span>
+                    <div style={{ marginTop: 80, padding: '40px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(var(--color-primary-rgb),0.1),rgba(var(--color-primary-rgb),0.05))', border: '1px solid rgba(var(--color-primary-rgb),0.3)', textAlign: 'center', maxWidth: 800, margin: '80px auto 0' }}>
+                        <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 32, display: 'block', marginBottom: 16 }}>notifications_active</span>
                         <h3 style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '0 0 12px' }}>Be First in Line for Phase 2</h3>
-                        <p style={{ color: '#94a3b8', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>Phase 2 is actively in development. Sign up today and get early access to assessments and AI matchmaking the moment they launch.</p>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>Phase 2 is actively in development. Sign up today and get early access to assessments and AI matchmaking the moment they launch.</p>
                         <Link to="/" className="lp-btn-primary" style={{ display: 'inline-flex', padding: '16px 40px' }}>
                             Join the Waitlist (Sign up above)
                         </Link>
