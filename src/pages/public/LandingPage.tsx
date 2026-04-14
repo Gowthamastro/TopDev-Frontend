@@ -628,20 +628,9 @@ export default function LandingPage() {
                     </div>
 
                     <div className="lp-hero-card-wrap">
-                        <div style={{
-                            marginBottom: 12,
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 8,
-                            padding: '4px 12px',
-                            background: 'rgba(var(--color-primary-rgb), 0.1)',
-                            border: '1px solid rgba(var(--color-primary-rgb), 0.2)',
-                            borderRadius: 6,
-                            width: 'fit-content',
-                            margin: '0 auto 16px'
-                        }}>
+                        <div className="lp-badge" style={{ margin: '0 auto 16px', display: 'flex' }}>
                             <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 16 }}>bolt</span>
-                            <span style={{ color: 'var(--color-primary)', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Complete profile in 1-step</span>
+                            <span className="lp-badge-text" style={{ color: 'var(--color-primary)' }}>Complete profile in 1-step</span>
                         </div>
                         <CodeSignupEditor />
                     </div>
