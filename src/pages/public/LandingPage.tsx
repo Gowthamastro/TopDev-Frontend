@@ -276,7 +276,6 @@ const CodeSignupEditor = () => {
                     <span className="lp-editor-cursor"></span>
                 </div>
             </div>
-            </div>
         </div>
     );
 };
