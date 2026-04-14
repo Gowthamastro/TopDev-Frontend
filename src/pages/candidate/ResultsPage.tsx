@@ -40,7 +40,7 @@ function ScoreBreakdownBar({ label, value, color }: { label: string; value: numb
 
     return (
         <div style={{ marginBottom: 16 }}>
-            <div style={{ display: 'flex', justifycontent: 'space-between', marginBottom: 6 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
                 <span style={{ fontSize: 13, color: '#94a3b8', fontWeight: 500 }}>{label}</span>
                 <span style={{ fontSize: 13, fontWeight: 700, color: '#f1f5f9' }}>
                     {value != null ? `${value}%` : '—'}
@@ -214,7 +214,7 @@ export default function ResultsPage() {
                 )}
 
                 {/* CTA */}
-                <div style={{ display: 'flex', justifycontent: 'center', gap: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
                     <button className="btn-primary" onClick={() => navigate('/candidate')} style={{ padding: '12px 28px', fontSize: 15, display: 'flex', alignItems: 'center', gap: 8 }}>
                         <ArrowLeft size={16} /> Back to Dashboard
                     </button>
