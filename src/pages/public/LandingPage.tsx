@@ -26,10 +26,10 @@ export default function LandingPage() {
                 .lp-logo-icon { width: 32px; height: 32px; border-radius: 50%; background: #0d59f2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(13,89,242,0.5); flex-shrink: 0; }
                 .lp-logo-text { color: white; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
 
-                .lp-nav-links { display: flex; align-items: center; gap: 8px; margin-right: 12px; }
-                .lp-nav-link { color: #94a3b8; font-size: 14px; font-weight: 500; padding: 10px 16px; border-radius: 999px; text-decoration: none; transition: all 0.2s; }
+                .lp-nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.05); padding: 6px 8px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); }
+                .lp-nav-link { color: #94a3b8; font-size: 14px; font-weight: 500; padding: 6px 16px; border-radius: 999px; text-decoration: none; transition: all 0.2s; }
                 .lp-nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
-                .lp-nav-actions { display: flex; align-items: center; gap: 24px; }
+                .lp-nav-actions { display: flex; align-items: center; gap: 20px; }
                 .lp-login { color: #94a3b8; font-size: 14px; text-decoration: none; transition: color 0.2s; }
                 .lp-login:hover { color: white; }
                 .lp-btn-primary { background: #0d59f2; border: 1px solid rgba(13,89,242,0.8); box-shadow: 0 0 25px rgba(13,89,242,0.5); color: white; font-size: 14px; font-weight: 600; padding: 10px 24px; border-radius: 999px; text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
@@ -217,12 +217,12 @@ export default function LandingPage() {
                     </div>
                     <span className="lp-logo-text">TopDev</span>
                 </Link>
+                <nav className="lp-nav-links">
+                    <Link to="/register?role=client" className="lp-nav-link">For Clients</Link>
+                    <Link to="/register?role=candidate" className="lp-nav-link">For Developers</Link>
+                    <a href="#pricing" className="lp-nav-link">Pricing</a>
+                </nav>
                 <div className="lp-nav-actions">
-                    <nav className="lp-nav-links">
-                        <Link to="/register?role=client" className="lp-nav-link">For Clients</Link>
-                        <Link to="/register?role=candidate" className="lp-nav-link">For Developers</Link>
-                        <a href="#pricing" className="lp-nav-link">Pricing</a>
-                    </nav>
                     <Link to="/login" className="lp-login">Login</Link>
                     <Link to="/register?role=candidate" className="lp-btn-primary">Get Started</Link>
                 </div>
