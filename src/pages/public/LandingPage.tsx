@@ -663,6 +663,50 @@ export default function LandingPage() {
                 </div>
 
 
+                {/* ── PRICING ── */}
+                <section id="pricing" className="lp-pricing">
+                    <div className="lp-section-hd">
+                        <h2 className="lp-h2">Simple, Transparent<br /><span style={{ color: 'var(--color-text-subtle)' }}>Pricing</span></h2>
+                        <p className="lp-subtext" style={{ marginTop: 24 }}>No subscriptions, no hidden fees. Pay only for results.</p>
+                    </div>
+                    <div className="lp-plans">
+                        {/* 15% Per Hire */}
+                        <div className="lp-plan lp-plan-featured">
+                            <div className="lp-popular-badge">Standard</div>
+                            <div><p className="lp-plan-name">Pay Per Hire</p><p className="lp-plan-desc">Only pay when you make a successful hire. No upfront costs, no monthly commitments.</p></div>
+                            <div className="lp-price-mb">
+                                <span className="lp-price">15</span><span className="lp-price-unit" style={{ fontSize: 24, fontWeight: 700 }}>%</span>
+                                <div style={{ color: 'var(--color-text-muted)', fontSize: 13, marginTop: 8 }}>of first-year salary, per successful hire</div>
+                            </div>
+                            <ul className="lp-features">
+                                {['Post unlimited jobs', 'View full candidate profiles', 'Clean applicant management', 'Email support'].map(feature => (
+                                    <li key={feature} className="lp-feature">
+                                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1", color: 'var(--color-primary)', fontSize: 20, flexShrink: 0 }}>check_circle</span>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Custom / Contact Us */}
+                        <div className="lp-plan">
+                            <div><p className="lp-plan-name">Custom Pricing</p><p className="lp-plan-desc">Have specific requirements or hiring at scale? We'll build a plan around your needs.</p></div>
+                            <div className="lp-price-mb">
+                                <span className="lp-price" style={{ fontSize: 36 }}>Contact Us</span>
+                                <div style={{ color: 'var(--color-text-subtle)', fontSize: 13, marginTop: 8 }}>Tailored pricing for your organization</div>
+                            </div>
+                            <ul className="lp-features">
+                                {['Volume hiring discounts', 'Dedicated account manager', 'SLA & priority support', 'Custom contract & invoicing'].map(feature => (
+                                    <li key={feature} className="lp-feature">
+                                        <span className="material-symbols-outlined" style={{ color: 'var(--color-text-subtle)', fontSize: 18, flexShrink: 0 }}>check</span>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
                 {/* ── COMING SOON — PHASE 2 ── */}
                 <section id="vision" className="lp-process" style={{ padding: '112px 48px', position: 'relative' }}>
                     <div className="lp-section-hd" style={{ marginBottom: 64 }}>
