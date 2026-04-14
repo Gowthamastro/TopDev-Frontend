@@ -75,7 +75,7 @@ export default function DashboardLayout({ role }: { role: 'client' | 'admin' | '
                             }}
                         >
                             <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
-                                {theme === 'light' ? 'dark_mode' : 'light_mode'}
+                                {theme === 'light' ? 'light_mode' : 'dark_mode'}
                             </span>
                         </button>
                         <button style={{

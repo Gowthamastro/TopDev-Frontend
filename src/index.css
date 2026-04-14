@@ -156,12 +156,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(var(--color-primary-rgb), 0.12);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(var(--color-primary-rgb), 0.2);
 }
 
 /* ─── Selection ─── */
@@ -185,9 +185,9 @@ button {
 
 /* ─── Glass Card ─── */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--glass-border);
 }
 
 /* ─── Gradient Text (Monochrome) ─── */
@@ -240,13 +240,14 @@ button {
 }
 
 .sidebar-item:hover {
-  background: rgba(0, 0, 0, 0.04);
-  color: #000000;
+  background: var(--color-bg-tertiary);
+  color: var(--color-text);
 }
 
 .sidebar-item.active {
-  background: rgba(0, 0, 0, 0.06);
-  color: #000000;
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .sidebar-item.active svg {
@@ -256,20 +257,20 @@ button {
 /* ─── Input Styles ─── */
 .input-field, .input {
   width: 100%;
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 10px;
   padding: 11px 14px;
   font-size: 14px;
-  color: #000000;
+  color: var(--color-text);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   font-family: 'Inter', sans-serif;
 }
 
 .input-field:focus, .input:focus {
-  border-color: #000000;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.08);
 }
 
 .input-field::placeholder, .input::placeholder {
@@ -310,9 +311,9 @@ button {
 }
 
 .btn-secondary {
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: 9999px;
   padding: 10px 20px;
   font-size: 14px;
@@ -341,8 +342,8 @@ button {
 
 /* ─── Card ─── */
 .card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -350,8 +351,8 @@ button {
 
 /* ─── Stat Card (with anti-gravity float) ─── */
 .stat-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   padding: 20px;
   display: flex;
@@ -427,19 +428,19 @@ button {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #666666;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
   font-family: 'Manrope', sans-serif;
 }
 
 .data-table td {
   padding: 14px 16px;
   font-size: 14px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .data-table tr:hover td {
-  background: rgba(0, 0, 0, 0.015);
+  background: var(--color-bg-secondary);
 }
 
 /* ─── Score Bar ─── */
@@ -564,10 +565,10 @@ button {
   gap: 10px;
   width: 100%;
   padding: 11px 20px;
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 9999px;
-  color: #000000;
+  color: var(--color-text);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -593,7 +594,7 @@ button {
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(0, 0, 0, 0.08);
+  background: var(--color-border);
 }
 
 /* ─── Password Strength ─── */
@@ -619,9 +620,9 @@ button {
   justify-content: center;
   font-size: 13px;
   font-weight: 600;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  background: #FFFFFF;
-  color: #999999;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-subtle);
   transition: all 0.3s;
   flex-shrink: 0;
   font-family: 'Manrope', sans-serif;

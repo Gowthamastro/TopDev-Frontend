@@ -197,7 +197,7 @@ export default function LandingPage() {
                 <div className="lp-nav-actions">
                     <button className="lp-theme-toggle" onClick={toggleTheme}>
                         <span className="material-symbols-outlined" style={{ fontSize: 20 }}>
-                            {theme === 'light' ? 'dark_mode' : 'light_mode'}
+                            {theme === 'light' ? 'light_mode' : 'dark_mode'}
                         </span>
                     </button>
                     <Link to="/login" className="lp-login">Login</Link>
