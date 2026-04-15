@@ -86,7 +86,7 @@ export default function LoginPage() {
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: 'var(--color-bg)' }}>
             <div style={{ width: '100%', maxWidth: 420 }}>
                 <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                    <Logo size={48} />
+                    <Logo size={52} />
                     <p style={{ color: 'var(--color-text-muted)', margin: '16px 0 0', fontSize: 14 }}>Top Talent. Top Scores.</p>
                 </div>
 

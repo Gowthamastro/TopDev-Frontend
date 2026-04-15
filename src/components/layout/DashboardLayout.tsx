@@ -115,10 +115,9 @@ export default function DashboardLayout({ role }: { role: 'client' | 'admin' | '
                 borderRight: '1px solid var(--glass-border)',
                 display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px 0'
             }}>
-                <div>
                     {/* Logo */}
-                    <div style={{ display: 'flex', alignItems: 'center', height: 48, padding: '0 20px', marginBottom: 40, overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                        <Logo size={36} />
+                    <div style={{ display: 'flex', alignItems: 'center', height: 48, padding: '0 24px', marginBottom: 40, overflow: 'hidden', whiteSpace: 'nowrap' }}>
+                        <Logo size={38} />
                     </div>
                     {/* Nav Links */}
                     <nav style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '0 12px' }}>

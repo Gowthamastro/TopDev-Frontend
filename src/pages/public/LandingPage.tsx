@@ -305,9 +305,7 @@ export default function LandingPage() {
                     display: flex; align-items: center; justify-content: space-between;
                     padding: 14px 48px;
                 }
-                .lp-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-                .lp-logo-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-                .lp-logo-text { color: var(--color-text); font-size: 20px; font-weight: 800; letter-spacing: -0.5px; font-family: 'Manrope', sans-serif; }
+                .lp-logo { display: flex; align-items: center; text-decoration: none; padding-left: 4px; }
 
                 .lp-nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 4px; background: var(--color-bg-tertiary); padding: 6px 8px; border-radius: 999px; border: 1px solid var(--color-border-subtle); }
                 .lp-nav-link { color: var(--color-text-muted); font-size: 14px; font-weight: 500; padding: 6px 16px; border-radius: 999px; text-decoration: none; transition: all 0.2s; font-family: 'Manrope', sans-serif; }
@@ -575,7 +573,7 @@ export default function LandingPage() {
             {/* ── NAVBAR ── */}
             <header className="lp-nav">
                 <Link to="/" className="lp-logo">
-                    <Logo size={36} />
+                    <Logo size={40} adaptive />
                 </Link>
                 <nav className="lp-nav-links">
                     <a href="#vision" className="lp-nav-link">Vision</a>
@@ -752,7 +750,7 @@ export default function LandingPage() {
                     <div className="lp-footer-grid">
                         <div className="lp-footer-brand">
                             <Link to="/" className="lp-logo">
-                                <Logo size={32} />
+                                <Logo size={32} adaptive />
                             </Link>
                             <p>The efficient platform connecting the world's best engineers with top tech companies through structured data.</p>
                         </div>
