@@ -4,8 +4,8 @@
 
 /* ─── Tailwind v4 Theme Tokens ─── */
 @theme {
-  --color-background-dark: #FFFFFF;
-  --color-panel-dark: #FFFFFF;
+  --color-background-dark: #000000;
+  --color-panel-dark: #000000;
   --color-panel-border: rgba(0, 0, 0, 0.08);
   --color-primary: #000000;
   --color-primary-hover: #2D2D2D;
@@ -14,7 +14,7 @@
   --color-accent-red: #dc2626;
   --color-danger: #dc2626;
   --color-text-muted: #666666;
-  --color-background-light: #F9F9F9;
+  --color-background-light: #FFFFFF;
   --font-family-display: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
