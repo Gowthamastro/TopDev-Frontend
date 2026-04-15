@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface LogoProps {
     /** Height of the logo in pixels. Default is 36. */
@@ -11,6 +12,8 @@ interface LogoProps {
     className?: string;
     /** Optional inline styles for the container. */
     style?: React.CSSProperties;
+    /** Link destination. Default is '/'. Set to null to disable the link. */
+    to?: string | null;
 }
 
 /**
@@ -25,9 +28,10 @@ const Logo: React.FC<LogoProps> = ({
     iconOnly = false,
     adaptive = false,
     className = '', 
-    style = {}
+    style = {},
+    to = '/'
 }) => {
-    return (
+    const content = (
         <div 
             className={`topdev-logo-container ${className}`} 
             style={{ 
@@ -48,7 +52,6 @@ const Logo: React.FC<LogoProps> = ({
                     height: 100%;
                     width: auto;
                     display: block;
-                    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.05));
                 }
                 .topdev-logo-text {
                     font-family: 'Manrope', 'Inter', sans-serif;
@@ -73,7 +76,7 @@ const Logo: React.FC<LogoProps> = ({
             `}</style>
             
             <svg 
-                viewBox="0 0 200 40" 
+                viewBox="0 0 135 40" 
                 className="topdev-logo-svg"
                 preserveAspectRatio="xMidYMid meet"
                 style={{ height: size }}
@@ -99,6 +102,12 @@ const Logo: React.FC<LogoProps> = ({
             </svg>
         </div>
     );
+
+    if (to) {
+        return <Link to={to} style={{ textDecoration: 'none', display: 'inline-flex' }}>{content}</Link>;
+    }
+
+    return content;
 };
 
 export default Logo;

@@ -580,9 +580,7 @@ export default function LandingPage() {
 
             {/* ── NAVBAR ── */}
             <header className="lp-nav">
-                <Link to="/" className="lp-logo">
-                    <Logo size={40} adaptive />
-                </Link>
+                <Logo size={40} adaptive className="lp-logo" />
                 <nav className="lp-nav-links">
                     <a href="#vision" className="lp-nav-link">Vision</a>
                 </nav>
@@ -757,9 +755,7 @@ export default function LandingPage() {
                 <div className="lp-footer-inner">
                     <div className="lp-footer-grid">
                         <div className="lp-footer-brand">
-                            <Link to="/" className="lp-logo">
-                                <Logo size={32} adaptive />
-                            </Link>
+                            <Logo size={40} className="lp-logo" />
                             <p>The efficient platform connecting the world's best engineers with top tech companies through structured data.</p>
                         </div>
                         <div>
