@@ -314,14 +314,14 @@ export default function LandingPage() {
                 .lp-login { color: var(--color-text-muted); font-size: 14px; text-decoration: none; transition: color 0.2s; font-family: 'Manrope', sans-serif; }
                 .lp-login:hover { color: var(--color-text); }
                 .lp-btn-primary { 
-                    background: var(--color-primary); border: none; color: #FAF9F6; 
+                    background: var(--color-primary); border: none; color: var(--color-bg); 
                     font-size: 14px; font-weight: 600; padding: 10px 24px; border-radius: 8px; 
                     text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
                     display: inline-flex; align-items: center; gap: 8px; font-family: 'Manrope', sans-serif; 
                 }
                 .lp-btn-primary:hover { 
                     transform: scale(1.02); 
-                    box-shadow: 0 12px 32px rgba(26, 26, 26, 0.15); 
+                    box-shadow: 0 12px 32px rgba(var(--color-primary-rgb), 0.15); 
                     opacity: 0.95;
                 }
                 .lp-btn-secondary { background: var(--color-bg-secondary); border: 1px solid var(--color-border); color: var(--color-text); font-size: 14px; font-weight: 600; padding: 10px 24px; border-radius: 8px; text-decoration: none; transition: all 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-family: 'Manrope', sans-serif; }
@@ -331,7 +331,7 @@ export default function LandingPage() {
                     background: var(--color-bg-tertiary); border: none; cursor: pointer; padding: 8px; color: var(--color-text-muted);
                     display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.2s;
                 }
-                .lp-theme-toggle:hover { background: var(--color-primary); color: #FAF9F6; }
+                .lp-theme-toggle:hover { background: var(--color-primary); color: var(--color-bg); }
 
                 .lp-main { position: relative; z-index: 1; }
                 .lp-section { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 48px; }
@@ -538,18 +538,18 @@ export default function LandingPage() {
                 .lp-plan-featured .lp-feature { color: var(--color-text); font-weight: 500; }
                 .lp-plan-btn { margin-top: 32px; border-radius: 8px; height: 48px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: 1px solid var(--color-border); background: var(--color-bg); color: var(--color-text); font-family: 'Manrope', sans-serif; }
                 .lp-plan-btn:hover { background: var(--color-bg-secondary); border-color: var(--color-primary); }
-                .lp-plan-btn-primary { height: 56px; background: var(--color-primary); border: none; color: #FAF9F6; font-weight: 700; font-size: 14px; }
-                .lp-plan-btn-primary:hover { opacity: 0.95; transform: scale(1.02); box-shadow: 0 8px 24px rgba(26,26,26,0.2); }
+                .lp-plan-btn-primary { height: 56px; background: var(--color-primary); border: none; color: var(--color-bg); font-weight: 700; font-size: 14px; }
+                .lp-plan-btn-primary:hover { opacity: 0.95; transform: scale(1.02); box-shadow: 0 8px 24px rgba(var(--color-primary-rgb),0.2); }
 
                 /* CTA */
                 .lp-cta-wrap { max-width: 1000px; margin: 0 auto; padding: 0 48px 128px; }
                 .lp-cta-box { background: var(--color-primary); border-radius: 4px; padding: 64px; display: flex; align-items: center; justify-content: space-between; gap: 32px; position: relative; overflow: hidden; }
                 .lp-cta-copy { position: relative; z-index: 1; }
-                .lp-cta-h { color: #FAF9F6; font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(32px, 4vw, 48px); font-weight: 400; margin: 0 0 12px; }
-                .lp-cta-sub { color: #FAF9F6; opacity: 0.8; font-size: 18px; margin: 0; font-family: 'Manrope', sans-serif; }
+                .lp-cta-h { color: var(--color-bg); font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(32px, 4vw, 48px); font-weight: 400; margin: 0 0 12px; }
+                .lp-cta-sub { color: var(--color-bg); opacity: 0.8; font-size: 18px; margin: 0; font-family: 'Manrope', sans-serif; }
                 .lp-cta-action { position: relative; z-index: 1; flex-shrink: 0; }
-                .lp-btn-white { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 8px; background: #FAF9F6; color: #1A1A1A; font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all 0.3s; font-family: 'Manrope', sans-serif; }
-                .lp-btn-white:hover { transform: scale(1.05); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+                .lp-btn-white { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 8px; background: var(--color-bg); color: var(--color-text); font-size: 14px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all 0.3s; font-family: 'Manrope', sans-serif; }
+                .lp-btn-white:hover { transform: scale(1.05); box-shadow: 0 12px 32px rgba(var(--color-primary-rgb),0.2); }
 
                 /* Footer */
                 .lp-footer { border-top: 1px solid var(--color-border-subtle); background: var(--color-bg-secondary); padding: 64px 48px 32px; }
@@ -739,7 +739,7 @@ export default function LandingPage() {
                         ))}
                     </div>
 
-                    <div style={{ marginTop: 80, padding: '40px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(var(--color-primary-rgb),0.1),rgba(var(--color-primary-rgb),0.05))', border: '1px solid rgba(var(--color-primary-rgb),0.3)', textAlign: 'center', maxWidth: 800, margin: '80px auto 0' }}>
+                    <div style={{ marginTop: 80, padding: '48px', borderRadius: 8, background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', textAlign: 'center', maxWidth: 800, margin: '80px auto 0' }}>
                         <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 32, display: 'block', marginBottom: 16 }}>notifications_active</span>
                         <h3 style={{ color: 'var(--color-text)', fontSize: 28, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px', fontFamily: "'Instrument Serif', serif" }}>Be First in Line for Phase 2</h3>
                         <p style={{ color: 'var(--color-text-muted)', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>Phase 2 is actively in development. Sign up today and get early access to assessments and AI matchmaking the moment they launch.</p>
