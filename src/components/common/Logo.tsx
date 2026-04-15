@@ -54,7 +54,7 @@ const Logo: React.FC<LogoProps> = ({
                     font-family: 'Manrope', 'Inter', sans-serif;
                     font-weight: 800;
                     letter-spacing: -0.02em;
-                    fill: currentColor;
+                    fill: var(--color-text);
                     pointer-events: none;
                 }
                 .topdev-logo-icon {

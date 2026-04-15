@@ -37,7 +37,7 @@ export default function DashboardLayout({ role }: { role: 'client' | 'admin' | '
     const handleLogout = () => { logout(); navigate('/login'); };
 
     return (
-        <div style={{ background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: "'Manrope', 'Inter', sans-serif", minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+        <div style={{ background: 'var(--color-bg)', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif", minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
 
             {/* Top Navigation */}
             <header style={{

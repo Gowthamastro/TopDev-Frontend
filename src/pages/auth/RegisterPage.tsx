@@ -122,9 +122,9 @@ export default function RegisterPage() {
                     <p style={{ color: 'var(--color-text-muted)', margin: '16px 0 0', fontSize: 14 }}>Create your account</p>
                 </div>
 
-                <div className="card" style={{ padding: 32, borderRadius: 4 }}>
-                    <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 6px', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Get started</h2>
-                    <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 24px' }}>Join the platform and connect with top opportunities</p>
+                <div className="card" style={{ padding: 32, borderRadius: 8 }}>
+                    <h2 style={{ fontSize: 24, fontWeight: 400, fontStyle: 'italic', margin: '0 0 6px', color: 'var(--color-text)', fontFamily: "'Instrument Serif', serif" }}>Get started</h2>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 24px', fontFamily: "'Manrope', sans-serif" }}>Join the platform and connect with top opportunities</p>
 
                     {/* Google Sign-In */}
                     <button type="button" className="btn-google" style={{ marginBottom: 16 }} onClick={() => googleLogin()} disabled={isGoogleLoading}>

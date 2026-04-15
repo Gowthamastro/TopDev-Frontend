@@ -90,9 +90,9 @@ export default function LoginPage() {
                     <p style={{ color: 'var(--color-text-muted)', margin: '16px 0 0', fontSize: 14 }}>Top Talent. Top Scores.</p>
                 </div>
 
-                <div className="card" style={{ padding: 32, borderRadius: 4 }}>
-                    <h2 style={{ fontSize: 20, fontWeight: 700, margin: '0 0 6px', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>Sign in to your account</h2>
-                    <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 24px' }}>Enter your credentials to continue</p>
+                <div className="card" style={{ padding: 32, borderRadius: 8 }}>
+                    <h2 style={{ fontSize: 24, fontWeight: 400, fontStyle: 'italic', margin: '0 0 6px', color: 'var(--color-text)', fontFamily: "'Instrument Serif', serif" }}>Sign in to your account</h2>
+                    <p style={{ color: 'var(--color-text-muted)', fontSize: 14, margin: '0 0 24px', fontFamily: "'Manrope', sans-serif" }}>Enter your credentials to continue</p>
 
                     {/* Google Sign-In */}
                     <button

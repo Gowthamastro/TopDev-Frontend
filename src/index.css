@@ -6,46 +6,47 @@
 @theme {
   --color-background-dark: #000000;
   --color-panel-dark: #000000;
-  --color-panel-border: rgba(0, 0, 0, 0.08);
-  --color-primary: #000000;
+  --color-panel-border: rgba(26, 26, 26, 0.08);
+  --color-primary: #1A1A1A;
   --color-primary-hover: #2D2D2D;
-  --color-accent: #000000;
+  --color-accent: #1A1A1A;
   --color-accent-green: #1a1a1a;
   --color-accent-red: #dc2626;
   --color-danger: #dc2626;
-  --color-text-muted: #666666;
-  --color-background-light: #FFFFFF;
-  --font-family-display: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  --color-text-muted: #6B6A67;
+  --color-background-light: #FAF9F6;
+  --font-family-display: 'Instrument Serif', 'Georgia', serif;
+  --font-family-body: 'Manrope', 'Inter', sans-serif;
   --font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 /* ─── CSS Variables ─── */
 :root {
-  --color-bg: #FFFFFF;
-  --color-bg-rgb: 255, 255, 255;
-  --color-surface: #FFFFFF;
-  --color-card: #FFFFFF;
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-border-subtle: rgba(0, 0, 0, 0.05);
-  --color-primary: #000000;
-  --color-primary-rgb: 0, 0, 0;
+  --color-bg: #FAF9F6;
+  --color-bg-rgb: 250, 249, 246;
+  --color-surface: #FAF9F6;
+  --color-card: #F3F2EE;
+  --color-border: rgba(26, 26, 26, 0.08);
+  --color-border-subtle: rgba(26, 26, 26, 0.05);
+  --color-primary: #1A1A1A;
+  --color-primary-rgb: 26, 26, 26;
   --color-primary-hover: #2D2D2D;
-  --color-secondary: #1A1A1A;
-  --color-accent: #000000;
+  --color-secondary: #6B6A67;
+  --color-accent: #1A1A1A;
   --color-success: #16a34a;
   --color-success-rgb: 22, 163, 74;
   --color-warning: #ca8a04;
   --color-warning-rgb: 202, 138, 4;
   --color-danger: #dc2626;
   --color-danger-rgb: 220, 38, 38;
-  --color-text: #000000;
-  --color-text-rgb: 0, 0, 0;
-  --color-text-muted: #666666;
-  --color-text-subtle: #999999;
-  --color-bg-secondary: #F9F9F9;
-  --color-bg-tertiary: #F0F0F0;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.06);
+  --color-text: #1A1A1A;
+  --color-text-rgb: 26, 26, 26;
+  --color-text-muted: #6B6A67;
+  --color-text-subtle: #A1A09D;
+  --color-bg-secondary: #F3F2EE;
+  --color-bg-tertiary: #E5E4E0;
+  --glass-bg: rgba(250, 249, 246, 0.82);
+  --glass-border: rgba(26, 26, 26, 0.06);
 }
 
 .dark {
@@ -88,7 +89,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
   background: var(--color-bg);
   color: var(--color-text);
   transition: background-color 0.3s ease, color 0.3s ease;
