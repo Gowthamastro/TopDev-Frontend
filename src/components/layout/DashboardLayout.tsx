@@ -115,6 +115,7 @@ export default function DashboardLayout({ role }: { role: 'client' | 'admin' | '
                 borderRight: '1px solid var(--glass-border)',
                 display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px 0'
             }}>
+                <div>
                     {/* Logo */}
                     <div style={{ display: 'flex', alignItems: 'center', height: 48, padding: '0 24px', marginBottom: 40, overflow: 'hidden', whiteSpace: 'nowrap' }}>
                         <Logo size={38} />
