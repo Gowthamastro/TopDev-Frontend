@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../hooks/useTheme';
+import Logo from '../../components/common/Logo';
 import api from '../../services/api';
 import { useAuthStore } from '../../store/authStore';
 import toast from 'react-hot-toast';
@@ -574,10 +575,7 @@ export default function LandingPage() {
             {/* ── NAVBAR ── */}
             <header className="lp-nav">
                 <Link to="/" className="lp-logo">
-                    <div className="lp-logo-icon">
-                        <span className="material-symbols-outlined" style={{ color: 'var(--color-bg)', fontSize: 18, lineHeight: 1 }}>bolt</span>
-                    </div>
-                    <span className="lp-logo-text">TopDev</span>
+                    <Logo size={36} />
                 </Link>
                 <nav className="lp-nav-links">
                     <a href="#vision" className="lp-nav-link">Vision</a>
@@ -753,12 +751,9 @@ export default function LandingPage() {
                 <div className="lp-footer-inner">
                     <div className="lp-footer-grid">
                         <div className="lp-footer-brand">
-                            <div className="lp-logo">
-                                <div className="lp-logo-icon">
-                                    <span className="material-symbols-outlined" style={{ color: 'var(--color-bg)', fontSize: 18, lineHeight: 1 }}>bolt</span>
-                                </div>
-                                <span className="lp-logo-text">TopDev</span>
-                            </div>
+                            <Link to="/" className="lp-logo">
+                                <Logo size={32} />
+                            </Link>
                             <p>The efficient platform connecting the world's best engineers with top tech companies through structured data.</p>
                         </div>
                         <div>

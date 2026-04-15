@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import { useGoogleLogin } from '@react-oauth/google';
 import { Eye, EyeOff, Zap, Mail, Lock, Loader2 } from 'lucide-react';
 import api from '../../services/api';
+import Logo from '../../components/common/Logo';
 import { useAuthStore } from '../../store/authStore';
 
 // Block clearly fake email patterns: TLD must be 2+ real letters only
@@ -84,16 +85,9 @@ export default function LoginPage() {
     return (
         <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, background: 'var(--color-bg)' }}>
             <div style={{ width: '100%', maxWidth: 420 }}>
-                {/* Logo */}
                 <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                    <div style={{
-                        width: 52, height: 52, background: 'var(--color-primary)', borderRadius: 14,
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16
-                    }}>
-                        <Zap size={26} color="var(--color-bg)" fill="var(--color-bg)" />
-                    </div>
-                    <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>TopDev</h1>
-                    <p style={{ color: 'var(--color-text-muted)', margin: '6px 0 0', fontSize: 14 }}>Top Talent. Top Scores.</p>
+                    <Logo size={48} />
+                    <p style={{ color: 'var(--color-text-muted)', margin: '16px 0 0', fontSize: 14 }}>Top Talent. Top Scores.</p>
                 </div>
 
                 <div className="card" style={{ padding: 32, borderRadius: 4 }}>

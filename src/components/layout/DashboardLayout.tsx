@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../store/authStore';
 import { useTheme } from '../../hooks/useTheme';
+import Logo from '../common/Logo';
 
 
 const clientNav = [
@@ -117,15 +118,7 @@ export default function DashboardLayout({ role }: { role: 'client' | 'admin' | '
                 <div>
                     {/* Logo */}
                     <div style={{ display: 'flex', alignItems: 'center', height: 48, padding: '0 20px', marginBottom: 40, overflow: 'hidden', whiteSpace: 'nowrap' }}>
-                        <div style={{
-                            width: 40, height: 40, borderRadius: 12, background: 'var(--color-primary)', display: 'flex',
-                            alignItems: 'center', justifyContent: 'center', flexShrink: 0
-                        }}>
-                            <span className="material-symbols-outlined" style={{ color: 'var(--color-bg)', fontSize: 22 }}>hexagon</span>
-                        </div>
-                        <span className="sidebar-text" style={{ marginLeft: 16, fontSize: 18, fontWeight: 800, letterSpacing: '-0.02em', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif" }}>
-                            TopDev<span style={{ color: 'var(--color-text-muted)' }}>.</span>
-                        </span>
+                        <Logo size={36} />
                     </div>
                     {/* Nav Links */}
                     <nav style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '0 12px' }}>

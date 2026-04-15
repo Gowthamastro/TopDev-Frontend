@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import api from '../../services/api';
 import { useAuthStore } from '../../store/authStore';
 import toast from 'react-hot-toast';
+import Logo from '../../components/common/Logo';
 import SEO from '../../components/common/SEO';
 import {
     User, Phone, FileText, Briefcase, DollarSign, CheckCircle2,
@@ -173,12 +174,9 @@ export default function CompleteProfile() {
         <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', background: 'var(--color-bg)' }}>
             <SEO title="Complete Profile | TopDev" description="Onboard to the network" />
 
-            {/* Header */}
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
-                <div style={{ width: 44, height: 44, background: 'var(--color-primary)', borderRadius: 12, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-                    <User size={22} style={{ color: 'var(--color-bg)' }} />
-                </div>
-                <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif", letterSpacing: '-0.02em' }}>
+                <Logo size={44} />
+                <h1 style={{ fontSize: 28, fontWeight: 800, margin: '16px 0 0', color: 'var(--color-text)', fontFamily: "'Manrope', sans-serif", letterSpacing: '-0.02em' }}>
                     Complete your profile to continue
                 </h1>
                 <p style={{ color: 'var(--color-text-muted)', margin: '8px 0 0', fontSize: 14 }}>Configure your workspace and deploy your candidacy</p>
