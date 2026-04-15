@@ -741,7 +741,7 @@ export default function LandingPage() {
 
                     <div style={{ marginTop: 80, padding: '40px', borderRadius: 16, background: 'linear-gradient(135deg,rgba(var(--color-primary-rgb),0.1),rgba(var(--color-primary-rgb),0.05))', border: '1px solid rgba(var(--color-primary-rgb),0.3)', textAlign: 'center', maxWidth: 800, margin: '80px auto 0' }}>
                         <span className="material-symbols-outlined" style={{ color: 'var(--color-primary)', fontSize: 32, display: 'block', marginBottom: 16 }}>notifications_active</span>
-                        <h3 style={{ color: 'white', fontSize: 24, fontWeight: 800, margin: '0 0 12px' }}>Be First in Line for Phase 2</h3>
+                        <h3 style={{ color: 'var(--color-text)', fontSize: 28, fontWeight: 400, fontStyle: 'italic', margin: '0 0 12px', fontFamily: "'Instrument Serif', serif" }}>Be First in Line for Phase 2</h3>
                         <p style={{ color: 'var(--color-text-muted)', fontSize: 16, lineHeight: 1.7, margin: '0 0 32px', maxWidth: 600, marginLeft: 'auto', marginRight: 'auto' }}>Phase 2 is actively in development. Sign up today and get early access to assessments and AI matchmaking the moment they launch.</p>
                         <Link to="/" className="lp-btn-primary" style={{ display: 'inline-flex', padding: '16px 40px' }}>
                             Join the Waitlist (Sign up above)
